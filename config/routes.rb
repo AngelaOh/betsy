@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  get "/products", to: "products#index", as: "products"
   resources :users, only: [:index, :show] do
-    resources :products
+    resources :products, expect: [:index]
   end
 
   get "orders/show"
