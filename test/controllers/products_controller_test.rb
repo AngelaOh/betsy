@@ -39,16 +39,40 @@ describe ProductsController do
     # end
   end
 
-  # it "should get new" do
-  #   get products_new_url
-  #   value(response).must_be :success?
-  # end
+  describe "new" do
+    it "succeeds in generating a new form" do
+      existing_user = User.first
+      get new_user_product_path(existing_user.id)
 
-  # it "should get create" do
-  #   get products_create_url
-  #   value(response).must_be :success?
-  # end
+      must_respond_with :success
+    end
+  end
+  describe "create" do
+    it "creates a product with valid data for a real merchant(logged-in user)" do
+      existing_user = User.first
+      new_product = {product: {name: "new_product", price: 2, inventory: 20}}
 
+      expect {
+        post user_products_path(existing_user.id), params: new_product
+      }.must_change "Product.count", 1
+
+      new_product_id = Work.find_by(name: "new_product").id
+
+      must_respond_with :redirect
+      # must_redirect_to user_product_path(@product.user.id)
+    end
+
+    it "renders bad_request and redirects for invalid data" do
+      existing_user = User.first
+      bad_product = {product: {name: nil}}
+
+      expect {
+        post user_products_path(existing_user.id), params: bad_product
+      }.wont_change "Product.count"
+
+      must_respond_with :bad_request
+    end
+  end
   # it "should get edit" do
   #   get products_edit_url
   #   value(response).must_be :success?

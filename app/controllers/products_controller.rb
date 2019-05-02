@@ -15,9 +15,20 @@ class ProductsController < ApplicationController
   end
 
   def new
+    @product = Product.new
   end
 
   def create
+    @product = Product.new(product_params)
+
+    if @product.save
+      flash[:success] = "Successfully created new product #{@product.name}"
+      # redirect_to user_product_path(@product.user.id)
+    else
+      flash[:error] = "Could not create new product #{@product.name}"
+      flash[:messages] = @product.errors.messages
+      render :new, status: :bad_request
+    end
   end
 
   def edit
@@ -27,5 +38,11 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:name, :price, :inventory)
   end
 end
