@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   def index
+    @products = Product.all
+    # logic for seeing all products of a given category..should go in model?
   end
 
   def show
