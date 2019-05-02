@@ -28,7 +28,8 @@ describe UsersController do
 
     it "should get respond with 404 not found if ID is invalid" do
       get user_path(invalid_id)
-      must_respond_with :not_found
+      must_respond_with :redirect
+      expect(flash[:result_text]).must_equal "User not found!"
     end
   end
 end

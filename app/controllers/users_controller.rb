@@ -9,8 +9,7 @@ class UsersController < ApplicationController
     if @user.nil?
       flash[:status] = :failure
       flash[:result_text] = "User not found!"
-      flash[:messages] = @user.errors.messages
-      redirect_to root_path # AO: Where should we redirect this?
+      redirect_to users_path # AO: Where should we redirect this?
     end
   end
 
