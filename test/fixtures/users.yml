@@ -1,13 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: Alex
+  username: Alex
   email: alex@alex.org
+  uid: 123
+  provider: github
 
 two:
-  name: Shamira
+  username: Shamira
   email: Shamira@shamira.com
+  uid: 321
+  provider: github
 
 three:
-  name: Kasey
+  username: Kasey
   email: Kasey@kasey.net
+  uid: 213
+  provider: github
