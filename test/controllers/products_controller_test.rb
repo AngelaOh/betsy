@@ -73,11 +73,32 @@ describe ProductsController do
       must_respond_with :bad_request
     end
   end
-  # it "should get edit" do
-  #   get products_edit_url
-  #   value(response).must_be :success?
-  # end
 
+  describe "edit" do
+    # it "succeeds for existing product and user IDs" do
+    #   get edit_user_product_path(existing_work.id)
+
+    #   must_respond_with :success
+    # end
+
+    # it "renders 404 not_found for a bogus product ID" do
+    #   bogus_id = existing_work.id
+    #   existing_work.destroy
+
+    #   get edit_user_product_path()
+
+    #   must_respond_with :not_found
+    # end
+
+    # it "renders 404 not_found for a bogus user ID" do
+    #   bogus_id = existing_work.id
+    #   existing_work.destroy
+
+    #   get edit_user_product_path()
+
+    #   must_respond_with :not_found
+    # end
+  end
   # it "should get update" do
   #   get products_update_url
   #   value(response).must_be :success?
