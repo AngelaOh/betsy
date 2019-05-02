@@ -71,9 +71,10 @@ describe ProductsController do
       bad_product = { product: { name: nil } }
 
       expect {
-        post user_products_path(existing_user.id), params: bad_product
+        post user_products_path(user.id), params: bad_product
       }.wont_change "Product.count"
-
+      expect(flash[:error]).must_equal "Could not create new product "
+      # TODO: do we need to test for flash[:messages? Seems unnecessary. ]
       must_respond_with :bad_request
     end
   end

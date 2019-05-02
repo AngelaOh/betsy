@@ -1,4 +1,6 @@
-lclass ProductsController < ApplicationController
+class ProductsController < ApplicationController
+  before_action :find_product, only: [:edit]
+
   def index
     @products = Product.all
     # logic for seeing all products of a given category..should go in model?
@@ -44,5 +46,10 @@ lclass ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :price, :inventory, :photo_url, :description, :user_id)
+  end
+
+  def find_product
+    @product = Product.find_by(id: params[:id])
+    render_404 unless @product
   end
 end
