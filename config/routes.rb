@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
-  get 'orders/show'
-  get 'products/index'
-  get 'products/show'
-  get 'products/new'
-  get 'products/create'
-  get 'products/edit'
-  get 'products/update'
-  get 'products/destroy'
-  get 'users/index'
-  get 'users/show'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get "/products", to: "products#index", as: "products"
+  resources :users, only: [:index, :show] do
+    resources :products, expect: [:index]
+  end
+
+  get "orders/show"
+
+  get "/users/current", to: "users#current", as: "current_user"
+  get "/auth/github", as: "github_login"
+  get "/auth/:provider/callback", to: "users#create", as: "auth_callback"
+
+  delete "/logout", to: "users#destroy", as: "logout" # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
