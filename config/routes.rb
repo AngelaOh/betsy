@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  get "/products", to: "products#index", as: "products"
   resources :users, only: [:index, :show] do
-    resources :products, expect: [:index]
+    resources :products, except: [:index, :show]
   end
 
-  get "orders/show"
+  get "/products", to: "products#index", as: "products"
+  get "/products/:id", to: "products#show", as: "product"
+
+  get "/orders/:id", to: "orders#show", as: "order"
 
   get "/users/current", to: "users#current", as: "current_user"
   get "/auth/github", as: "github_login"
