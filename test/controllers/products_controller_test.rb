@@ -80,29 +80,25 @@ describe ProductsController do
   end
 
   describe "edit" do
-    # it "succeeds for existing product and user IDs" do
-    #   get edit_user_product_path(existing_work.id)
+    it "succeeds for existing product and user IDs" do
+      get edit_user_product_path(user.id, product.id)
 
-    #   must_respond_with :success
-    # end
+      must_respond_with :success
+    end
 
-    # it "renders 404 not_found for a bogus product ID" do
-    #   bogus_id = existing_work.id
-    #   existing_work.destroy
+    it "renders 404 not_found for a bogus product ID" do
+      bogus_id = "INVALID ID"
+      get edit_user_product_path(user.id, bogus_id)
 
-    #   get edit_user_product_path()
+      must_respond_with :not_found
+    end
 
-    #   must_respond_with :not_found
-    # end
+    it "renders 404 not_found for a bogus user ID" do
+      bogus_id = "INVALID ID"
+      get edit_user_product_path(bogus_id, product.id)
 
-    # it "renders 404 not_found for a bogus user ID" do
-    #   bogus_id = existing_work.id
-    #   existing_work.destroy
-
-    #   get edit_user_product_path()
-
-    #   must_respond_with :not_found
-    # end
+      must_respond_with :not_found
+    end
   end
   # it "should get update" do
   #   get products_update_url
