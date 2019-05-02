@@ -23,10 +23,10 @@ class ProductsController < ApplicationController
 
     if @product.save
       flash[:success] = "Successfully created new product #{@product.name}"
-      # redirect_to user_product_path(@product.user.id)
+      redirect_to product_path(@product.id)
     else
-      flash[:error] = "Could not create new product #{@product.name}"
-      flash[:messages] = @product.errors.messages
+      flash.now[:error] = "Could not create new product #{@product.name}"
+      flash.now[:messages] = @product.errors.messages
       render :new, status: :bad_request
     end
   end
@@ -43,6 +43,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :inventory)
+    params.require(:product).permit(:name, :price, :inventory, :photo_url, :description, :user_id)
   end
 end

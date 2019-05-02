@@ -1,8 +1,9 @@
 require "test_helper"
 
-# let(:product) { products(:one) }
-
 describe ProductsController do
+  let(:product) { Product.first }
+  let(:user) { User.first }
+
   describe "index" do
     it "succeeds when there are products" do
       get products_path
@@ -23,55 +24,61 @@ describe ProductsController do
 
   describe "show" do
     it "succeeds for an existing product ID" do
-      product = Product.first
-      get user_product_path(product.id)
+      get product_path(product.id)
 
       must_respond_with :success
     end
 
-    # it "renders 404 not_found for a bogus work ID" do
-    #   destroyed_id = existing_work.id
-    #   existing_work.destroy
+    it "should redirect and send an error message for an invalid id" do
+      invalid_id = -1
 
-    #   get work_path(destroyed_id)
+      get product_path(invalid_id)
 
-    #   must_respond_with :not_found
-    # end
+      expect(flash[:error]).must_equal "That product does not exist"
+      must_respond_with :redirect
+      must_redirect_to products_path
+    end
   end
 
   describe "new" do
     it "succeeds in generating a new form" do
-      existing_user = User.first
-      get new_user_product_path(existing_user.id)
+      get new_user_product_path(user.id, product.id)
 
       must_respond_with :success
     end
   end
+
   describe "create" do
     it "creates a product with valid data for a real merchant(logged-in user)" do
-      existing_user = User.first
-      new_product = {product: {name: "new_product", price: 2, inventory: 20}}
+      new_product = {
+        product: {
+          name: "new_product", price: 2, inventory: 20, photo_url: "url", description: "cool item", user_id: user.id,
+        },
+      }
 
       expect {
-        post user_products_path(existing_user.id), params: new_product
+        post user_products_path(user.id), params: new_product
       }.must_change "Product.count", 1
 
-      new_product_id = Work.find_by(name: "new_product").id
+      new_product = Product.find_by(name: "new_product")
+      # new_product.save
+
+      expect(flash[:sucess]).must_equal "Successfully created new product #{new_product.name}"
 
       must_respond_with :redirect
-      # must_redirect_to user_product_path(@product.user.id)
+      must_redirect_to product_path(new_product.id)
     end
 
-    it "renders bad_request and redirects for invalid data" do
-      existing_user = User.first
-      bad_product = {product: {name: nil}}
+    #   it "renders bad_request and redirects for invalid data" do
+    #     existing_user = User.first
+    #     bad_product = {product: {name: nil}}
 
-      expect {
-        post user_products_path(existing_user.id), params: bad_product
-      }.wont_change "Product.count"
+    #     expect {
+    #       post user_products_path(existing_user.id), params: bad_product
+    #     }.wont_change "Product.count"
 
-      must_respond_with :bad_request
-    end
+    #     must_respond_with :bad_request
+    #   end
   end
 
   describe "edit" do
