@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:edit, :update]
+  before_action :find_product, only: [:edit, :update, :destroy]
 
   def index
     @products = Product.all
@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
       flash[:success] = "#{@product.name} updated successfully!"
       redirect_to product_path(@product.id)
     else
-      flash.now[:error] = "Could not edit #{@product.name}."
+      flash.now[:error] = "Could not edit this product."
       flash.now[:messages] = @product.errors.messages
       render :edit, status: :bad_request
     end
