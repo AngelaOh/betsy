@@ -4,6 +4,10 @@ one:
   name: MyString
   price: 1
   inventory: 1
+  photo_url: url
+  description: description
+  user_id: 1
+
 
 two:
   name: MyString
