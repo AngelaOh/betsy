@@ -54,6 +54,12 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   else
     puts "Created product: #{product.inspect}"
   end
+
+  #so add it to my spreadsheet anyhow, and then do products.categories
+  #then parse through that input and create any categories that dont exist
+  #iterate over each category
+  #if it exists, add it
+  #if it doesnt, create it
 end
 
 puts "Added #{Product.count} product records"
