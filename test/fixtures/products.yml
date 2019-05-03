@@ -4,8 +4,15 @@ one:
   name: MyString
   price: 1
   inventory: 1
+  photo_url: url
+  description: description
+
+
 
 two:
   name: MyString
   price: 1
   inventory: 1
+  photo_url: url
+  description: description
+
