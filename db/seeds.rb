@@ -20,7 +20,7 @@ merchant_failures = []
 CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
   user = User.new
   user.id = row["id"]
-  user.username = row["name"]
+  user.username = row["username"]
   user.email = row["email"]
   successful = user.save
   if !successful
