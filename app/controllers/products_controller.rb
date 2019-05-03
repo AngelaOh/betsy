@@ -52,7 +52,7 @@ class ProductsController < ApplicationController
     if @product.nil?
       flash[:error] = "That product does not exist"
     else
-      @product.delete #fails with .destroy but this should be .estroy right??
+      @product.destroy #fails with .destroy but this should be .estroy right??
       flash[:success] = "Successfully destroyed #{@product.name}"
     end
 
