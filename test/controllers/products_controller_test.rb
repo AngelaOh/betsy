@@ -1,4 +1,5 @@
 require "test_helper"
+#TODO: add simplecov for test coverage after merging
 
 describe ProductsController do
   let(:product) { Product.first }
@@ -92,13 +93,6 @@ describe ProductsController do
 
       must_respond_with :not_found
     end
-
-    # it "renders 404 not_found for a bogus user ID" do
-    #   bogus_id = "INVALID ID"
-    #   get edit_user_product_path(-1, product.id)
-
-    #   must_respond_with :not_found
-    # end
   end
 
   describe "update" do
@@ -156,15 +150,4 @@ describe ProductsController do
       must_respond_with :not_found
     end
   end
-
-  # it "should get update" do
-  #   get products_update_url
-  #   value(response).must_be :success?
-  # end
-
-  # it "should get destroy" do
-  #   get products_destroy_url
-  #   value(response).must_be :success?
-  # end
-
 end
