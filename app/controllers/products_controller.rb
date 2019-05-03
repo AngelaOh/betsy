@@ -37,6 +37,15 @@ class ProductsController < ApplicationController
   end
 
   def update
+    is_successful = @product.update(product_params)
+    if is_successful
+      flash[:success] = "#{@product.name} updated successfully!"
+      redirect_to product_path(@product.id)
+    else
+      flash.now[:error] = "Could not edit #{@product.name}."
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :bad_request
+    end
   end
 
   def destroy
