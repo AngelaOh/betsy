@@ -6,10 +6,17 @@ one:
   inventory: 1
   photo_url: url
   description: description
+<<<<<<< HEAD
   user_id: 1
+=======
+
+>>>>>>> master
 
 
 two:
   name: MyString
   price: 1
   inventory: 1
+  photo_url: url
+  description: description
+

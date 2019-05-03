@@ -1,10 +1,10 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:edit, :update]
+  before_action :find_product, only: [:edit, :update, :destroy]
 
   def root
     @products = Product.all.sort_by { |product| product.created_at }
   end 
-
+  
   def index
     @products = Product.all
     # logic for seeing all products of a given category..should go in model?
@@ -46,13 +46,21 @@ class ProductsController < ApplicationController
       flash[:success] = "#{@product.name} updated successfully!"
       redirect_to product_path(@product.id)
     else
-      flash.now[:error] = "Could not edit #{@product.name}."
+      flash.now[:error] = "Could not edit this product."
       flash.now[:messages] = @product.errors.messages
       render :edit, status: :bad_request
     end
   end
 
   def destroy
+    if @product.nil?
+      flash[:error] = "That product does not exist"
+    else
+      @product.destroy #fails with .destroy but this should be .estroy right??
+      flash[:success] = "Successfully destroyed #{@product.name}"
+    end
+
+    redirect_to products_path
   end
 
   private
