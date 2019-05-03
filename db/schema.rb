@@ -21,11 +21,7 @@ ActiveRecord::Schema.define(version: 2019_05_03_213410) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories_products", force: :cascade do |t|
-    t.bigint "category_id"
-    t.bigint "product_id"
-    t.index ["category_id"], name: "index_categories_products_on_category_id"
-    t.index ["product_id"], name: "index_categories_products_on_product_id"
+  create_table "categories_products_joins", force: :cascade do |t|
   end
 
   create_table "order_items", force: :cascade do |t|
