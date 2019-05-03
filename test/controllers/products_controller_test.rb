@@ -149,6 +149,12 @@ describe ProductsController do
       must_respond_with :redirect
       must_redirect_to products_path
     end
+
+    it "will respond with 404 not_found for a bogus product ID " do
+      bogus_id = "INVALID ID"
+      delete user_product_path(user.id, bogus_id)
+      must_respond_with :not_found
+    end
   end
 
   # it "should get update" do
