@@ -2,8 +2,7 @@
 <p>Find me in app/views/products/show.html.erb</p>
 
 
-<p><%= @product.name %></p>
-<p><%= @product.price %></p>
-<p><%= @product.inventory %></p>
-<p><%= @product.inventory %></p>
-<img src="#{@product.photo_url}">
+<p>merchant: <%= @product.name %></p>
+<p>price: <%= @product.price %></p>
+<p>inventory: <%= @product.inventory %></p>
+<%= image_tag @product.photo_url %>
