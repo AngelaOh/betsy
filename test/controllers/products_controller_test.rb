@@ -115,26 +115,6 @@ describe ProductsController do
 
   describe "update" do
     it "will update an existing product" do
-      product_to_update = products(:one)
-      product_updates = {
-        product: {
-          name: "update name",
-        },
-      }
-
-      expect {
-        patch user_product_path(user.id, product_to_update.id), params: product_updates
-      }.wont_change "Product.count"
-
-      product_to_update.reload
-      expect(product_to_update.name).must_equal "update name"
-      must_respond_with :redirect
-      must_redirect_to product_path(product.id)
-    end
-  end
-
-  describe "update" do
-    it "will update an existing product" do
       # TODO: figure out how to make product.yml file legit
       product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
       product_updates = {product: {name: "update name"}}
