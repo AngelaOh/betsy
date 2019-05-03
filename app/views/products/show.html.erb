@@ -1,2 +1,8 @@
 <h1>Products#show</h1>
 <p>Find me in app/views/products/show.html.erb</p>
+
+
+<p>merchant: <%= @product.name %></p>
+<p>price: <%= @product.price %></p>
+<p>inventory: <%= @product.inventory %></p>
+<%= image_tag @product.photo_url %>
