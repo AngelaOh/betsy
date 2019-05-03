@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "products#root"
+
   resources :users, only: [:index, :show] do
     resources :products, except: [:index, :show]
   end
