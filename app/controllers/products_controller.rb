@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:edit]
+  before_action :find_product, only: [:edit, :update]
 
   def index
     @products = Product.all
@@ -50,6 +50,6 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find_by(id: params[:id])
-    render_404 unless @product
+    head :not_found unless @product
   end
 end
