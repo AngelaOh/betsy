@@ -4,6 +4,24 @@ describe ProductsController do
   let(:product) { Product.first }
   let(:user) { User.first }
 
+  describe "root/homepage" do
+    it "succeeds in showing products" do
+      get root_path
+
+      must_respond_with :success
+    end
+
+    it "succeeds in showing homepage with no products" do
+      Product.all do |product|
+        product.destroy
+      end
+
+      get root_path
+
+      must_respond_with :success
+    end
+  end 
+
   describe "index" do
     it "succeeds when there are products" do
       get products_path
