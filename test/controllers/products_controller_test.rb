@@ -137,6 +137,20 @@ describe ProductsController do
       must_respond_with :not_found
     end
   end
+
+  describe "destroy" do
+    it "succeeds for an existing product ID" do
+      product_to_destroy = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+
+      expect {
+        delete user_product_path(user.id, product_to_destroy.id)
+      }.must_change "Product.count", -1
+
+      must_respond_with :redirect
+      must_redirect_to products_path
+    end
+  end
+
   # it "should get update" do
   #   get products_update_url
   #   value(response).must_be :success?

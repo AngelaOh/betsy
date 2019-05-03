@@ -49,6 +49,14 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+    if @product.nil?
+      flash[:error] = "That product does not exist"
+    else
+      @product.delete #this should be destroy right??
+      flash[:success] = "Successfully destroyed #{@product.name}"
+    end
+
+    redirect_to products_path
   end
 
   private
