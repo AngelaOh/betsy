@@ -86,24 +86,39 @@ describe ProductsController do
       must_respond_with :success
     end
 
-    it "renders 404 not_found for a bogus product ID" do
-      bogus_id = "INVALID ID"
-      get edit_user_product_path(user.id, bogus_id)
+    # it "renders 404 not_found for a bogus user ID" do
+    #   bogus_id = "INVALID ID"
+    #   get edit_user_product_path(-1, product.id)
 
-      must_respond_with :not_found
+    #   must_respond_with :not_found
+    # end
+  end
+  
+  describe "update" do
+    it "will update an existing product" do
+      product_to_update = products(:one)
+      product_updates = {
+        product: {
+          name: "update name",
+        },
+      }
+
+      expect {
+        patch user_product_path(user.id, product_to_update.id), params: product_updates
+      }.wont_change "Product.count"
+
+      product_to_update.reload
+      expect(product_to_update.name).must_equal "update name"
+      must_respond_with :redirect
+      must_redirect_to product_path(product.id)
     end
 
-    it "renders 404 not_found for a bogus user ID" do
-      bogus_id = "INVALID ID"
-      get edit_user_product_path(bogus_id, product.id)
+    it "will return a bad request when asked to update with invalid data" do
+    end
 
-      must_respond_with :not_found
+    it "will respond with 404 not_found for a bogus product ID " do
     end
   end
-  # it "should get update" do
-  #   get products_update_url
-  #   value(response).must_be :success?
-  # end
 
   # it "should get destroy" do
   #   get products_destroy_url
