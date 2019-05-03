@@ -103,7 +103,7 @@ describe ProductsController do
 
   describe "update" do
     it "will update an existing product" do
-      product_to_update = products(:one)
+      product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
       product_updates = {
         product: {
           name: "update name",
@@ -117,7 +117,7 @@ describe ProductsController do
       product_to_update.reload
       expect(product_to_update.name).must_equal "update name"
       must_respond_with :redirect
-      must_redirect_to product_path(product.id)
+      must_redirect_to product_path(product_to_update.id)
     end
 
     it "will return a bad request when asked to update with invalid data" do
