@@ -1,6 +1,10 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:edit, :update]
 
+  def root
+    @products = Product.all.sort_by { |product| product.created_at }
+  end 
+
   def index
     @products = Product.all
     # logic for seeing all products of a given category..should go in model?
