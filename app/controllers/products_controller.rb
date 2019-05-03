@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :find_product, only: [:edit, :update]
+
   def index
     @products = Product.all
     # logic for seeing all products of a given category..should go in model?
@@ -35,6 +37,15 @@ class ProductsController < ApplicationController
   end
 
   def update
+    is_successful = @product.update(product_params)
+    if is_successful
+      flash[:success] = "#{@product.name} updated successfully!"
+      redirect_to product_path(@product.id)
+    else
+      flash.now[:error] = "Could not edit #{@product.name}."
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :bad_request
+    end
   end
 
   def destroy
@@ -44,5 +55,10 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :price, :inventory, :photo_url, :description, :user_id)
+  end
+
+  def find_product
+    @product = Product.find_by(id: params[:id])
+    head :not_found unless @product
   end
 end

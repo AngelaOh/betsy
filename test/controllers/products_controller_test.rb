@@ -61,55 +61,64 @@ describe ProductsController do
       }.must_change "Product.count", 1
 
       new_product = Product.find_by(name: "new_product")
-      # new_product.save
 
-      expect(flash[:sucess]).must_equal "Successfully created new product #{new_product.name}"
-
+      expect(flash[:success]).must_equal "Successfully created new product #{new_product.name}"
       must_respond_with :redirect
       must_redirect_to product_path(new_product.id)
     end
 
-    #   it "renders bad_request and redirects for invalid data" do
-    #     existing_user = User.first
-    #     bad_product = {product: {name: nil}}
+    it "renders bad_request and redirects for invalid data" do
+      bad_product = { product: { name: nil } }
 
-    #     expect {
-    #       post user_products_path(existing_user.id), params: bad_product
-    #     }.wont_change "Product.count"
-
-    #     must_respond_with :bad_request
-    #   end
+      expect {
+        post user_products_path(user.id), params: bad_product
+      }.wont_change "Product.count"
+      expect(flash[:error]).must_equal "Could not create new product "
+      # TODO: do we need to test for flash[:messages? Seems unnecessary. ]
+      must_respond_with :bad_request
+    end
   end
 
   describe "edit" do
-    # it "succeeds for existing product and user IDs" do
-    #   get edit_user_product_path(existing_work.id)
+    it "succeeds for existing product and user IDs" do
+      get edit_user_product_path(user.id, product.id)
 
-    #   must_respond_with :success
-    # end
-
-    # it "renders 404 not_found for a bogus product ID" do
-    #   bogus_id = existing_work.id
-    #   existing_work.destroy
-
-    #   get edit_user_product_path()
-
-    #   must_respond_with :not_found
-    # end
+      must_respond_with :success
+    end
 
     # it "renders 404 not_found for a bogus user ID" do
-    #   bogus_id = existing_work.id
-    #   existing_work.destroy
-
-    #   get edit_user_product_path()
+    #   bogus_id = "INVALID ID"
+    #   get edit_user_product_path(-1, product.id)
 
     #   must_respond_with :not_found
     # end
   end
-  # it "should get update" do
-  #   get products_update_url
-  #   value(response).must_be :success?
-  # end
+  
+  describe "update" do
+    it "will update an existing product" do
+      product_to_update = products(:one)
+      product_updates = {
+        product: {
+          name: "update name",
+        },
+      }
+
+      expect {
+        patch user_product_path(user.id, product_to_update.id), params: product_updates
+      }.wont_change "Product.count"
+
+      product_to_update.reload
+      expect(product_to_update.name).must_equal "update name"
+      must_respond_with :redirect
+      must_redirect_to product_path(product.id)
+    end
+
+    it "will return a bad request when asked to update with invalid data" do
+    end
+
+    it "will respond with 404 not_found for a bogus product ID " do
+    end
+  end
 
   # it "should get destroy" do
   #   get products_destroy_url
