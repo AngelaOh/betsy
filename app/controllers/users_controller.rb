@@ -13,10 +13,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def login_form
-    @user = User.new
-  end
-
   def login
     username = params[:user][:username]
 
