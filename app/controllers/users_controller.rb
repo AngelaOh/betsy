@@ -14,23 +14,6 @@ class UsersController < ApplicationController
   end
 
   def login
-    username = params[:user][:username]
-
-    user = User.find_by(username: username)
-    if user.nil?
-      flash_msg = "Welcome new user"
-    else
-      flash_msg = "Welcome back #{user.username}"
-    end
-
-    user ||= User.create(username: username)
-
-    session[:user_id] = user.id
-    flash[:success] = flash_msg
-    redirect_to users_path
-  end
-
-  def create
     auth_hash = request.env["omniauth.auth"]
 
     user = User.find_by(uid: auth_hash[:uid], provider: "github")

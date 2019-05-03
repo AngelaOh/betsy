@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get "/users/current", to: "users#current", as: "current_user"
   get "/auth/github", as: "github_login"
-  get "/auth/:provider/callback", to: "users#create", as: "auth_callback"
+  get "/auth/:provider/callback", to: "users#login", as: "auth_callback"
 
   delete "/logout", to: "users#destroy", as: "logout" # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
