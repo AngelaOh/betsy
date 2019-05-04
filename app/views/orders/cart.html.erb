@@ -1,0 +1,9 @@
+<h1>In the Cart View!!!</h1>
+<% if @items.length == 0 %>
+    <h6>There are no items in your cart right now </h6>
+<% else %>
+    <% @items.each do |item| %>
+        <h6>This is an item with id: <%= item.id %> </h6>
+    <% end %>
+<% end %>
+    
