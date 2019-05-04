@@ -12,6 +12,27 @@
 #also how does updating the csv file work
 #and if belongs to validates, why isn't it requireing me to have a category
 require "csv"
+require "pry"
+
+CATEGORY_FILE = Rails.root.join("db", "seed_data", "categories.csv")
+puts "Loading raw user data from #{CATEGORY_FILE}"
+
+category_failures = []
+CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
+  category = Category.new
+  category.id = row["id"]
+  category.name = row["category"]
+  successful = category.save
+  if !successful
+    category_failures << category
+    puts "Failed to save category: #{category.inspect}"
+  else
+    puts "Created category: #{category.inspect}"
+  end
+end
+
+puts "Added #{Category.count} merchant records"
+puts "#{category_failures.length} merchants failed to save"
 
 MERCHANT_FILE = Rails.root.join("db", "seed_data", "merchants.csv")
 puts "Loading raw user data from #{MERCHANT_FILE}"
@@ -47,6 +68,11 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.photo_url = row["photo_url"]
   product.description = row["description"]
   product.user_id = row["user_id"]
+  cat = row["category"].split(".")
+  cat.each do |x|
+    #hacky and probably should add different way of doing it, but, refactor time
+    product.categories << Category.find_by(id: x)
+  end
   successful = product.save
   if !successful
     product_failures << product
