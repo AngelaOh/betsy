@@ -5,6 +5,24 @@ describe ProductsController do
   let(:product) { Product.first }
   let(:user) { User.first }
 
+  describe "root/homepage" do
+    it "succeeds in showing products" do
+      get root_path
+
+      must_respond_with :success
+    end
+
+    it "succeeds in showing homepage with no products" do
+      Product.all do |product|
+        product.destroy
+      end
+
+      get root_path
+
+      must_respond_with :success
+    end
+  end
+
   describe "index" do
     it "succeeds when there are products" do
       get products_path
@@ -69,7 +87,7 @@ describe ProductsController do
     end
 
     it "renders bad_request and redirects for invalid data" do
-      bad_product = { product: { name: nil } }
+      bad_product = {product: {name: nil}}
 
       expect {
         post user_products_path(user.id), params: bad_product
@@ -99,7 +117,7 @@ describe ProductsController do
     it "will update an existing product" do
       # TODO: figure out how to make product.yml file legit
       product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
-      product_updates = { product: { name: "update name" } }
+      product_updates = {product: {name: "update name"}}
 
       expect {
         patch user_product_path(user.id, product_to_update.id), params: product_updates
@@ -114,7 +132,7 @@ describe ProductsController do
 
     it "will return a bad request when asked to update with invalid data" do
       product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
-      product_updates = { product: { name: "" } }
+      product_updates = {product: {name: ""}}
 
       expect {
         patch user_product_path(user.id, product_to_update.id), params: product_updates
