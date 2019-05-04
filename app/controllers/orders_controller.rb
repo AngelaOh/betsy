@@ -9,9 +9,13 @@ class OrdersController < ApplicationController
     @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
   end
 
+  def new
+  end
+
   def show # once user clicks checkout from order#cart view, the status should change to the next one. What are our statuses?
     @order.status = "shipping"
     Products.find_by(@item.product_id).inventory = Products.find_by(@item.product_id).inventory - @items.quantity #change inventory of Products
     @items.destroy # I want to destroy associated OrderItems
+    @order.destroy
   end
 end
