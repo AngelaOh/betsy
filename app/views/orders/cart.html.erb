@@ -4,6 +4,8 @@
 <% else %>
     <% @items.each do |item| %>
         <h6>This is an item with id: <%= item.id %> </h6>
+        <h6>The product name is: <%= Product.find_by(id: item.product_id).name %> </h6>
+
     <% end %>
 <% end %>
     
