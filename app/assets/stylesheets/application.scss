@@ -15,3 +15,31 @@
 @import "bootstrap";
 /* Import scss content */
 @import "**/*";
+
+
+// --------------- HEADER NAV BAR STYLING ---------------
+body {
+    font-family: "Gudea", sans-serif;
+}
+.homepage h1 {
+    font-weight: bolder;
+}
+header.homepage {
+    text-align: center;
+    background-color: lightgreen;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+div#separation-line {
+    background-color: yellow;
+    height: 1rem;
+}
+
+
+// --------------- HOMEPAGE STYLING ---------------
+main.root h6 {
+    text-align: center;
+}
+
+
