@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
   end
 
   def new_order_item
-    # TODO: Quantity should come from product show view; hardcoded now
+    # TODO: Quantity should come from product show view; hardcoded for now
     @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
   end
 end
