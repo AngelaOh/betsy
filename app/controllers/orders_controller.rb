@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   def cart
+    @order = Order.new(status: "pending")
     @items = OrderItem.all
   end
 
