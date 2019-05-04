@@ -1,19 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  status: MyString
+first:
+  status: pending
   time_placed: 2019-05-01 15:06:14
-  name: MyString
-  email: MyString
-  address: MyString
+  name: first
+  email: first@mailinator.com
+  address: something
   credit_card: 1
   exp: 1
 
 two:
-  status: MyString
-  time_placed: 2019-05-01 15:06:14
-  name: MyString
-  email: MyString
-  address: MyString
+  status: complete
+  time_placed: 2019-05-02 15:06:14
+  name: second
+  email: second@mailinator.com
+  address: something
   credit_card: 1
   exp: 1
