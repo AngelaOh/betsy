@@ -9,7 +9,10 @@ class OrdersController < ApplicationController
     @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
   end
 
-  def new
+  def new #this should gather info for order's name, email, address, cc, etc...
+  end
+
+  def update #this should update order with info above
   end
 
   def show # once user clicks checkout from order#cart view, the status should change to the next one. What are our statuses?
