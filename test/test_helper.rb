@@ -4,6 +4,9 @@ SimpleCov.start "rails" do
   add_filter "/db/"
   add_filter "/spec/" # for rspec
   add_filter "/test/" # for minitest
+  add_filter "/channels/"
+  add_filter "/jobs/"
+  add_filter "/mailers/"
 end
 
 ENV["RAILS_ENV"] = "test"
@@ -55,7 +58,7 @@ class ActiveSupport::TestCase
     get auth_callback_path(:github)
 
     must_respond_with :redirect
-    must_redirect_to users_path
+    must_redirect_to root_path
 
     return user
   end

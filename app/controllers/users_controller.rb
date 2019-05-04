@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     if @user.nil?
       flash[:status] = :failure
       flash[:result_text] = "User not found!"
-      redirect_to users_path # AO: Where should we redirect this?
+      redirect_to root_path # AO: Where should we redirect this?
     end
   end
 
@@ -25,28 +25,30 @@ class UsersController < ApplicationController
       if user.save
         flash[:success] = "Logged in as new user #{user.username}"
       else
-        flash[:error] = "Could not create new user account: #{user.errors.messages}"
-        return redirect_to users_path
+        flash[:status] = :failure
+        flash[:result_text] = "Could not create new user account."
+        return redirect_to root_path
       end
+      #redirct to homepage
     end
 
     session[:user_id] = user.id
-    return redirect_to users_path
+    return redirect_to root_path
   end
 
   def current
-    @user = User.find_by(id: session[:user_id])
-    if @user.nil?
+    @current_user = User.find_by(id: session[:user_id])
+    if @current_user.nil?
       flash[:error] = "You must be logged in first!"
       redirect_to users_path
     end
   end
 
-  def logout
+  def destroy
     user = User.find_by(id: session[:user_id])
     session[:user_id] = nil
     flash[:notice] = "Logged out #{user.username}"
-    redirect_to users_path
+    redirect_to root_path
   end
 
   private

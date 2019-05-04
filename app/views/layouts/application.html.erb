@@ -10,6 +10,45 @@
   </head>
 
   <body>
-    <%= yield %>
+  <% if flash.count > 0 %>
+      <section class="alert-container">
+        <% flash.each do |name, message| %>
+          <% if message.class == Array %>
+            <ul>
+              <% message.each do |msg| %>
+                
+                  <div class="alert alert-warning" role="alert">
+                    <li>A problem occured:</li>
+                    <li><%= name %>: <%= msg %></li>
+                  </div>
+                
+              <% end %>
+          <% else %>
+            <% if flash[:error] %>
+              <ul>
+                <div class="alert alert-warning" role="alert">
+                  <li>A problem occured:</li>
+                  <li><%= message %></li>
+                </div>
+              <ul>
+            <% else %>
+              <div class="alert alert-success" role="alert"><%= message %></div>
+            <% end %>
+          <% end %>
+            </ul>
+        <% end %>
+      </section>
+    <% end %>
+      <section>
+        <% if session[:user_id]  %>
+          <%= link_to "Logout", logout_path, method: "delete" , class: "btn btn-danger" %>
+        <% else %>
+          <%= link_to("Login with GitHub", github_login_path, class: "btn btn-primary") %>
+        <% end %>
+      </section>
+    <main>
+      <%= yield %>
+    </main>
+
   </body>
 </html>
