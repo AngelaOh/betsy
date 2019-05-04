@@ -59,6 +59,10 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
+  # def new_order_item
+  #   @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
+  # end
+
   private
 
   def product_params
