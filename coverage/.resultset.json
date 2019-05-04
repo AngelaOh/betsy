@@ -1,6 +1,7 @@
 {
   "Unit Tests": {
     "coverage": {
+
       "/Users/alexandriamccarthy/ada/projects/betsy/app/helpers/application_helper.rb": [
         1,
         null
@@ -19,6 +20,7 @@
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/controllers/products_controller.rb": [
         1,
+
         1,
         null,
         1,
@@ -41,6 +43,7 @@
         null,
         null,
         1,
+
         1,
         null,
         null,
@@ -55,10 +58,12 @@
         1,
         1,
         null,
+
         null,
         null,
         1,
         null,
+
         null,
         1,
         2,
@@ -74,13 +79,14 @@
         null,
         1,
         1,
+
         0,
-<<<<<<< HEAD
+
+
         null,
         1,
         1,
-=======
->>>>>>> master
+
         null,
         1,
         1,
@@ -106,16 +112,19 @@
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/models/review.rb": [
+
         1,
         1,
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/models/application_record.rb": [
+
         1,
         1,
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/models/product.rb": [
+
         1,
         1,
         1,
@@ -131,6 +140,7 @@
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/models/category.rb": [
+
         1,
         1,
         null,
@@ -139,6 +149,7 @@
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/models/order.rb": [
+
         1,
         1,
         1,
@@ -150,18 +161,21 @@
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/models/user.rb": [
+
         1,
         1,
         1,
         null,
         1,
         0,
+
         null,
         null,
         null,
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/models/order_item.rb": [
+
         1,
         1,
         1,
@@ -170,6 +184,7 @@
         null
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/mailers/application_mailer.rb": [
+
         0,
         0,
         0,
@@ -180,17 +195,22 @@
         0
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/controllers/orders_controller.rb": [
+
         0,
+        null,
         0,
         0,
         0
       ],
-<<<<<<< HEAD
-      "/Users/angelaoh/Documents/Rails/betsy/app/controllers/users_controller.rb": [
+
+        0,
+        null,
         0,
         0,
         null,
-=======
+        0,
+        null,
+
       "/Users/alexandriamccarthy/ada/projects/betsy/app/controllers/users_controller.rb": [
         0,
         0,
@@ -198,27 +218,20 @@
         0,
         0,
         0,
+
         null,
         0,
         0,
         0,
         0,
->>>>>>> master
+
         0,
         0,
         0,
+
         null,
         0,
         0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
         0,
         0,
         0,
@@ -230,17 +243,6 @@
         0,
         0,
         0,
-<<<<<<< HEAD
-        0,
-        0,
-=======
->>>>>>> master
-        null,
-        0,
-        0,
-        0,
-<<<<<<< HEAD
-=======
         0,
         0,
         0,
@@ -249,7 +251,24 @@
         0,
         0,
         0,
->>>>>>> master
+        0,
+        0,
+        null,
+        0,
+        0,
+
+        0,
+        0,
+        0,
+
+        0,
+        0,
+
+        null,
+        0,
+        0,
+        0,
+
         null,
         0,
         0,
@@ -280,17 +299,45 @@
         0
       ],
       "/Users/alexandriamccarthy/ada/projects/betsy/app/channels/application_cable/channel.rb": [
+
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        null,
+        0,
+        0,
+        null,
+        0,
+        null,
+        0,
+        0,
+        0,
+        null,
+        0,
+
         0,
         0,
         0,
         0
       ]
     },
-<<<<<<< HEAD
+
     "timestamp": 1556992437
-=======
-    "timestamp": 1556926485
->>>>>>> master
+
   },
   "MiniTest": {
     "coverage": {

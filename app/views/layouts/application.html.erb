@@ -31,6 +31,35 @@
       </nav>
     </header>
     <div id="separation-line"></div>
+      <% if flash.count > 0 %>
+      <section class="alert-container">
+        <% flash.each do |name, message| %>
+          <% if message.class == Array %>
+            <ul>
+              <% message.each do |msg| %>
+                
+                  <div class="alert alert-warning" role="alert">
+                    <li>A problem occured:</li>
+                    <li><%= name %>: <%= msg %></li>
+                  </div>
+                
+              <% end %>
+          <% else %>
+            <% if flash[:error] %>
+              <ul>
+                <div class="alert alert-warning" role="alert">
+                  <li>A problem occured:</li>
+                  <li><%= message %></li>
+                </div>
+              <ul>
+            <% else %>
+              <div class="alert alert-success" role="alert"><%= message %></div>
+            <% end %>
+          <% end %>
+            </ul>
+        <% end %>
+      </section>
+    <% end %>
     <%= yield %>
     <footer> 	&copy; Sharmia Kasey Alex Angela 2019 </footer>
   </body>
