@@ -11,10 +11,27 @@
 
   <body>
     <header class="homepage">
-      <h1>TOONSY</h1>
-      <h3>Fulfill all your cartoonsy dreams . . . </h3>
+      <h1><%= link_to "TOONSY", root_path%></h1>
+      <nav>
+        <ul>
+          <div class="right-nav">
+            <li><%= link_to "Products", products_path %></li>
+            <li><%= link_to "Merchants", users_path %></li>
+          </div>
+
+          <div class="right-nav">
+            <% if session[:user_id] != nil %>
+              <li><%= link_to "My Account", user_path(session[:user_id]) %></li>
+            <% end %>
+            <li><%= link_to "Shopping Cart", cart_path %></li> 
+            <li><%= link_to "Login", github_login_path, class: "btn btn-info" %></li>
+            <li><%= link_to "Logout", logout_path, class: "btn btn-info" %></li>
+          </div>
+        </ul>
+      </nav>
     </header>
     <div id="separation-line"></div>
     <%= yield %>
+    <footer> 	&copy; Sharmia Kasey Alex Angela 2019 </footer>
   </body>
 </html>
