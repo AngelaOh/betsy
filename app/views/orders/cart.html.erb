@@ -2,10 +2,13 @@
 <% if @items.nil? || @items.length == 0 %>
     <h6>There are no items in your cart right now </h6>
 <% else %>
-    <% @items.each do |item| %>
-        <h6>This is an item with id: <%= item.id %> </h6>
-        <h6>The product name is: <%= Product.find_by(id: item.product_id).name %> </h6>
-
+    <h5>Items in your cart</h5>
+    <p>-------------------------</p>
+    <% @items.each_with_index do |item, i| %>
+        <h6><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </h6>
+        <p>-------------------------</p>
     <% end %>
 <% end %>
+
+<%= link_to "Checkout", order_path(@order.id), class: "btn btn-info" %>
     
