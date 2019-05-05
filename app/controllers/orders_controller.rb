@@ -45,8 +45,9 @@ class OrdersController < ApplicationController
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
     @order = Order.find_by(status: "paid")
     @items = OrderItem.where(order_id: @order.id)
-    @order.status = "shipped"
+    @order.status = "complete"
     @order.save
+    # raise
     @items.each do |item|
       Product.find_by(id: item.product_id).inventory = Product.find_by(id: item.product_id).inventory - item.quantity #change inventory of Products
     end
