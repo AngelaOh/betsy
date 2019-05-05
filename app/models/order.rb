@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   has_many :orderitems
+  #is the line above needed? or redundant using through
   has_many :products, through: :order_items
 
   validates :status, presence: true, inclusion: {in: %w(pending paid complete cancelled)}
