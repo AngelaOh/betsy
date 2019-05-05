@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
+    @order = Order.find_by(status: "pending")
   end
 
   def update #this should update order with info above

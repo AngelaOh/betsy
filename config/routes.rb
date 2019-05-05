@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # post get "/products/:id", to: "products#new_order_item", as: "add_item" # this would create a new orderitem that would be added to cart
   post "/products/:id", to: "orders#new_order_item", as: "add_item" # this would create a new orderitem that would be added to cart
   get "/cart", to: "orders#cart", as: "cart" # this shows all order items in the cart
+  get "/orders/new", to: "orders#new", as: "checkout_form"
   get "/orders/:id", to: "orders#show", as: "order" # this would show the confirmation page for one order that was submitted
 
   get "/users/current", to: "users#current", as: "current_user"

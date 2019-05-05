@@ -1,0 +1,27 @@
+<h2>CHECKOUT</h2>
+<p>-------------------------</p>
+<%= form_with model: @order, class: "order_form" do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+<%= f.label :address %>
+<%= f.text_field :address %>
+
+<%= f.label :email %>
+<%= f.text_field :email %>
+
+<%= f.label :credit_card_number %>
+<%= f.text_field :credit_card_number %>
+
+<%= f.label :expiration_date %>
+<%= f.text_field :expiration_date %>
+
+<%= f.label :CCV %>
+<%= f.text_field :CCV %>
+
+<%= f.label :billing_zip_code %>
+<%= f.text_field :billing_zip_code %>
+
+<%= f.submit :complete_order, class: "order_form" %>
+
+<% end %>
