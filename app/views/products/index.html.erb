@@ -1,2 +1,26 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<main class="product-container">
+    <header>
+        <h1>Browse Toonsy Products</h1>
+    </header>
+
+    <nav class="product-categories">
+        <h3>Categories</h3>
+        <p>Food and Beverage</p>
+        <p>Furniture</p>
+        <p>Home</p>
+        <p>Outdoors and Recreation</p>
+    </nav>
+
+    <section class="products">
+        <% @products.each do |product| %>
+            <%= link_to product_path(product.id) do %>
+                <article class="product-item">
+                    <img class="product-page-image" src= <%= product.photo_url %> alt="Image of <%= product.name %>">
+                    <p><%= product.name %></p>
+                    <p>$<%= (product.price.to_i/100.0).round(2) %></p>
+                    <small class="text-muted">Added to site <%= time_tag(product.created_at.to_date)%></small>
+                </article>
+            <% end %>
+        <% end %>
+    </section>
+</main>

@@ -10,4 +10,8 @@ class Product < ApplicationRecord
   validates :description, :photo_url, presence: true
   # validates :categories, presence: true
   # next time when we add categories table
+
+  def money(val)
+    (val.to_i/100.0).round(2)
+  end
 end
