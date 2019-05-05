@@ -24,12 +24,35 @@ class OrdersController < ApplicationController
   end
 
   def update #this should update order with info above
+    @order = Order.find_by(status: "pending")
+    @order.status = "paid"
+    @order.save
+
+    is_successful = @order.update(order_params)
+    if is_successful
+      flash[:success] = "TESTTEST: order has been updated."
+    else
+      @order.errors.messages.each do |field, messages|
+        flash.now[field] = messages
+      end
+      render :new, status: :bad_request
+    end
+
+    redirect_to order_path(params[:id])
   end
 
-  def show # once user clicks checkout from order#cart view, the status should change to the next one. What are our statuses?
-    @order.status = "paid"
-    Products.find_by(@item.product_id).inventory = Products.find_by(@item.product_id).inventory - @items.quantity #change inventory of Products
-    @items.destroy # I want to destroy associated OrderItems
-    @order.destroy
+  def show # once user clicks checkout from order#cart view, the status should change to the next one.
+    @order = Order.find_by(status: "paid")
+    @items = OrderItem.where(order_id: @order.id)
+    @order.status = "shipped"
+    @items.each do |item|
+      Product.find_by(id: item.product_id).inventory = Product.find_by(id: item.product_id).inventory - item.quantity #change inventory of Products
+    end
+  end
+
+  private
+
+  def order_params
+    return params.require(:order).permit(:status, :name, :email, :address, :credit_card, :exp)
   end
 end
