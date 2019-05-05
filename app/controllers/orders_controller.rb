@@ -1,14 +1,16 @@
 class OrdersController < ApplicationController
   def cart # One cart (@order) holds information on zero or many OrderItems
-    @order = Order.new(status: "pending")
+    @order = Order.find_by(status: "pending")
     @items = OrderItem.all
   end
 
   def new_order_item
     # TODO: Quantity should come from product#show view; hardcoded for now
-    @order = Order.find_by(status: "pending")
-    @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
-    @order.orderitems << @item
+    @order = Order.create(status: "pending")
+    @item = OrderItem.create(quantity: 1, order_id: @order.id, product_id: params[:id])
+    # @item.save
+    # raise
+    @order.order_items << @item
     redirect_to product_path(params[:id])
   end
 
