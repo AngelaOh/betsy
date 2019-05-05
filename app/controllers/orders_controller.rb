@@ -6,7 +6,10 @@ class OrdersController < ApplicationController
 
   def new_order_item
     # TODO: Quantity should come from product#show view; hardcoded for now
+    @order = Order.find_by(status: "pending")
     @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
+    @order.orderitems << @item
+    redirect_to product_path(params[:id])
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
