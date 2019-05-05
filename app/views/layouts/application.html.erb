@@ -25,7 +25,7 @@
             <% end %>
             <li><%= link_to "Shopping Cart", cart_path %></li> 
             <li><%= link_to "Login", github_login_path, class: "btn btn-info" %></li>
-            <li><%= link_to "Logout", logout_path, class: "btn btn-info" %></li>
+            <li><%= link_to "Logout", logout_path, class: "btn btn-info" , method: :delete %></li>
           </div>
         </ul>
       </nav>
@@ -61,6 +61,6 @@
       </section>
     <% end %>
     <%= yield %>
-    <footer> 	&copy; Sharmia Kasey Alex Angela 2019 </footer>
+    <footer> 	&copy; Shamira Kasey Alex Angela 2019 </footer>
   </body>
 </html>
