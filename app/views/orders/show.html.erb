@@ -1,2 +1,12 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<h1>Orders Confirmation Page!!!! </h1>
+
+<h3>Thank you for shoppping with us!</h3>
+<h1>Order Details: </h1>
+<p>Order ID: <%= @order.id%></p>
+<p>Purchase Date: <%= time_tag(@order.created_at.to_date)%></p>
+
+<!--
+status
+name 
+shipping address
+email -->
