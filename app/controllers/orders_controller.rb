@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   def cart # One cart (@order) holds information on zero or many OrderItems
     @order = Order.find_by(status: "pending") # under the assumption there is only one order happening at a time, does this logic work?
-    if @order && order.order_items.length != 0
+    if @order && @order.order_items.length != 0
       @items = OrderItem.where(order_id: @order.id)
     end
   end
