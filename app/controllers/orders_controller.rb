@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
 
     @item = OrderItem.create(quantity: 1, order_id: @order.id, product_id: params[:id])
     @order.order_items << @item
+    flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
     redirect_to product_path(params[:id])
   end
 
@@ -45,6 +46,7 @@ class OrdersController < ApplicationController
     @order = Order.find_by(status: "paid")
     @items = OrderItem.where(order_id: @order.id)
     @order.status = "shipped"
+    @order.save
     @items.each do |item|
       Product.find_by(id: item.product_id).inventory = Product.find_by(id: item.product_id).inventory - item.quantity #change inventory of Products
     end
