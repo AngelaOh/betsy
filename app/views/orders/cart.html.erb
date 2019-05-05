@@ -1,5 +1,5 @@
 <h1>In the Cart View!!!</h1>
-<% if @items.length == 0 %>
+<% if @items.nil? || @items.length == 0 %>
     <h6>There are no items in your cart right now </h6>
 <% else %>
     <% @items.each do |item| %>
