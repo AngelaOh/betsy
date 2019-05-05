@@ -7,3 +7,5 @@
 <p>inventory: <%= @product.inventory %></p>
 <img src= <%= @product.photo_url %> >  
 <%# image_tag (@product.photo_url) %>
+
+<%= link_to "Add to Cart", add_item_path, method: :post %>
