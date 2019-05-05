@@ -12,15 +12,15 @@ describe Order do
     let(:product) { products(:manny) }
     it "has many orderitems" do
       results = OrderItem.where(order_id: order.id)
-      # binding.pry
-      # results.first.must_respond_to :order_item
+      order_item.must_respond_to :order
+      # but why won't order.respond_to :order_item
+      # and is this the fixture its talking about, or the model
       results.first.must_be_kind_of OrderItem
     end
 
     it "has many products through order_items" do
       results = OrderItem.where(order_id: order.id)
-      # results.first.product.must_respond_to :product
-      # can't get this test to work, hoping its because we don't have any methods yet
+      results.first.must_respond_to :product
       results.first.product.must_be_kind_of Product
     end
   end

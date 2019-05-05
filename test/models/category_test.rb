@@ -17,6 +17,4 @@ describe Category do
     expect(category.valid?).must_equal false
     expect(category.errors.messages).must_include :name
   end
-
-  it "must "
 end
