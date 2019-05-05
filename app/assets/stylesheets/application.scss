@@ -81,5 +81,34 @@ main.root {
     padding-top: 2rem;
 }
 
+// ---------- Product index page stylying --------
 
+.product-container {
+    width: 60vw;
+    height: 100vh;
+  
+    display: grid;
+    grid-template: 15% auto / 1fr 3fr;
+  }
+
+.product-container header {
+    grid-column: auto / span 2;
+    text-align: center
+}
+
+.product-container nav {
+    grid-row: auto / span 2;
+    margin-left: 1em;
+    margin-right: 1em
+}
+
+.product-container .products {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap 
+
+}
+.product-page-image {
+    max-width: 100%;
+}
 
