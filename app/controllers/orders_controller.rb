@@ -42,6 +42,13 @@ class OrdersController < ApplicationController
     redirect_to order_path(params[:id])
   end
 
+  def destroy
+    @item = OrderItem.find_by(product_id: params[:id])
+    @item.destroy
+    @item.save
+    redirect_to cart_path
+  end
+
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
     @order = Order.find_by(status: "paid")
     @items = OrderItem.where(order_id: @order.id)
