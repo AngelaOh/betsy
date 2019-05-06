@@ -17,7 +17,7 @@
             <%= link_to product_path(product.id) do %>
                 <article class="product-item">
                     <img class="product-page-image" src= <%= product.photo_url %> alt="Image of <%= product.name %>">
-                    <p><%= link_to product.name, product_path(product.id) %></p>
+                    <p><%= product.name %></p>
                     <p>$<%= (product.price.to_i/100.0).round(2) %></p>
                     <small class="text-muted">Added to site <%= time_tag(product.created_at.to_date)%></small>
                 </article>
