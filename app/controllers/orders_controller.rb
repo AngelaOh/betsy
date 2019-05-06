@@ -2,12 +2,20 @@ class OrdersController < ApplicationController
   before_action :find_session_order, only: [:cart, :new_order_item, :new, :update, :show]
 
   def cart # One cart (@order) holds information on zero or many OrderItems
+    if @order.nil?
+      @order = Order.create(status: "pending")
+      session[:order_id] = @order.id
+    end
     if @order && @order.order_items.length != 0
       @items = OrderItem.where(order_id: @order.id)
     end
   end
 
   def new_order_item
+    if @order.nil?
+      @order = Order.create(status: "pending")
+      session[:order_id] = @order.id
+    end
     @item = OrderItem.create(quantity: 1, order_id: @order.id, product_id: params[:id])
     @order.order_items << @item
     flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
@@ -15,12 +23,20 @@ class OrdersController < ApplicationController
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
-
+    if @order.nil?
+      flash[:error] = "This order does not exist"
+      redirect_to root_path
+    end
+    # raise
     # @order = Order.find_by(status: "pending")
   end
 
   def update #this should update order with info above
     # @order = Order.find_by(status: "pending")
+    if @order.nil?
+      flash[:error] = "This order does not exist"
+      redirect_to root_path
+    end
     @order.status = "paid"
     @order.save
 
@@ -52,12 +68,17 @@ class OrdersController < ApplicationController
 
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
     # @order = Order.find_by(status: "paid")
-    @items = OrderItem.where(order_id: @order.id)
-    @order.status = "complete"
-    @order.save
-    # raise
-    @items.each do |item|
-      Product.find_by(id: item.product_id).inventory = Product.find_by(id: item.product_id).inventory - item.quantity #change inventory of Products
+    if @order.nil?
+      flash[:error] = "This order does not exist"
+      redirect_to root_path
+    else
+      @items = OrderItem.where(order_id: @order.id)
+      @order.status = "complete"
+      @order.save
+      # raise
+      @items.each do |item|
+        Product.find_by(id: item.product_id).inventory = Product.find_by(id: item.product_id).inventory - item.quantity #change inventory of Products
+      end
     end
   end
 
@@ -68,11 +89,8 @@ class OrdersController < ApplicationController
   end
 
   def find_session_order
-    if session[:order_id] # if the session has an order id, use that order id to find the correct order
+    if session[:order_id]
       @order = Order.find_by(id: session[:order_id])
-    else # if the session doesn't have order id, create a new order and insert that id into session[:order_id]
-      @order = Order.create(status: "pending")
-      session[:order_id] = @order.id
     end
 
     return @order
