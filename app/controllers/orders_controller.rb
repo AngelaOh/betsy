@@ -1,19 +1,13 @@
 class OrdersController < ApplicationController
+  before_action :find_session_order, only: [:cart, :new_order_item]
+
   def cart # One cart (@order) holds information on zero or many OrderItems
-    @order = Order.find_by(status: "pending") # under the assumption there is only one order happening at a time, does this logic work?
     if @order && @order.order_items.length != 0
       @items = OrderItem.where(order_id: @order.id)
     end
   end
 
   def new_order_item
-    # TODO: Quantity should come from product#show view; hardcoded for now
-    if Order.find_by(status: "pending")
-      @order = Order.find_by(status: "pending")
-    else
-      @order = Order.create(status: "pending")
-    end
-
     @item = OrderItem.create(quantity: 1, order_id: @order.id, product_id: params[:id])
     @order.order_items << @item
     flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
@@ -21,6 +15,7 @@ class OrdersController < ApplicationController
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
+    
     @order = Order.find_by(status: "pending")
   end
 
@@ -71,4 +66,15 @@ class OrdersController < ApplicationController
   def order_params
     return params.require(:order).permit(:status, :name, :email, :address, :credit_card, :exp)
   end
+
+  def find_session_order
+    if session[:order_id] # if the session has an order id, use that order id to find the correct order
+      @order = Order.find_by(id: session[:order_id])
+    else # if the session doesn't have order id, create a new order and insert that id into session[:order_id]
+      @order = Order.create(status: "pending")
+      session[:order_id] = @order.id
+    end
+
+    return @order
+  end 
 end
