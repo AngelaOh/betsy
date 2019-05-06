@@ -27,10 +27,10 @@
 /config/master.key
 
 .env
-coverage/*
 
 # ignoring simplecove
 
-coverage/.last_run.json
-coverage/.resultset.json
-coverage/index.html
+coverage/*
+# coverage/.last_run.json
+# coverage/.resultset.json
+# coverage/index.html
