@@ -5,6 +5,14 @@ describe OrdersController do
   let(:order_item1) { order_items(:one) }
   let(:order_item2) { order_items(:two) }
 
+  describe "cart" do
+    it "creates new order and holds associated order_items if order doesnt not already exist" do
+      get cart_path
+
+      expect(session[:order_id]).must_equal Order.last.id
+    end
+  end
+
   describe "destroy" do
     it "should be able to delete a valid order item in a cart" do
       expect(order.order_items).must_include order_item1
