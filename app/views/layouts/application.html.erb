@@ -24,7 +24,7 @@
               <li><%= link_to "My Account", user_path(session[:user_id]) %></li>
             <% end %>
             <li><%= link_to "Shopping Cart", cart_path %></li> 
-            <% if session[:user_id] %>
+            <% if !session[:user_id] %>
               <li><%= link_to "Login", github_login_path, class: "btn btn-info" %></li>
             <% else %>
               <li><%= link_to "Logout", logout_path, class: "btn btn-info" , method: :delete %></li>
