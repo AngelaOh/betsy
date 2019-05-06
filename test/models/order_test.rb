@@ -36,5 +36,26 @@ describe Order do
       order3.valid?.must_equal false
       expect(order3.errors.messages).must_include :status
     end
+
+    it "accepts correct (existing) checkout information" do
+      order4 = Order.create(status: "pending")
+
+      checkout_params = {
+        order: {
+          name: "Skippy McGee",
+          email: "skippy@mcgee.org",
+          address: "123 Happy St.",
+          credit_card: 12345678912,
+          exp: 1221,
+        },
+      }
+
+      patch order_update_path(order4.id), params: checkout_params
+
+      order4.valid?.must_equal true
+    end
+
+    it "rejects invalid checkout information" do
+    end
   end
 end
