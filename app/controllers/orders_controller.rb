@@ -46,7 +46,8 @@ class OrdersController < ApplicationController
     @item = OrderItem.find_by(product_id: params[:id])
     ## not working
     @item.destroy
-    @item.save
+    flash[:success] = "Successfully deleted item from cart."
+    # @item.save
     ## not working
     redirect_to cart_path
   end
