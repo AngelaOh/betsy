@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
       @order = Order.create(status: "pending")
       session[:order_id] = @order.id
     end
+
     if @order && @order.order_items.length != 0
       @items = OrderItem.where(order_id: @order.id)
     end
@@ -15,11 +16,12 @@ class OrdersController < ApplicationController
     if @order.nil?
       @order = Order.create(status: "pending")
       session[:order_id] = @order.id
+    else
+      @item = OrderItem.create(quantity: 1, order_id: @order.id, product_id: params[:id])
+      @order.order_items << @item
+      flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
+      redirect_to product_path(params[:id])
     end
-    @item = OrderItem.create(quantity: 1, order_id: @order.id, product_id: params[:id])
-    @order.order_items << @item
-    flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
-    redirect_to product_path(params[:id])
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
@@ -27,12 +29,9 @@ class OrdersController < ApplicationController
       flash[:error] = "This order does not exist"
       redirect_to root_path
     end
-    # raise
-    # @order = Order.find_by(status: "pending")
   end
 
   def update #this should update order with info above
-    # @order = Order.find_by(status: "pending")
     if @order.nil?
       flash[:error] = "This order does not exist"
       redirect_to root_path
@@ -42,7 +41,7 @@ class OrdersController < ApplicationController
 
     is_successful = @order.update(order_params)
     if is_successful
-      flash[:success] = "TESTTEST: order has been updated."
+      flash[:success] = "Order submitted! Check your inbox for confirmation email :D"
     else
       @order.errors.messages.each do |field, messages|
         flash.now[field] = messages
@@ -67,7 +66,6 @@ class OrdersController < ApplicationController
   end
 
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
-    # @order = Order.find_by(status: "paid")
     if @order.nil?
       flash[:error] = "This order does not exist"
       redirect_to root_path
