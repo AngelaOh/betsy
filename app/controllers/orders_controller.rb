@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_session_order, only: [:cart, :new_order_item]
+  before_action :find_session_order, only: [:cart, :new_order_item, :new, :update, :show]
 
   def cart # One cart (@order) holds information on zero or many OrderItems
     if @order && @order.order_items.length != 0
@@ -15,12 +15,12 @@ class OrdersController < ApplicationController
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
-    
-    @order = Order.find_by(status: "pending")
+
+    # @order = Order.find_by(status: "pending")
   end
 
   def update #this should update order with info above
-    @order = Order.find_by(status: "pending")
+    # @order = Order.find_by(status: "pending")
     @order.status = "paid"
     @order.save
 
@@ -51,7 +51,7 @@ class OrdersController < ApplicationController
   end
 
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
-    @order = Order.find_by(status: "paid")
+    # @order = Order.find_by(status: "paid")
     @items = OrderItem.where(order_id: @order.id)
     @order.status = "complete"
     @order.save
@@ -76,5 +76,5 @@ class OrdersController < ApplicationController
     end
 
     return @order
-  end 
+  end
 end
