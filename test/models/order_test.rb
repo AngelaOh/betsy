@@ -34,6 +34,7 @@ describe Order do
     it "rejects an invalid status" do
       order3 = Order.new(status: "snooping")
       order3.valid?.must_equal false
+      expect(order3.errors.messages).must_include :status
     end
   end
 end

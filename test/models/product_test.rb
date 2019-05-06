@@ -48,7 +48,7 @@ describe Product do
       product.save
       expect(product.valid?).must_equal false
       product.errors.messages.must_include :description
-      product.errors[:description].first.must_equal "can't be blank"
+      product.errors[:description].include?("can't be blank")
     end
 
     it "requires a photo_url" do
@@ -56,7 +56,7 @@ describe Product do
       product.save
       expect(product.valid?).must_equal false
       product.errors.messages.must_include :photo_url
-      product.errors[:photo_url].first.must_equal "can't be blank"
+      product.errors[:photo_url].include?("can't be blank")
     end
 
     it "requires a name" do
@@ -64,7 +64,7 @@ describe Product do
       product.save
       expect(product.valid?).must_equal false
       product.errors.messages.must_include :name
-      product.errors[:name].first.must_equal "can't be blank"
+      product.errors[:name].include?("can't be blank")
     end
 
     it "requires a unique name" do
@@ -72,7 +72,7 @@ describe Product do
       product2.save
       expect(product2.valid?).must_equal false
       product2.errors.messages.must_include :name
-      product2.errors[:name].first.must_equal "has already been taken"
+      product2.errors[:name].include?("has already been taken")
     end
 
     it "requires a price" do
@@ -80,7 +80,7 @@ describe Product do
       product.save
       expect(product.valid?).must_equal false
       product.errors.messages.must_include :price
-      product.errors[:price].first.must_equal "can't be blank"
+      product.errors[:price].include?("can't be blank")
     end
 
     it "requires a price greater than 0" do
@@ -88,8 +88,7 @@ describe Product do
       product.save
       expect(product.valid?).must_equal false
       product.errors.messages.must_include :price
-      product.errors[:price].first.must_equal "must be greater than 0"
-      #theat .first is so freaking hacky, how can I do it better?
+      product.errors[:price].include?("must be greater than 0")
     end
   end
 end

@@ -9,8 +9,9 @@ describe OrderItem do
   end
 
   it "must require a quantity" do
-    expect(order_items(:two).valid?).must_equal false
-    expect(order_items(:two).errors.messages).must_include :quantity
+    order_item.quantity = 0
+    expect(order_item.valid?).must_equal false
+    expect(order_item.errors.messages).must_include :quantity
   end
 
   describe "relationships" do

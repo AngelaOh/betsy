@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  has_many :orderitems
+  has_many :order_items
   #is the line above needed? or redundant using through
   has_many :products, through: :order_items
 
