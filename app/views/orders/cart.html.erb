@@ -1,0 +1,15 @@
+<h1>In the Cart View!!!</h1>
+<% if @items.nil? || @items.length == 0 %>
+    <h6>There are no items in your cart right now </h6>
+<% else %>
+    <h5>Items in your cart</h5>
+    <p>-------------------------</p>
+    <% @items.each_with_index do |item, i| %>
+        <h6><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </h6>
+        <p><%= link_to "Delete", delete_item_path(item.product_id), method: :delete %></p>
+        <p>-------------------------</p>
+    <% end %>
+<% end %>
+
+<%= link_to "Checkout", checkout_form_path, class: "btn btn-info" %>
+    

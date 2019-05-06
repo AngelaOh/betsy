@@ -10,6 +10,60 @@
   </head>
 
   <body>
+    <header class="homepage">
+      <h1><%= link_to "TOONSY", root_path%></h1>
+      <nav>
+        <ul>
+          <div class="right-nav">
+            <li><%= link_to "Products", products_path %></li>
+            <li><%= link_to "Merchants", users_path %></li>
+          </div>
+
+          <div class="right-nav">
+            <% if session[:user_id] %>
+              <li><%= link_to "My Account", user_path(session[:user_id]) %></li>
+            <% end %>
+            <li><%= link_to "Shopping Cart", cart_path %></li> 
+            <% if !session[:user_id] %>
+              <li><%= link_to "Login", github_login_path, class: "btn btn-info" %></li>
+            <% else %>
+              <li><%= link_to "Logout", logout_path, class: "btn btn-info" , method: :delete %></li>
+            <% end %>
+          </div>
+        </ul>
+      </nav>
+    </header>
+    <div id="separation-line"></div>
+      <% if flash.count > 0 %>
+      <section class="alert-container">
+        <% flash.each do |name, message| %>
+          <% if message.class == Array %>
+            <ul>
+              <% message.each do |msg| %>
+                
+                  <div class="alert alert-warning" role="alert">
+                    <li>A problem occured:</li>
+                    <li><%= name %>: <%= msg %></li>
+                  </div>
+                
+              <% end %>
+          <% else %>
+            <% if flash[:error] %>
+              <ul>
+                <div class="alert alert-warning" role="alert">
+                  <li>A problem occured:</li>
+                  <li><%= message %></li>
+                </div>
+              <ul>
+            <% else %>
+              <div class="alert alert-success" role="alert"><%= message %></div>
+            <% end %>
+          <% end %>
+            </ul>
+        <% end %>
+      </section>
+    <% end %>
     <%= yield %>
+    <footer> 	&copy; Shamira Kasey Alex Angela 2019 </footer>
   </body>
 </html>
