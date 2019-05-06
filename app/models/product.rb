@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   has_and_belongs_to_many :categories
+  #should it be has many categories through that one table?
   belongs_to :user
   #we are required to validate that product must belong to a user, cause looks likes belongs_to requires that after rails 5
   has_many :orders, through: :order_items

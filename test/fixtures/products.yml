@@ -1,18 +1,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  price: 1
-  inventory: 1
+manny:
+  name: manny
+  price: 12
+  inventory: 69
   photo_url: url
   description: description
-  user_id: 1
+  user: one
+  categories: one, two
 
 
 two:
-  name: MyString
+  name: moosh
   price: 1
   inventory: 1
   photo_url: url
   description: description
+  categories: one
 

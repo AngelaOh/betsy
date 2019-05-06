@@ -2,6 +2,11 @@
 
 one:
   quantity: 1
+  product: manny
+  order: first
 
 two:
   quantity: 1
+  product: manny
+  order: first
+
