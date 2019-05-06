@@ -61,5 +61,20 @@ describe Product do
 
       expect(products(:two).errors.messages[:price]).include?("must be greater than zero")
     end
+
+    it "description must be present " do
+      products(:one).description = nil
+      invalid_description = products(:one).valid?
+
+      expect(invalid_description).must_equal false
+      expect(products(:one).errors.messages[:description]).include?("can't be blank")
+    end
+
+    it "photo url must be present " do
+      products(:one).photo_url = nil
+      invalid_photo_url = products(:one).valid?
+      expect(invalid_photo_url).must_equal true
+      expect(products(:one).errors.messages[:photo_url]).include?("can't be blank")
+    end
   end
 end
