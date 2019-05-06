@@ -44,11 +44,14 @@ class OrdersController < ApplicationController
 
   def destroy
     @item = OrderItem.find_by(product_id: params[:id])
-    ## not working
-    @item.destroy
-    flash[:success] = "Successfully deleted item from cart."
-    # @item.save
-    ## not working
+
+    if @item.nil?
+      flash[:error] = "This item is not currently in your cart."
+    else
+      @item.destroy
+      flash[:success] = "Successfully deleted item from cart."
+    end
+
     redirect_to cart_path
   end
 
