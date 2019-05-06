@@ -11,6 +11,14 @@ describe OrdersController do
 
       expect(session[:order_id]).must_equal Order.last.id
     end
+    it "if order already exists, the order and its orderitems persists across a session" do
+      get cart_path
+      expect(session[:order_id]).must_equal Order.last.id
+      expected_order_id = Order.last.id
+
+      get cart_path
+      expect(session[:order_id]).must_equal expected_order_id
+    end
   end
 
   describe "destroy" do
