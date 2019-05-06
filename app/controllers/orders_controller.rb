@@ -25,23 +25,25 @@ class OrdersController < ApplicationController
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
-    if @order.nil?
+    if @order.nil? || @order.order_items.length == 0
       flash[:error] = "This order does not exist"
       redirect_to root_path
     end
   end
 
   def update #this should update order with info above
-    if @order.nil?
+    if @order.nil? || @order.order_items.length == 0
       flash[:error] = "This order does not exist"
       redirect_to root_path
     end
+    
     @order.status = "paid"
     @order.save
 
     is_successful = @order.update(order_params)
     if is_successful
       flash[:success] = "Order submitted! Check your inbox for confirmation email :D"
+      redirect_to order_path(params[:id])
     else
       @order.errors.messages.each do |field, messages|
         flash.now[field] = messages
@@ -49,7 +51,7 @@ class OrdersController < ApplicationController
       render :new, status: :bad_request
     end
 
-    redirect_to order_path(params[:id])
+    # redirect_to order_path(params[:id])
   end
 
   def destroy
@@ -66,7 +68,7 @@ class OrdersController < ApplicationController
   end
 
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
-    if @order.nil?
+    if @order.nil? || @order.order_items.length == 0
       flash[:error] = "This order does not exist"
       redirect_to root_path
     else
@@ -77,6 +79,10 @@ class OrdersController < ApplicationController
       @items.each do |item|
         Product.find_by(id: item.product_id).inventory = Product.find_by(id: item.product_id).inventory - item.quantity #change inventory of Products
       end
+
+      OrderItem.where(order_id: @order.id).each do |item|
+        item.destroy
+      end 
     end
   end
 
