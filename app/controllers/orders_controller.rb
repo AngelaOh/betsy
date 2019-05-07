@@ -18,8 +18,25 @@ class OrdersController < ApplicationController
       session[:order_id] = @order.id
     end
 
-    @item = OrderItem.create(quantity: params[:quantity], order_id: @order.id, product_id: params[:id])
-    @order.order_items << @item
+    @item = OrderItem.find_by(order_id: @order.id, product_id: params[:id])
+
+    if !@item.nil? # if this item is already in the shopping cart
+      if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory # accounts for trying to buy more than available
+        flash[:error] = "We don't have enough items in inventory to fulfill this order."
+        redirect_to product_path(params[:id])
+      end
+      @item.update(quantity: @item.quantity + params[:quantity].to_i) # updates quantity of items in cart
+      Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - params[:quantity].to_i)  #change inventory of Products
+    else
+      @item = OrderItem.create(quantity: params[:quantity], order_id: @order.id, product_id: params[:id])
+      if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory
+        flash[:error] = "We don't have enough items in inventory to fulfill this order."
+        redirect_to product_path(params[:id])
+      end
+      @order.order_items << @item
+      #raise
+      Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - @item.quantity)  #change inventory of Products
+    end
     flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
     # raise
     redirect_to product_path(params[:id])
@@ -57,10 +74,13 @@ class OrdersController < ApplicationController
 
   def destroy
     @item = OrderItem.find_by(product_id: params[:id])
+    # raise
 
     if @item.nil?
       flash[:error] = "This item is not currently in your cart."
     else
+      Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory + @item.quantity)  #change inventory of Products
+      # raise
       @item.destroy
       flash[:success] = "Successfully deleted item from cart."
     end
@@ -77,9 +97,6 @@ class OrdersController < ApplicationController
       @order.status = "complete"
       @order.save
       # raise
-      @items.each do |item|
-        Product.find_by(id: item.product_id).inventory = Product.find_by(id: item.product_id).inventory - item.quantity #change inventory of Products
-      end
 
       OrderItem.where(order_id: @order.id).each do |item|
         item.destroy
