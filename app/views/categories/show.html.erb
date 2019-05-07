@@ -1,0 +1,14 @@
+<h1>Categories#show</h1>
+<p>Find me in app/views/categories/show.html.erb</p>
+
+
+<h1><%= @category.name %></h1>
+
+<% @category.products.each do |product| %>
+<p>product: <%= link_to product.name, product_path(product.id) %></p>
+<p>merchant: <%= link_to product.user.username, user_path(product.user.id) %></p>
+<p>price: <%= number_to_currency(product.price/100.0, :unit => "$") %></p>
+<p>inventory: <%= product.inventory %></p>
+<img src= <%= product.photo_url %>  
+<% end %>
+
