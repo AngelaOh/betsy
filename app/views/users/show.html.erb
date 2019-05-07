@@ -1,11 +1,33 @@
 <h1>Users#show</h1>
 <p>Find me in app/views/users/show.html.erb</p>
 
-
-
 <h4>User Summary: <%= @user.username %></h4>
 <h4>Joined Site <%= time_tag(@user.created_at.to_date) %></h4>
 <h4>Product Table Would Go here: </h4>
+<table class="table">
+  <thead>
+  <h4> My Products </h4>
+    <tr>
+      <th>Item</th>
+      <th>Inventory </th>
+      <th>Price</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <%#= @user %>
+    <%# <% raise %>
+    <% @user.products.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.inventory %></td>
+        <td><%= item.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 
 
 <%= @user.username %>
