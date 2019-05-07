@@ -9,12 +9,17 @@
 <%# image_tag (@product.photo_url) %>
 
 <%# <%= link_to "Add to Cart", add_item_path, method: :post %>
-<%= form_with model: @item, class: "order-item-quantity" do |f| %>
-    <%= f.label :quantity %>
+<% if @product.inventory < 1 %>
+    <%= link_to "SOLD OUT", products_path %>
+<% else %>
+    <%= form_with model: @item, class: "order-item-quantity" do |f| %>
+        <%= f.label :quantity %>
 
-    <% option = [] %>
-    <% @product.inventory.times { |num| option << num+1 } %> <!-- there is probably a better way to do this select so feel free to refactor! -->
-    <%= f.select :quantity, option
-    %>
-    <%= f.submit "ADD TO CART", method: :post, class: "btn btn-info" %>
+        <% option = [] %>
+        <% @product.inventory.times { |num| option << num+1 } %> <!-- there is probably a better way to do this select so feel free to refactor! -->
+        <%= f.select :quantity, option
+        %>
+        <%= f.submit "ADD TO CART", method: :post, class: "btn btn-info" %>
+    <% end %>
+
 <% end %>
