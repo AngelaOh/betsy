@@ -38,24 +38,24 @@ describe Order do
     end
 
     it "accepts correct (existing) checkout information" do
-      order4 = Order.create(status: "pending")
 
-      checkout_params = {
-        order: {
-          name: "Skippy McGee",
-          email: "skippy@mcgee.org",
-          address: "123 Happy St.",
-          credit_card: 12345678912,
-          exp: 1221,
-        },
-      }
+      order.name = "Skippy McGee"
+      order.email =  "skippy@mcgee.org"
+      order.address = "123 Happy St."
+      order.credit_card = 12345678912
+      order.exp = 1221
 
-      patch order_update_path(order4.id), params: checkout_params
-
-      order4.valid?.must_equal true
+      order.valid?.must_equal true
     end
 
     it "rejects invalid checkout information" do
+      order.name = ""
+      order.email =  "skippy@mcgee.org"
+      order.address = "123 Happy St."
+      order.credit_card = 12345678912
+      order.exp = 1221
+
+      order.valid?.must_equal false
     end
   end
 end
