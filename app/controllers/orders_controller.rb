@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
     @item = OrderItem.create(quantity: params[:quantity], order_id: @order.id, product_id: params[:id])
     @order.order_items << @item
     flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
-    raise
+    # raise
     redirect_to product_path(params[:id])
   end
 
