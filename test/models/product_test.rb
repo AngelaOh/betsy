@@ -27,6 +27,11 @@ describe Product do
       product.user.must_be_kind_of User
       product.must_respond_to :user
       product.user.username.must_equal "Alex"
+
+      #other way arount
+      user.products.first.must_be_kind_of Product
+      user.must_respond_to :products
+      user.products.first.name.must_equal "manny"
     end
 
     it "has many order items" do
