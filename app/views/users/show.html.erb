@@ -7,3 +7,41 @@
 <h4>Joined Site <%= time_tag(@user.created_at.to_date) %></h4>
 <h4>Product Table Would Go here: </h4>
 
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Inventory</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.products.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.price %></td>
+        <td><%= item.inventory %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="table">
+<h4>Orders</h4>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Date Purchased</th>
+      <th>Order Status</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%= @user.find_order.each do |merchant_order|%>
+      <tr>
+        <td><%= merchant_order.id %></td>
+        <td><%= merchant_order.time_placed %></td>
+        <td><%= merchant_order.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
