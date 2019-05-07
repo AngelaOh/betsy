@@ -11,9 +11,12 @@
       <th>Item</th>
       <th>Inventory </th>
       <th>Price</th>
+
     </tr>
   </thead>
-  <tbody></tbody>
+  <tbody>
+    <%#= @user %>
+    <%# <% raise %>
     <% @user.products.each do |item| %>
       <tr>
         <td><%= item.name %></td>
