@@ -11,5 +11,7 @@
     <% end %>
 <% end %>
 
-<%= link_to "Checkout", checkout_form_path, class: "btn btn-info" %>
+<% if @order.order_items.length != 0 %>
+    <%= link_to "Checkout", checkout_form_path, class: "btn btn-info" %>
+<% end %>
     

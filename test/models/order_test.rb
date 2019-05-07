@@ -41,5 +41,26 @@ describe Order do
       order3.valid?.must_equal false
       expect(order3.errors.messages).must_include :status
     end
+
+    it "accepts correct (existing) checkout information" do
+
+      order.name = "Skippy McGee"
+      order.email =  "skippy@mcgee.org"
+      order.address = "123 Happy St."
+      order.credit_card = 12345678912
+      order.exp = 1221
+
+      order.valid?.must_equal true
+    end
+
+    it "rejects invalid checkout information" do
+      order.name = ""
+      order.email =  "skippy@mcgee.org"
+      order.address = "123 Happy St."
+      order.credit_card = 12345678912
+      order.exp = 1221
+
+      order.valid?.must_equal false
+    end
   end
 end
