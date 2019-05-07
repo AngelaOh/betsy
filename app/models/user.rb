@@ -8,6 +8,7 @@ class User < ApplicationRecord
                     username: auth_hash["info"]["name"])
   end
 
+<<<<<<< HEAD
   def find_order
     merchant_products = Product.where(user_id: id)
     #def self.blah applies to the class
@@ -21,6 +22,21 @@ class User < ApplicationRecord
     end
     tz = []
     orders_array.each do |poop|
+=======
+  def findorder
+    pz = Product.where(user_id: id)
+    #def self.blah applies to the class
+    #inside the method self refers to the object itself
+    #we care about the current user, not User class
+    oz = []
+    pz.each do |prod|
+      OrderItem.where(product_id: prod.id).each do |oi|
+        oz << oi
+      end
+    end
+    tz = []
+    oz.each do |poop|
+>>>>>>> origin
       tz << poop.order
     end
     return tz.uniq

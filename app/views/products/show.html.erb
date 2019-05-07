@@ -5,7 +5,22 @@
 <p>merchant: <%= @product.name %></p>
 <p>price: <%= @product.price %></p>
 <p>inventory: <%= @product.inventory %></p>
+
 <img src= <%= @product.photo_url %> >  
+
+<p><% @product.categories.each do |category| %>
+    <%= link_to category.name, category_path(category.id) %>
+<% end %></p>
+
 <%# image_tag (@product.photo_url) %>
 
-<%= link_to "Add to Cart", add_item_path, method: :post %>
+<%# <%= link_to "Add to Cart", add_item_path, method: :post %>
+<%= form_with model: @item, class: "order-item-quantity" do |f| %>
+    <%= f.label :quantity %>
+
+    <% option = [] %>
+    <% @product.inventory.times { |num| option << num+1 } %> <!-- there is probably a better way to do this select so feel free to refactor! -->
+    <%= f.select :quantity, option
+    %>
+    <%= f.submit "ADD TO CART", method: :post, class: "btn btn-info" %>
+<% end %>

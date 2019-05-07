@@ -6,10 +6,13 @@
     <p>-------------------------</p>
     <% @items.each_with_index do |item, i| %>
         <h6><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </h6>
+        <p>Quantity: <%= item.quantity %> </p>
         <p><%= link_to "Delete", delete_item_path(item.product_id), method: :delete %></p>
         <p>-------------------------</p>
     <% end %>
 <% end %>
 
-<%= link_to "Checkout", checkout_form_path, class: "btn btn-info" %>
+<% if @order.order_items.length != 0 %>
+    <%= link_to "Checkout", checkout_form_path, class: "btn btn-info" %>
+<% end %>
     

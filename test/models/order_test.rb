@@ -13,6 +13,11 @@ describe Order do
     it "has many orderitems" do
       results = OrderItem.where(order_id: order.id)
       order_item.must_respond_to :order
+      order.must_respond_to :order_items
+      #means you must be able to call .order on something
+      #in this case its a foriein key
+      #called order_items and not order_item because its plural because it'll return an array
+
       # but why won't order.respond_to :order_item
       # and is this the fixture its talking about, or the model
       results.first.must_be_kind_of OrderItem
@@ -35,6 +40,27 @@ describe Order do
       order3 = Order.new(status: "snooping")
       order3.valid?.must_equal false
       expect(order3.errors.messages).must_include :status
+    end
+
+    it "accepts correct (existing) checkout information" do
+
+      order.name = "Skippy McGee"
+      order.email =  "skippy@mcgee.org"
+      order.address = "123 Happy St."
+      order.credit_card = 12345678912
+      order.exp = 1221
+
+      order.valid?.must_equal true
+    end
+
+    it "rejects invalid checkout information" do
+      order.name = ""
+      order.email =  "skippy@mcgee.org"
+      order.address = "123 Happy St."
+      order.credit_card = 12345678912
+      order.exp = 1221
+
+      order.valid?.must_equal false
     end
   end
 end

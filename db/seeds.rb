@@ -12,7 +12,6 @@
 #also how does updating the csv file work
 #and if belongs to validates, why isn't it requireing me to have a category
 require "csv"
-require "pry"
 
 CATEGORY_FILE = Rails.root.join("db", "seed_data", "categories.csv")
 puts "Loading raw user data from #{CATEGORY_FILE}"
