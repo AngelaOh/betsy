@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :find_product, only: [:edit, :update, :destroy]
-  before_action :require_login, only: [:new, :create, :update]
+  before_action :require_login, only: [:new, :edit, :create, :update]
 
   def root
     @products = Product.all.sort_by { |product| product.created_at }
