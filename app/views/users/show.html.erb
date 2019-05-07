@@ -3,7 +3,11 @@
 
 <h4>User Summary: <%= @user.username %></h4>
 <h4>Joined Site <%= time_tag(@user.created_at.to_date) %></h4>
+
+<p><%= link_to "Add a new product to sell", new_user_product_path(@user.id), class: "btn btn-info" %></p>
+
 <h4>Product Table Would Go here: </h4>
+
 <table class="table">
   <thead>
   <h4> My Products </h4>

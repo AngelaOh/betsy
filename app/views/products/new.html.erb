@@ -1,2 +1,36 @@
-<h1>Products#new</h1>
-<p>Find me in app/views/products/new.html.erb</p>
+<main>
+    <header>
+        <h1>Add a new product to your shop</h1>
+    </header>
+    
+    <section>
+        <%= form_with model: @product, class: "product_form" do |f| %>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+
+            <%= f.label :price %>
+            <%= f.text_field :price %>
+
+            <%= f.label :inventory %>
+            <%= f.text_field :inventory %>
+
+            <%= f.label :description %>
+            <%= f.text_field :description %>
+
+            <%= f.label :category %>
+            <%= f.select :category, [
+                    ["appliances", "appliances"],
+                    ["clothing", "clothing"],
+                    ["food and drink", "food and drink"],
+                    ["outdoors", "outdoors"], 
+                    ["miscellaneous", "miscellaneous"]
+                ] %>
+            
+            <%= f.label :photo_url %>
+            <%= f.text_field :photo_url %>
+            <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
+
+            <%= f.submit "Add Product", class: "product_form" %>
+        <% end %>
+    </section>
+</main>
