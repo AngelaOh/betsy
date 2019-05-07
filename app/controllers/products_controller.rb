@@ -27,6 +27,9 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+    @product.user_id = params[:user_id]
+    @product.save
+    # raise
 
     if @product.save
       flash[:success] = "Successfully created new product #{@product.name}"
@@ -71,7 +74,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :inventory, :photo_url, :description, :user_id)
+    params.require(:product).permit(:name, :price, :inventory, :photo_url, :description)
   end
 
   def find_product

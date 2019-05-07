@@ -4,7 +4,7 @@
     </header>
     
     <section>
-        <%= form_with model: @product, class: "product_form" do |f| %>
+        <%= form_with model: @product, url: user_products_path, class: "product_form" do |f| %>
             <%= f.label :name %>
             <%= f.text_field :name %>
 
@@ -30,7 +30,7 @@
             <%= f.text_field :photo_url %>
             <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
 
-            <%= f.submit "Add Product", class: "product_form" %>
+            <%= f.submit "Add Product", class: "product_form", method: :post %>
         <% end %>
     </section>
 </main>
