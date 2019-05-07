@@ -97,10 +97,10 @@ end
 
 puts "done"
 
-Order.create(status: "pending")
-OrderItem.create(quantity: 2, product_id: 1, order_id: 1)
-OrderItem.create(quantity: 1, product_id: 4, order_id: 1)
+# Order.create(status: "pending")
+# OrderItem.create(quantity: 2, product_id: 1, order_id: 1)
+# OrderItem.create(quantity: 1, product_id: 4, order_id: 1)
 
-Order.create(status: "paid")
-OrderItem.create(quantity: 1, product_id: 1, order_id: 2)
-OrderItem.create(quantity: 1, product_id: 3, order_id: 2)
+# Order.create(status: "paid")
+# OrderItem.create(quantity: 1, product_id: 1, order_id: 2)
+# OrderItem.create(quantity: 1, product_id: 3, order_id: 2)
