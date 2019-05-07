@@ -19,28 +19,17 @@ class OrdersController < ApplicationController
     end
 
     @item = OrderItem.find_by(order_id: @order.id, product_id: params[:id])
-
     if !@item.nil? # if this item is already in the shopping cart
-      if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory # accounts for trying to buy more than available
-        flash[:error] = "We don't have enough items in inventory to fulfill this order."
-        redirect_to product_path(params[:id])
-      end
+      no_more_product(@item.quantity + params[:quantity].to_i) # private method; redirect to products
       @item.update(quantity: @item.quantity + params[:quantity].to_i) # updates quantity of items in cart
       update_product_inventory(params[:quantity])
-      # Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - params[:quantity].to_i)  #change inventory of Products
     else
       @item = OrderItem.create(quantity: params[:quantity], order_id: @order.id, product_id: params[:id])
-      if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory
-        flash[:error] = "We don't have enough items in inventory to fulfill this order."
-        redirect_to product_path(params[:id])
-      end
+      no_more_product(params[:quantity].to_i) # private method; redirect to products
       @order.order_items << @item
-      #raise
-      update_product_inventory(@item.quantity)
-      # Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - @item.quantity)  #change inventory of Products
+      update_product_inventory(@item.quantity.to_i)
     end
     flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
-    # raise
     redirect_to product_path(params[:id])
   end
 
@@ -70,20 +59,15 @@ class OrdersController < ApplicationController
       end
       render :new, status: :bad_request
     end
-
-    # redirect_to order_path(params[:id])
   end
 
   def destroy
     @item = OrderItem.find_by(product_id: params[:id])
-    # raise
 
     if @item.nil?
       flash[:error] = "This item is not currently in your cart."
     else
       update_product_inventory(-@item.quantity)
-      # Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory + @item.quantity)  #change inventory of Products
-      # raise
       @item.destroy
       flash[:success] = "Successfully deleted item from cart."
     end
@@ -99,7 +83,6 @@ class OrdersController < ApplicationController
       @items = OrderItem.where(order_id: @order.id)
       @order.status = "complete"
       @order.save
-      # raise
 
       OrderItem.where(order_id: @order.id).each do |item|
         item.destroy
@@ -122,6 +105,13 @@ class OrdersController < ApplicationController
   end
 
   def update_product_inventory(quant_change)
-    Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - quant_change.to_i)  #change inventory of Products
+    Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - quant_change.to_i)
+  end
+
+  def no_more_product(quant_change)
+    if quant_change > Product.find_by(id: @item.product_id).inventory
+      flash[:error] = "We don't have enough items in inventory to fulfill this order."
+      redirect_to product_path(params[:id])
+    end
   end
 end
