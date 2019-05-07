@@ -61,7 +61,9 @@ describe ProductsController do
 
   describe "new" do
     it "succeeds in generating a new form" do
-      get new_user_product_path(user.id, product.id)
+      perform_login(user)
+
+      get new_user_product_path(user.id)
 
       must_respond_with :success
     end
@@ -69,9 +71,11 @@ describe ProductsController do
 
   describe "create" do
     it "creates a product with valid data for a real merchant(logged-in user)" do
+      perform_login(user)
+
       new_product = {
         product: {
-          name: "new_product", price: 2, inventory: 20, photo_url: "url", description: "cool item", user_id: user.id,
+          name: "new_product", price: 2, inventory: 20, photo_url: "url", description: "cool item",
         },
       }
 
@@ -87,6 +91,8 @@ describe ProductsController do
     end
 
     it "renders bad_request and redirects for invalid data" do
+      perform_login(user)
+
       bad_product = {product: {name: nil}}
 
       expect {
@@ -100,12 +106,16 @@ describe ProductsController do
 
   describe "edit" do
     it "succeeds for existing product and user IDs" do
+      perform_login(user)
+
       get edit_user_product_path(user.id, product.id)
 
       must_respond_with :success
     end
 
     it "responds with 404 not_found for a bogus product ID" do
+      perform_login(user)
+
       bogus_id = "INVALID ID"
       get edit_user_product_path(user.id, bogus_id)
 
@@ -115,8 +125,10 @@ describe ProductsController do
 
   describe "update" do
     it "will update an existing product" do
+      perform_login(user)
       # TODO: figure out how to make product.yml file legit
       product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+
       product_updates = {product: {name: "update name"}}
 
       expect {
@@ -131,7 +143,10 @@ describe ProductsController do
     end
 
     it "will return a bad request when asked to update with invalid data" do
+      perform_login(user)
+
       product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+
       product_updates = {product: {name: ""}}
 
       expect {
@@ -144,6 +159,8 @@ describe ProductsController do
     end
 
     it "will respond with 404 not_found for a bogus product ID " do
+      perform_login(user)
+
       bogus_id = "INVALID ID"
       patch user_product_path(user.id, bogus_id)
       must_respond_with :not_found
@@ -152,6 +169,8 @@ describe ProductsController do
 
   describe "destroy" do
     it "succeeds for an existing product ID" do
+      perform_login(user)
+
       product_to_destroy = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
 
       expect {
@@ -163,6 +182,8 @@ describe ProductsController do
     end
 
     it "will respond with 404 not_found for a bogus product ID " do
+      perform_login(user)
+
       bogus_id = "INVALID ID"
       delete user_product_path(user.id, bogus_id)
       must_respond_with :not_found
