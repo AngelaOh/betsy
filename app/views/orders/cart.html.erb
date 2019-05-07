@@ -6,6 +6,7 @@
     <p>-------------------------</p>
     <% @items.each_with_index do |item, i| %>
         <h6><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </h6>
+        <p>Quantity: <%= item.quantity %> </p>
         <p><%= link_to "Delete", delete_item_path(item.product_id), method: :delete %></p>
         <p>-------------------------</p>
     <% end %>

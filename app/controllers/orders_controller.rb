@@ -16,12 +16,13 @@ class OrdersController < ApplicationController
     if @order.nil?
       @order = Order.create(status: "pending")
       session[:order_id] = @order.id
-    else
-      @item = OrderItem.create(quantity: 1, order_id: @order.id, product_id: params[:id])
-      @order.order_items << @item
-      flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
-      redirect_to product_path(params[:id])
     end
+
+    @item = OrderItem.create(quantity: params[:quantity], order_id: @order.id, product_id: params[:id])
+    @order.order_items << @item
+    flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
+    # raise
+    redirect_to product_path(params[:id])
   end
 
   def new #this should gather info for order's name, email, address, cc, etc...
@@ -36,7 +37,7 @@ class OrdersController < ApplicationController
       flash[:error] = "This order does not exist"
       redirect_to root_path
     end
-    
+
     @order.status = "paid"
     @order.save
 
@@ -82,7 +83,7 @@ class OrdersController < ApplicationController
 
       OrderItem.where(order_id: @order.id).each do |item|
         item.destroy
-      end 
+      end
     end
   end
 
