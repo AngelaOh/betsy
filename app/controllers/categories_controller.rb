@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
 
     if @category.nil?
       flash[:error] = "That category does not exist"
-      redirect_back(fallback_location: root_path)
+      redirect_to categories_path
     end
   end
 end
