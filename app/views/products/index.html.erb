@@ -6,10 +6,9 @@
 
     <nav class="product-categories">
         <h3>Categories</h3>
-        <p>Food and Beverage</p>
-        <p>Furniture</p>
-        <p>Home</p>
-        <p>Outdoors and Recreation</p>
+        <% Category.all.each do |x| %>
+        <p><%= x.name %></p>
+        <% end %>
     </nav>
 
     <section class="products">
