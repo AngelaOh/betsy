@@ -25,6 +25,10 @@
                     ["outdoors", "outdoors"], 
                     ["miscellaneous", "miscellaneous"]
                 ] %>
+            
+            <%= f.label :photo_url %>
+            <%= f.text_field :photo_url %>
+            <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
 
             <%= f.submit "Add Product", class: "product_form" %>
         <% end %>
