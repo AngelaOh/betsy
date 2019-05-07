@@ -26,7 +26,8 @@ class OrdersController < ApplicationController
         redirect_to product_path(params[:id])
       end
       @item.update(quantity: @item.quantity + params[:quantity].to_i) # updates quantity of items in cart
-      Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - params[:quantity].to_i)  #change inventory of Products
+      update_product_inventory(params[:quantity])
+      # Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - params[:quantity].to_i)  #change inventory of Products
     else
       @item = OrderItem.create(quantity: params[:quantity], order_id: @order.id, product_id: params[:id])
       if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory
@@ -35,7 +36,8 @@ class OrdersController < ApplicationController
       end
       @order.order_items << @item
       #raise
-      Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - @item.quantity)  #change inventory of Products
+      update_product_inventory(@item.quantity)
+      # Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - @item.quantity)  #change inventory of Products
     end
     flash[:success] = "#{Product.find_by(id: @item.product_id).name} added to the shopping cart."
     # raise
@@ -79,7 +81,8 @@ class OrdersController < ApplicationController
     if @item.nil?
       flash[:error] = "This item is not currently in your cart."
     else
-      Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory + @item.quantity)  #change inventory of Products
+      update_product_inventory(-@item.quantity)
+      # Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory + @item.quantity)  #change inventory of Products
       # raise
       @item.destroy
       flash[:success] = "Successfully deleted item from cart."
@@ -116,5 +119,9 @@ class OrdersController < ApplicationController
     end
 
     return @order
+  end
+
+  def update_product_inventory(quant_change)
+    Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - quant_change.to_i)  #change inventory of Products
   end
 end
