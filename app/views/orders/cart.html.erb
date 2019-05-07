@@ -7,6 +7,15 @@
     <% @items.each_with_index do |item, i| %>
         <h6><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </h6>
         <p>Quantity: <%= item.quantity %> </p>
+
+        <p>
+            <%= form_with model: @item, url: add_item_path(item.product_id), class: "order-item-quantity" do |f| %>
+                <%= f.label :quantity %>
+                <%= f.text_field :quantity %>
+                <%= f.submit "Update Quantity", method: :post, class: "btn btn-info" %>
+        <% end %>
+        </p>
+
         <p><%= link_to "Delete", delete_item_path(item.product_id), method: :delete %></p>
         <p>-------------------------</p>
     <% end %>
