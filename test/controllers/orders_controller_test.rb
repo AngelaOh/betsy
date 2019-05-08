@@ -113,15 +113,36 @@ describe OrdersController do
   describe "update" do
     it "updates an order with the checkout information" do
       # patch "/orders/:id", to: "orders#update", as: "order_update"
-      new_order = Order.create(status: "pending")
-      expect(new_order.name).must_be_nil
-      binding.pry
+      post add_item_path(product.id), params: { quantity: 1 }
+      new_order = Order.find_by(id: session[:order_id])
+      expect(new_order.order_items.length).must_equal 1
 
-      patch order_update_path(new_order.id), params: { name: "meeee" }
-      # expect(new_order.name).must_equal "meeee"
+      patch order_update_path(new_order.id), params: { order: { status: "pending", name: "blah", email: "blah", address: "blah", credit_card: 999, exp: 999 } }
+      new_order.reload
+
+      must_respond_with :redirect
+      expect(new_order.name).must_equal "blah"
     end
 
     it "flashes error and redirects if order no longer exists" do
+      order = Order.create(status: "pending")
+      order_id = Order.create(status: "pending").id
+      order.destroy
+      patch order_update_path(order_id), params: { order: { status: "pending", name: "blah", email: "blah", address: "blah", credit_card: 999, exp: 999 } }
+
+      expect(flash[:error]).must_equal "This order does not exist"
+      must_respond_with :redirect
+    end
+
+    it "responds with bad request if data is not valid" do
+      post add_item_path(product.id), params: { quantity: 1 }
+      new_order = Order.find_by(id: session[:order_id])
+      expect(new_order.order_items.length).must_equal 1
+
+      patch order_update_path(new_order.id), params: { order: { status: "pending", name: "", email: "blah", address: "blah", credit_card: 999, exp: 999 } }
+      new_order.reload
+
+      must_respond_with :bad_request
     end
   end
 
@@ -157,7 +178,19 @@ describe OrdersController do
   end
 
   describe "show" do
-    it "destroys orderitems after user (non-merchant) checks out" do
+    it "sets current session[:order_id] to be nil" do
+      post add_item_path(product.id), params: { quantity: 1 }
+      new_order = Order.find_by(id: session[:order_id])
+      expect(session[:order_id]).wont_be_nil
+
+      get order_path(new_order.id)
+      expect(session[:order_id]).must_be_nil
+    end
+
+    it "flashes an error and redirects if order is nil" do
+      get order_path(-1)
+      expect(flash[:error]).must_equal "This order does not exist"
+      must_respond_with :redirect
     end
   end
 end
