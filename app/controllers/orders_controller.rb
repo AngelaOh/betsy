@@ -118,9 +118,7 @@ class OrdersController < ApplicationController
       @order.save
       # raise
 
-      OrderItem.where(order_id: @order.id).each do |item|
-        item.destroy
-      end
+      session[:order_id] = nil
     end
   end
 
