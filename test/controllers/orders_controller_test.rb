@@ -4,6 +4,7 @@ describe OrdersController do
   let(:order) { orders(:first) }
   let(:order_item1) { order_items(:one) }
   let(:order_item2) { order_items(:two) }
+  let(:product) { products(:manny) }
 
   describe "cart" do
     it "creates new order and holds associated order_items if order doesnt not already exist" do
@@ -22,13 +23,41 @@ describe OrdersController do
   end
 
   describe "new order item" do
-    it "find the correct order and creates a new orderitem when orderitem does not already exist" do
+    it "adding a new item to the shopping cart adds an orderitem to an empty order" do
+      get root_path
+      empty_order = Order.find_by(id: session[:order_id])
+      expect(empty_order).must_equal nil
+
+      expect {
+        post add_item_path(product.id), params: { quantity: 1 }
+      }.must_change "OrderItem.count", 1
+
+      new_order = Order.find_by(id: session[:order_id])
+      expect(new_order.order_items.length).must_equal 1
+
+      expect(flash[:success]).must_equal "manny added to the shopping cart."
+      must_respond_with :redirect
     end
 
     it "updates the inventory for correct product when a new orderitem was created - flashes success and redirects" do
+      product_inventory = product.inventory
+
+      expect {
+        post add_item_path(product.id), params: { quantity: 1 }
+      }.must_change "OrderItem.count", 1
+      product.reload
+
+      expect(product.inventory).must_equal product_inventory - 1
+      expect(flash[:success]).must_equal "manny added to the shopping cart."
+      must_respond_with :redirect
     end
 
     it "updates the inventory for correct product when an existing orderitem is added to (via product#show)" do
+      product_inventory = product.inventory
+      post add_item_path(product.id), params: { quantity: 1 }
+
+      post add_item_path(product.id), params: { quantity: 1 }
+      # binding.pry
     end
 
     it "updates the quantity for correct orderitem when an existing orderitem is added to (via product#show)" do
@@ -40,6 +69,7 @@ describe OrdersController do
 
   describe "update order item quantity" do
     it "find the correct order and orderitem when orderitem already exist" do
+      # Do we still need this? (no...)
     end
 
     it "updates product inventory" do
