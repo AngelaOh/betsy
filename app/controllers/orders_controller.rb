@@ -9,7 +9,15 @@ class OrdersController < ApplicationController
 
     if @order && @order.order_items.length != 0
       @items = OrderItem.where(order_id: @order.id)
+
+      @items.each do |item|
+        if item.product.retired
+          item.destroy
+        end
+      end
     end
+
+    # expires_now if @order
   end
 
   def new_order_item

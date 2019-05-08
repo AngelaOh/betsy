@@ -1,19 +1,19 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:edit, :update, :destroy]
-  before_action :require_login, only: [:new, :create, :update]
+  before_action :find_product, only: [:edit, :update, :destroy, :retire]
+  before_action :require_login, only: [:new, :create, :update, :retire]
 
   def root
     @products = Product.all.sort_by { |product| product.created_at }
   end
 
   def index
-    @products = Product.all
+    @products = Product.where(retired: false)
     # logic for seeing all products of a given category..should go in model?
   end
 
   def show
     product_id = params[:id].to_i
-    @product = Product.find_by(id: product_id)
+    @product = Product.find_by(id: product_id, retired: false)
 
     if @product.nil?
       flash[:error] = "That product does not exist"
@@ -64,6 +64,22 @@ class ProductsController < ApplicationController
     end
 
     redirect_to products_path
+  end
+
+  def retire
+    if @product.nil?
+      flash[:error] = "That product does not exist"
+    else
+      if !@product.retired
+        @product.update(retired: true)
+        flash[:success] = "Successfully removed/retired #{@product.name} from Toonsy"
+      else
+        @product.update(retired: false)
+        flash[:success] = "Product #{@product.name} is now available to be sold on Toonsy"
+      end
+    end
+
+    redirect_back fallback_location: root_path
   end
 
   # def new_order_item

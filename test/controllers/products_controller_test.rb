@@ -167,25 +167,68 @@ describe ProductsController do
     end
   end
 
-  describe "destroy" do
-    it "succeeds for an existing product ID" do
+  # describe "destroy" do
+  #   it "succeeds for an existing product ID" do
+  #     perform_login(user)
+
+  #     product_to_destroy = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+
+  #     expect {
+  #       delete user_product_path(user.id, product_to_destroy.id)
+  #     }.must_change "Product.count", -1
+
+  #     must_respond_with :redirect
+  #     must_redirect_to products_path
+  #   end
+
+  #   it "will respond with 404 not_found for a bogus product ID " do
+  #     perform_login(user)
+
+  #     bogus_id = "INVALID ID"
+  #     delete user_product_path(user.id, bogus_id)
+  #     must_respond_with :not_found
+  #   end
+  # end
+
+  describe "retire" do
+    it "changes a valid product to 'retired'" do
       perform_login(user)
 
-      product_to_destroy = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+      product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
 
-      expect {
-        delete user_product_path(user.id, product_to_destroy.id)
-      }.must_change "Product.count", -1
+      expect(product_to_update.retired).must_equal false
 
-      must_respond_with :redirect
-      must_redirect_to products_path
+      patch product_retire_path(user.id, product_to_update.id)
+
+      product_to_update.reload
+
+      expect(product_to_update.retired).must_equal true
+      expect(flash[:success]).must_equal "Successfully removed/retired #{product_to_update.name} from Toonsy"
+      # must_redirect_to
+    end
+
+    it "changes a valid product's retired status back to false" do
+      perform_login(user)
+
+      product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+
+      patch product_retire_path(user.id, product_to_update.id)
+      product_to_update.reload
+
+      expect(product_to_update.retired).must_equal true
+
+      patch product_retire_path(user.id, product_to_update.id)
+      product_to_update.reload
+
+      expect(product_to_update.retired).must_equal false
+      expect(flash[:success]).must_equal "Product #{product_to_update.name} is now available to be sold on Toonsy"
     end
 
     it "will respond with 404 not_found for a bogus product ID " do
       perform_login(user)
 
       bogus_id = "INVALID ID"
-      delete user_product_path(user.id, bogus_id)
+      patch product_retire_path(user.id, bogus_id)
       must_respond_with :not_found
     end
   end
