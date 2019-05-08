@@ -15,7 +15,8 @@
       <th>Item</th>
       <th>Inventory </th>
       <th>Price</th>
-  
+      <th>Edit</th>
+      <th>Remove</th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +27,8 @@
         <td><%= item.name %></td>
         <td><%= item.inventory %></td>
         <td><%= item.price %></td>
+        <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>

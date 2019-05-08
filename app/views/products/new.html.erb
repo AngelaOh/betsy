@@ -4,6 +4,11 @@
     </header>
     
     <section>
+        <%# render partial: "form", locals: {
+            form_class: "new-product",
+            url: user_products_path, 
+            action_name: "Add Product"
+        } %>
         <%= form_with model: @product, url: user_products_path, class: "product_form" do |f| %>
             <%= f.label :name %>
             <%= f.text_field :name %>
@@ -18,13 +23,8 @@
             <%= f.text_field :description %>
 
             <%= f.label :category %>
-            <%= f.select :category, [
-                    ["appliances", "appliances"],
-                    ["clothing", "clothing"],
-                    ["food and drink", "food and drink"],
-                    ["outdoors", "outdoors"], 
-                    ["miscellaneous", "miscellaneous"]
-                ] %>
+            <%# f.select :category, Category.all.map {|category| [category.name] } %>
+            <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
             
             <%= f.label :photo_url %>
             <%= f.text_field :photo_url %>
