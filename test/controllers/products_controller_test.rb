@@ -207,6 +207,23 @@ describe ProductsController do
       # must_redirect_to
     end
 
+    it "changes a valid product's retired status back to false" do
+      perform_login(user)
+
+      product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+
+      patch product_retire_path(user.id, product_to_update.id)
+      product_to_update.reload
+
+      expect(product_to_update.retired).must_equal true
+
+      patch product_retire_path(user.id, product_to_update.id)
+      product_to_update.reload
+
+      expect(product_to_update.retired).must_equal false
+      expect(flash[:success]).must_equal "Product #{product_to_update.name} is now available to be sold on Toonsy"
+    end
+
     it "will respond with 404 not_found for a bogus product ID " do
     end
   end
