@@ -48,30 +48,40 @@ describe OrdersController do
       product.reload
 
       expect(product.inventory).must_equal product_inventory - 1
-      expect(flash[:success]).must_equal "manny added to the shopping cart."
+      expect(flash[:success]).must_equal "#{product.name} added to the shopping cart."
+
       must_respond_with :redirect
     end
 
     it "updates the inventory for correct product when an existing orderitem is added to (via product#show)" do
       product_inventory = product.inventory
       post add_item_path(product.id), params: { quantity: 1 }
+      product.reload
+      expect(product.inventory).must_equal product_inventory - 1
 
       post add_item_path(product.id), params: { quantity: 1 }
-      # binding.pry
+      product.reload
+      expect(product.inventory).must_equal product_inventory - 2
     end
 
     it "updates the quantity for correct orderitem when an existing orderitem is added to (via product#show)" do
+      post add_item_path(product.id), params: { quantity: 1 }
+      new_order = Order.find_by(id: session[:order_id])
+      new_order_item = new_order.order_items[0]
+
+      post add_item_path(product.id), params: { quantity: 1 }
+      new_order_item.reload
+      expect(new_order_item.quantity).must_equal 2
     end
 
     it "flashes an error and redirects if the the quantity to update is larger than the available inventory" do
+      post add_item_path(product.id), params: { quantity: 70 }
+      expect(flash[:error]).must_equal "We don't have enough items in inventory to fulfill this order."
+      must_respond_with :redirect
     end
   end
 
   describe "update order item quantity" do
-    it "find the correct order and orderitem when orderitem already exist" do
-      # Do we still need this? (no...)
-    end
-
     it "updates product inventory" do
     end
 
