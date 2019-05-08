@@ -109,18 +109,14 @@ class OrdersController < ApplicationController
   end
 
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
+    @order = Order.find_by(id: params[:id].to_i)
     if @order.nil? || @order.order_items.length == 0
       flash[:error] = "This order does not exist"
       redirect_to root_path
     else
       @items = OrderItem.where(order_id: @order.id)
-      @order.status = "complete"
-      @order.save
-      # raise
 
-      OrderItem.where(order_id: @order.id).each do |item|
-        item.destroy
-      end
+      session[:order_id] = nil
     end
   end
 
