@@ -22,16 +22,18 @@ describe UsersController do
 
   describe "show" do
     it "should get respond with success if user exists" do
+      user = perform_login
       get user_path(user.id)
       must_respond_with :success
     end
 
     it "should get respond with 404 not found if ID is invalid" do
-      get user_path(invalid_id)
-      must_respond_with :redirect
+      user = perform_login
+      get user_path(-7)
+
       must_redirect_to root_path
-      expect(flash[:result_text]).must_equal "User not found!"
       expect(flash[:status]).must_equal :failure
+      expect(flash[:result_text]).must_equal "User not found!"
     end
   end
 
