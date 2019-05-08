@@ -70,8 +70,13 @@ class ProductsController < ApplicationController
     if @product.nil?
       flash[:error] = "That product does not exist"
     else
-      @product.retired = true
-      flash[:success] = "Successfully removed/retired #{@product.name} from Toonsy"
+      if !@product.retired
+        @product.update(retired: true)
+        flash[:success] = "Successfully removed/retired #{@product.name} from Toonsy"
+      else
+        @product.update(retired: false)
+        flash[:success] = "Product #{@product.name} is now available to be sold on Toonsy"
+      end
     end 
 
     redirect_back fallback_location: root_path
