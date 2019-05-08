@@ -29,6 +29,7 @@ class OrdersController < ApplicationController
       Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - params[:quantity].to_i)  #change inventory of Products
     else
       @item = OrderItem.create(quantity: params[:quantity], order_id: @order.id, product_id: params[:id])
+      # raise
       if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory
         flash[:error] = "We don't have enough items in inventory to fulfill this order."
         redirect_to product_path(params[:id])
