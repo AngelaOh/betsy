@@ -7,13 +7,13 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.all
+    @products = Product.where(retired: false)
     # logic for seeing all products of a given category..should go in model?
   end
 
   def show
     product_id = params[:id].to_i
-    @product = Product.find_by(id: product_id)
+    @product = Product.find_by(id: product_id, retired: false)
 
     if @product.nil?
       flash[:error] = "That product does not exist"
@@ -77,10 +77,10 @@ class ProductsController < ApplicationController
         @product.update(retired: false)
         flash[:success] = "Product #{@product.name} is now available to be sold on Toonsy"
       end
-    end 
+    end
 
     redirect_back fallback_location: root_path
-  end 
+  end
 
   # def new_order_item
   #   @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
