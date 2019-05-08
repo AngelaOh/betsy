@@ -23,8 +23,8 @@
             <%= f.text_field :description %>
 
             <%= f.label :category %>
-            <%= f.select :category, Category.all.map {|category| [category.name] } %>
-            <%# collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
+            <%# f.select :category, Category.all.map {|category| [category.name] } %>
+            <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
             
             <%= f.label :photo_url %>
             <%= f.text_field :photo_url %>
