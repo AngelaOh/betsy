@@ -32,6 +32,7 @@ class OrdersController < ApplicationController
       if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory # accounts for trying to buy more than available
         flash[:error] = "We don't have enough items in inventory to fulfill this order."
         redirect_to product_path(params[:id])
+        return
       end
       @item.update(quantity: @item.quantity + params[:quantity].to_i) # updates quantity of items in cart
       Product.find_by(id: @item.product_id).update(inventory: Product.find_by(id: @item.product_id).inventory - params[:quantity].to_i)  #change inventory of Products
@@ -41,6 +42,7 @@ class OrdersController < ApplicationController
       if params[:quantity].to_i > Product.find_by(id: @item.product_id).inventory
         flash[:error] = "We don't have enough items in inventory to fulfill this order."
         redirect_to product_path(params[:id])
+        return
       end
       @order.order_items << @item
       #raise
@@ -56,6 +58,11 @@ class OrdersController < ApplicationController
     @order = find_session_order
     @update_item = OrderItem.find_by(order_id: @order.id, product_id: params[:id].to_i)
     updated_inventory = (Product.find_by(id: @update_item.product_id)).inventory - (params[:order_item][:quantity].to_i - @update_item.quantity)
+    if updated_inventory <= 0
+      flash[:error] = "We don't have enough items in inventory to fulfill this order."
+      redirect_to cart_path
+      return
+    end
     Product.find_by(id: @update_item.product_id).update(inventory: updated_inventory)
     # raise
     @update_item.update(quantity: params[:order_item][:quantity].to_i)
@@ -110,18 +117,14 @@ class OrdersController < ApplicationController
   end
 
   def show # once user clicks checkout from order#cart view, the status should change to the next one.
+    @order = Order.find_by(id: params[:id].to_i)
     if @order.nil? || @order.order_items.length == 0
       flash[:error] = "This order does not exist"
       redirect_to root_path
     else
       @items = OrderItem.where(order_id: @order.id)
-      @order.status = "complete"
-      @order.save
-      # raise
 
-      OrderItem.where(order_id: @order.id).each do |item|
-        item.destroy
-      end
+      session[:order_id] = nil
     end
   end
 

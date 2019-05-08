@@ -1,16 +1,17 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show]
-  before_action :require_login, only: [:show, :destroy]
+  before_action :require_login, only: [:show]
 
   def index
     @users = User.all
   end
 
   def show
-    if @user.nil?
+    @user = User.find_by(id: params[:id])
+    if !@user
       flash[:status] = :failure
       flash[:result_text] = "User not found!"
-      redirect_to root_path # AO: Where should we redirect this?
+      redirect_to root_path
     end
   end
 
