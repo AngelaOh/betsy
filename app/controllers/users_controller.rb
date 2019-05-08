@@ -7,10 +7,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user.nil?
+    @user = User.find_by(id: params[:id])
+    # binding.pry
+    # puts "*" * 70
+    if !@user
       flash[:status] = :failure
-      flash[:result_text] = "User not found!"
-      redirect_to root_path # AO: Where should we redirect this?
+      flash[:result_text] = "User not found."
+      redirect_to root_path
     end
   end
 
@@ -22,7 +25,6 @@ class UsersController < ApplicationController
       flash[:success] = "Logged in as returning user #{user.username}"
     else
       user = User.build_from_github(auth_hash)
-
       if user.save
         flash[:success] = "Logged in as new user #{user.username}"
       else
@@ -36,14 +38,6 @@ class UsersController < ApplicationController
     session[:user_id] = user.id
     return redirect_to root_path
   end
-
-  # def current
-  #   @current_user = User.find_by(id: session[:user_id])
-  #   if @current_user.nil?
-  #     flash[:error] = "You must be logged in first!"
-  #     redirect_to users_path
-  #   end
-  # end
 
   def destroy
     user = User.find_by(id: session[:user_id])
