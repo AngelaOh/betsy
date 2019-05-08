@@ -3,4 +3,5 @@ class Category < ApplicationRecord
 
   validates :name, presence: true
   #add a "inclusion: { in: .... } in category table"
+
 end

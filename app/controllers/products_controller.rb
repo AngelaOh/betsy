@@ -29,8 +29,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.user_id = params[:user_id]
     @product.save
-    # raise
-
+  
     if @product.save
       flash[:success] = "Successfully created new product #{@product.name}"
       redirect_to product_path(@product.id)
