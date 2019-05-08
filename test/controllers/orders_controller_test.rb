@@ -112,6 +112,13 @@ describe OrdersController do
 
   describe "update" do
     it "updates an order with the checkout information" do
+      # patch "/orders/:id", to: "orders#update", as: "order_update"
+      new_order = Order.create(status: "pending")
+      expect(new_order.name).must_be_nil
+      binding.pry
+
+      patch order_update_path(new_order.id), params: { name: "meeee" }
+      # expect(new_order.name).must_equal "meeee"
     end
 
     it "flashes error and redirects if order no longer exists" do
