@@ -6,8 +6,6 @@
 
 <p><%= link_to "Add a new product to sell", new_user_product_path(@user.id), class: "btn btn-info" %></p>
 
-<h4>Product Table Would Go here: </h4>
-
 <table class="table">
   <thead>
   <h4> My Products </h4>
@@ -15,8 +13,7 @@
       <th>Item</th>
       <th>Inventory </th>
       <th>Price</th>
-      <th>Edit</th>
-      <th>Remove</th>
+  
     </tr>
   </thead>
   <tbody>
@@ -27,8 +24,6 @@
         <td><%= item.name %></td>
         <td><%= item.inventory %></td>
         <td><%= item.price %></td>
-        <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
-        <td></td>
       </tr>
     <% end %>
   </tbody>
@@ -37,7 +32,28 @@
 
 
 
-<%= @user.username %>
 
+<table class="table">
+  <thead>
+  <h4> My Orders </h4>
+    <tr>
+      <th>Order Number</th>
+      <th>Status </th>
+      <th>Time Placed</th>
+  
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.findorder.each do |item| %>
+      <tr>
+        <td><%= link_to item.id, order_path(item.id) %></td>
+        <td><%= item.status %></td>
+        <td><%= item.time_placed %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<%= @user.findorder %>
+<h4>Total Revenue: <%= number_to_currency(@user.totalrev/100.0, :unit => "$") %></h4>
+
+<%= @user.totalrevstatus%>
