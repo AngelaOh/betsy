@@ -225,6 +225,11 @@ describe ProductsController do
     end
 
     it "will respond with 404 not_found for a bogus product ID " do
+      perform_login(user)
+
+      bogus_id = "INVALID ID"
+      patch product_retire_path(user.id, bogus_id)
+      must_respond_with :not_found
     end
   end
 end
