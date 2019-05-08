@@ -4,6 +4,11 @@
     </header>
     
     <section>
+        <%# render partial: "form", locals: {
+            form_class: "edit-product",
+            url: user_product_path, 
+            action_name: "Update Product"
+        } %>
         <%= form_with model: @product, url: user_product_path, class: "product_form" do |f| %>
             <%= f.label :name %>
             <%= f.text_field :name %>

@@ -1,0 +1,23 @@
+<%= form_with model: @product, url: "url", class: "form_class" do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :price %>
+    <%= f.text_field :price %>
+
+    <%= f.label :inventory %>
+    <%= f.text_field :inventory %>
+
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+
+    <%= f.label :category %>
+    <%= f.select :category, Category.all.map {|category| [category.name] } %>
+    <%# collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
+            
+    <%= f.label :photo_url %>
+    <%= f.text_field :photo_url %>
+    <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
+
+    <%= f.submit action_name, class: "product_form_submit_btn", method: "method_name" %>
+<% end %>
