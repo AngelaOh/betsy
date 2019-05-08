@@ -14,6 +14,7 @@
       <th>Inventory </th>
       <th>Price</th>
       <th>Edit</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +26,11 @@
         <td><%= item.inventory %></td>
         <td><%= item.price %></td>
         <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
+        <% if !item.retired %>
+          <td>Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
+        <% else %>
+          <td>Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
