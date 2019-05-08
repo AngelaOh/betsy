@@ -10,3 +10,13 @@ status
 name 
 shipping address
 email -->
+<h2> Order: <%= @order.id %> Status: <%= @order.status %></h2>
+<p>name: <%= @order.name %></p>
+<p>email: <%= @order.email %></p>
+<p>address: <%= @order.address %></p>
+<% if @order.credit_card.to_s[-4..-1] %>
+    <p>credit card: <%= @order.credit_card.to_s[-4..-1] %></p>
+<% end %>
+<% if  @order.exp %>
+    <p>exp: <%= @order.exp %></p>
+<% end %>
