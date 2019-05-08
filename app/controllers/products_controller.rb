@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:edit, :update, :destroy]
-  before_action :require_login, only: [:new, :create, :update]
+  before_action :find_product, only: [:edit, :update, :destroy, :retire]
+  before_action :require_login, only: [:new, :create, :update, :retire]
 
   def root
     @products = Product.all.sort_by { |product| product.created_at }
@@ -65,6 +65,17 @@ class ProductsController < ApplicationController
 
     redirect_to products_path
   end
+
+  def retire
+    if @product.nil?
+      flash[:error] = "That product does not exist"
+    else
+      @product.retired = true
+      flash[:success] = "Successfully removed/retired #{@product.name} from Toonsy"
+    end 
+
+    redirect_back fallback_location: root_path
+  end 
 
   # def new_order_item
   #   @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
