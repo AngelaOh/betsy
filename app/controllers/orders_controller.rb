@@ -81,6 +81,7 @@ class OrdersController < ApplicationController
     if @order.nil? || @order.order_items.length == 0
       flash[:error] = "This order does not exist"
       redirect_to root_path
+      return
     end
 
     @order.status = "paid"
