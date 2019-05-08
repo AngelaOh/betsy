@@ -19,10 +19,6 @@ class User < ApplicationRecord
         all_user_orders << orderitem.order
       end
     end
-    # tz = []
-    # all_user_order_items.each do |poop|
-    # tz << poop.order
-    # end
     return all_user_orders.uniq
   end
 
@@ -35,7 +31,7 @@ class User < ApplicationRecord
     totalrev = 0
     totalorders.each do |order|
       order.order_items.each do |orderitem|
-        if orderitem.product.user_id == id
+        if orderitem.product.user_id == id && order.status != "pending"
           totalrev += orderitem.product.price
           # raise
         end
@@ -55,16 +51,37 @@ class User < ApplicationRecord
     }
     totalorders.each do |order|
       order.order_items.each do |orderitem|
-        case orderitem.product.user_id == id
-        when order.status == "pending"
+        if orderitem.product.user_id == id && order.status == "pending"
           hashy["pending"] += orderitem.product.price
-        when order.status == "paid"
+        elsif orderitem.product.user_id == id && order.status == "paid"
           hashy["paid"] += orderitem.product.price
-        when order.status == "complete"
+        elsif orderitem.product.user_id == id && order.status == "complete"
           hashy["complete"] += orderitem.product.price
-        when order.status == "cancelled"
+        elsif orderitem.product.user_id == id && order.status == "cancelled"
           hashy["cancelled"] += orderitem.product.price
         end
+      end
+    end
+    return hashy
+  end
+
+  def ordercount
+    hashy = {
+      "pending" => 0,
+      "paid" => 0,
+      "complete" => 0,
+      "cancelled" => 0,
+    }
+    totalorders = findorder
+    totalorders.each do |order|
+      if order.status == "pending"
+        hashy["pending"] += 1
+      elsif order.status == "paid"
+        hashy["paid"] += 1
+      elsif order.status == "complete"
+        hashy["complete"] += 1
+      elsif order.status == "cancelled"
+        hashy["cancelled"] += 1
       end
     end
     return hashy
