@@ -7,10 +7,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @user.nil?
+    @user = User.find_by(id: params[:id])
+    if !@user
       flash[:status] = :failure
       flash[:result_text] = "User not found!"
-      redirect_to root_path # AO: Where should we redirect this?
+      redirect_to root_path
     end
   end
 
