@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get "/products", to: "products#index", as: "products"
   get "/products/:id", to: "products#show", as: "product"
-  patch "/products/:id/retire", to: "tasks#retire", as: "product_retire"
+  patch "/users/:user_id/products/:id/retire", to: "products#retire", as: "product_retire"
 
   # post get "/products/:id", to: "products#new_order_item", as: "add_item" # this would create a new orderitem that would be added to cart
   patch "/products/:id", to: "orders#update_order_item_quantity", as: "update_quantity"

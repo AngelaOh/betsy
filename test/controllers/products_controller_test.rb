@@ -192,11 +192,22 @@ describe ProductsController do
 
   describe "retire" do
     it "changes a valid product to 'retired'" do
+      perform_login(user)
 
+      product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+
+      expect(product_to_update.retired).must_equal false
+
+      patch product_retire_path(user.id, product_to_update.id)
+
+      product_to_update.reload
+
+      expect(product_to_update.retired).must_equal true
+      expect(flash[:success]).must_equal "Successfully removed/retired #{product_to_update.name} from Toonsy"
+      # must_redirect_to
     end
-    
+
     it "will respond with 404 not_found for a bogus product ID " do
-      
-    end 
-  end 
+    end
+  end
 end
