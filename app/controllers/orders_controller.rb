@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
     @update_item = OrderItem.find_by(order_id: @order.id, product_id: params[:id].to_i)
     updated_inventory = (Product.find_by(id: @update_item.product_id)).inventory - (params[:order_item][:quantity].to_i - @update_item.quantity)
     Product.find_by(id: @update_item.product_id).update(inventory: updated_inventory)
-    raise
+    # raise
     @update_item.update(quantity: params[:order_item][:quantity].to_i)
     # raise
     redirect_to cart_path
