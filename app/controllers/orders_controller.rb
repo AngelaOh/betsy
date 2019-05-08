@@ -48,6 +48,11 @@ class OrdersController < ApplicationController
     @order = find_session_order
     @update_item = OrderItem.find_by(order_id: @order.id, product_id: params[:id].to_i)
     updated_inventory = (Product.find_by(id: @update_item.product_id)).inventory - (params[:order_item][:quantity].to_i - @update_item.quantity)
+    if updated_inventory <= 0
+      flash[:error] = "We don't have enough items in inventory to fulfill this order."
+      redirect_to cart_path
+      return
+    end
     Product.find_by(id: @update_item.product_id).update(inventory: updated_inventory)
     # raise
     @update_item.update(quantity: params[:order_item][:quantity].to_i)
