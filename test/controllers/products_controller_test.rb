@@ -167,26 +167,36 @@ describe ProductsController do
     end
   end
 
-  describe "destroy" do
-    it "succeeds for an existing product ID" do
-      perform_login(user)
+  # describe "destroy" do
+  #   it "succeeds for an existing product ID" do
+  #     perform_login(user)
 
-      product_to_destroy = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
+  #     product_to_destroy = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
 
-      expect {
-        delete user_product_path(user.id, product_to_destroy.id)
-      }.must_change "Product.count", -1
+  #     expect {
+  #       delete user_product_path(user.id, product_to_destroy.id)
+  #     }.must_change "Product.count", -1
 
-      must_respond_with :redirect
-      must_redirect_to products_path
+  #     must_respond_with :redirect
+  #     must_redirect_to products_path
+  #   end
+
+  #   it "will respond with 404 not_found for a bogus product ID " do
+  #     perform_login(user)
+
+  #     bogus_id = "INVALID ID"
+  #     delete user_product_path(user.id, bogus_id)
+  #     must_respond_with :not_found
+  #   end
+  # end
+
+  describe "retire" do
+    it "changes a valid product to 'retired'" do
+
     end
-
+    
     it "will respond with 404 not_found for a bogus product ID " do
-      perform_login(user)
-
-      bogus_id = "INVALID ID"
-      delete user_product_path(user.id, bogus_id)
-      must_respond_with :not_found
-    end
-  end
+      
+    end 
+  end 
 end
