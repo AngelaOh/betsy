@@ -83,12 +83,30 @@ describe OrdersController do
 
   describe "update order item quantity" do
     it "updates product inventory" do
+      product_inventory = product.inventory
+      post add_item_path(product.id), params: { quantity: 1 }
+      product.reload
+      expect(product.inventory).must_equal product_inventory - 1
+
+      patch update_quantity_path(product.id), params: { order_item: { quantity: 3 } }
+      product.reload
+      expect(product.inventory).must_equal product_inventory - 3
     end
 
     it "updates orderitem quantity" do
+      post add_item_path(product.id), params: { quantity: 1 }
+      order_item = OrderItem.find_by(order_id: session[:order_id])
+      order_item.reload
+
+      patch update_quantity_path(product.id), params: { order_item: { quantity: 3 } }
+      expect(OrderItem.find_by(order_id: session[:order_id]).quantity).must_equal 3
     end
 
     it "flashes error and redirects if the desired quantity is more than the inventory available" do
+      post add_item_path(product.id), params: { quantity: 1 }
+
+      patch update_quantity_path(product.id), params: { order_item: { quantity: 100000 } }
+      expect(flash[:error]).must_equal "We don't have enough items in inventory to fulfill this order."
     end
   end
 
