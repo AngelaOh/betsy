@@ -21,6 +21,45 @@ describe OrdersController do
     end
   end
 
+  describe "new order item" do
+    it "find the correct order and creates a new orderitem when orderitem does not already exist" do
+    end
+
+    it "updates the inventory for correct product when a new orderitem was created - flashes success and redirects" do
+    end
+
+    it "updates the inventory for correct product when an existing orderitem is added to (via product#show)" do
+    end
+
+    it "updates the quantity for correct orderitem when an existing orderitem is added to (via product#show)" do
+    end
+
+    it "flashes an error and redirects if the the quantity to update is larger than the available inventory" do
+    end
+  end
+
+  describe "update order item quantity" do
+    it "find the correct order and orderitem when orderitem already exist" do
+    end
+
+    it "updates product inventory" do
+    end
+
+    it "updates orderitem quantity" do
+    end
+
+    it "flashes error and redirects if the desired quantity is more than the inventory available" do
+    end
+  end
+
+  describe "update" do
+    it "updates an order with the checkout information" do
+    end
+
+    it "flashes error and redirects if order no longer exists" do
+    end
+  end
+
   describe "destroy" do
     it "should be able to delete a valid order item in a cart" do
       expect(order.order_items).must_include order_item1
@@ -49,6 +88,11 @@ describe OrdersController do
 
       must_respond_with :redirect
       must_redirect_to cart_path
+    end
+  end
+
+  describe "show" do
+    it "destroys orderitems after user (non-merchant) checks out" do
     end
   end
 end
