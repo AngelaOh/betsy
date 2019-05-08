@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "/products/:id", to: "products#show", as: "product"
 
   # post get "/products/:id", to: "products#new_order_item", as: "add_item" # this would create a new orderitem that would be added to cart
+  patch "/products/:id", to: "orders#update_order_item_quantity", as: "update_quantity"
   post "/products/:id", to: "orders#new_order_item", as: "add_item" # this would create a new orderitem that would be added to cart
   get "/cart", to: "orders#cart", as: "cart" # this shows all order items in the cart
   get "/orders/new", to: "orders#new", as: "checkout_form"

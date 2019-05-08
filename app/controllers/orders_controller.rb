@@ -42,6 +42,18 @@ class OrdersController < ApplicationController
     redirect_to product_path(params[:id])
   end
 
+  def update_order_item_quantity
+    # raise
+    @order = find_session_order
+    @update_item = OrderItem.find_by(order_id: @order.id, product_id: params[:id].to_i)
+    updated_inventory = (Product.find_by(id: @update_item.product_id)).inventory - (params[:order_item][:quantity].to_i - @update_item.quantity)
+    Product.find_by(id: @update_item.product_id).update(inventory: updated_inventory)
+    raise
+    @update_item.update(quantity: params[:order_item][:quantity].to_i)
+    # raise
+    redirect_to cart_path
+  end
+
   def new #this should gather info for order's name, email, address, cc, etc...
     if @order.nil? || @order.order_items.length == 0
       flash[:error] = "This order does not exist"
