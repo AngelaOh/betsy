@@ -3,7 +3,7 @@
 
 
 <p>merchant: <%= @product.name %></p>
-<p>price: <%= @product.price %></p>
+<p>price: <%= number_to_currency(@product.price/100.0, :unit => "$") %></p>
 <p>inventory: <%= @product.inventory %></p>
 
 <img src= <%= @product.photo_url %> >  

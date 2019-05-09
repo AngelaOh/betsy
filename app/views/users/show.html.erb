@@ -24,7 +24,7 @@
       <tr>
         <td><%= item.name %></td>
         <td><%= item.inventory %></td>
-        <td><%= item.price %></td>
+        <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
         <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
         <% if !item.retired %>
           <td>Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
@@ -47,22 +47,28 @@
       <th>Order Number</th>
       <th>Status </th>
       <th>Time Placed</th>
-  
+      <th>Order Item</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
     </tr>
   </thead>
   <tbody>
     <% @user.findorder.each do |order| %>
-      <tr>
-        <td><%= link_to order.id, order_path(order.id) %></td>
-        <td><%= order.status %></td>
-        <td><%= order.time_placed %></td>
-        <td><% order.order_items.each do |item| %>
+        <% order.order_items.each do |item| %>
+             <tr>
           <% if item.product.user.id == @user.id %>
-          <%= link_to item.product.name, product_path(item.product_id) %>
-          <% end %>
-        <% end %>
-        <td>
+            <td><%= link_to order.id, order_path(order.id) %></td>
+            <td><%= order.status %></td>
+            <td><% if order.time_placed != nil %>
+              <%= order.time_placed.strftime("%m-%d-%Y %I:%M %p") %>  
+            <% end %></td>
+            <td><%= link_to item.product.name, product_path(item.product_id) %></td>
+            <td><%= item.quantity%></td>
+            <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
+          <%end %>
+
       </tr>
+        <% end %>
     <% end %>
   </tbody>
 </table>
