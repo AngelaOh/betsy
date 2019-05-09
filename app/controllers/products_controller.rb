@@ -54,17 +54,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  def destroy
-    if @product.nil?
-      flash[:error] = "That product does not exist"
-    else
-      @product.destroy #fails with .destroy but this should be .estroy right??
-      flash[:success] = "Successfully destroyed #{@product.name}"
-    end
-
-    redirect_to products_path
-  end
-
   def retire
     if @product.nil?
       flash[:error] = "That product does not exist"
@@ -80,10 +69,6 @@ class ProductsController < ApplicationController
 
     redirect_back fallback_location: root_path
   end
-
-  # def new_order_item
-  #   @item = OrderItem.new(quantity: 1, order_id: @order.id, product_id: params[:id])
-  # end
 
   private
 
