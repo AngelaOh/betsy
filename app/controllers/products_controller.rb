@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:edit, :update, :destroy, :retire]
+  before_action :find_product, only: [:edit, :update, :retire]
 
   def root
     @products = Product.all.sort_by { |product| product.created_at }
@@ -55,16 +55,12 @@ class ProductsController < ApplicationController
   end
 
   def retire
-    if @product.nil?
-      flash[:error] = "That product does not exist"
+    if !@product.retired
+      @product.update(retired: true)
+      flash[:success] = "Successfully removed/retired #{@product.name} from Toonsy"
     else
-      if !@product.retired
-        @product.update(retired: true)
-        flash[:success] = "Successfully removed/retired #{@product.name} from Toonsy"
-      else
-        @product.update(retired: false)
-        flash[:success] = "Product #{@product.name} is now available to be sold on Toonsy"
-      end
+      @product.update(retired: false)
+      flash[:success] = "Product #{@product.name} is now available to be sold on Toonsy"
     end
 
     redirect_back fallback_location: root_path
