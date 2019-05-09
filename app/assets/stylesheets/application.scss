@@ -84,31 +84,92 @@ main.root {
 // ---------- Product index page stylying --------
 
 .product-container {
-    width: 60vw;
-    height: 100vh;
+    // width: 60vw;
+    // height: 100vh;
+    width: 100%;
+    height: 100%;
+    margin-right: 20px;
   
     display: grid;
-    grid-template: 15% auto / 1fr 3fr;
+    grid-template: 15% auto / .6fr 3fr;
   }
 
 .product-container header {
+    margin-top: 2%;
+    margin-bottom: 2%;
     grid-column: auto / span 2;
-    text-align: center
+    text-align: center;
+    height: 130px;
+}
+.product-container header h1 {
+    text-align: center;
 }
 
 .product-container nav {
     grid-row: auto / span 2;
     margin-left: 1em;
-    margin-right: 1em
+    margin-right: 1em;
 }
-
+.product-container nav p {
+    margin: 0;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
 .product-container .products {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap 
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-left;
 
 }
-.product-page-image {
-    max-width: 100%;
+.product-container .products a {
+    color: darkolivegreen;
 }
+.product-container .product-item {
+    padding: 10px;
+    margin: 5px;
+    border: 1px grey solid;
+    background: paleturquoise;
+    border-radius: 5px;
+    max-width: 276px;
+}
+.product-container .product-item p {
+    margin-bottom: 1px;
+}
+.product-page-image {
+    width: 250px;
+    height: 230px;
+}
+
+// ---------- Product show page stylying --------
+.product-show-container {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+}
+.product-show-container #product-image {
+    grid-column: 1;
+    grid-row: 1;
+    height: 500px;
+    width: 400px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 30%;
+    margin-right: 20px;
+}
+.product-show-container .product-details {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+}
+.product-show-container .product-details h4 {
+    margin-top: 50px;
+}
+.product-show-container .product-details p {
+    margin-bottom: 5px;
+}
+.product-show-container .product-details .product-description {
+    font-style: italic;
+}
+
 

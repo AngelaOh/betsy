@@ -1,16 +1,29 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<main class="product-container">
+    <header>
+        <h1>Browse by <%= @category.name %></h1>
+    </header>
+    <%# <h1><%= @category.name %>
+    <nav class="product-categories">
+        <h3>Categories</h3>
+        <% Category.all.each do |category| %>
+        <p><%= link_to category.name, category_path(category.id) %></p>
+        <% end %>
+    </nav>
 
-
-<h1><%= @category.name %></h1>
-
-<% @category.products.each do |product| %>
-    <% if !product.retired %>
-        <p>product: <%= link_to product.name, product_path(product.id) %></p>
-        <p>merchant: <%= link_to product.user.username, user_path(product.user.id) %></p>
-        <p>price: <%= number_to_currency(product.price/100.0, :unit => "$") %></p>
-        <p>inventory: <%= product.inventory %></p>
-        <img src= <%= product.photo_url %>  
+<section class="products">
+    <% @category.products.each do |product| %>
+        <% if !product.retired %>
+            <%= link_to product_path(product.id) do %>
+            <article class="product-item">
+                <img class="product-page-image" src= <%= product.photo_url %> 
+                <p>product: <%= link_to product.name, product_path(product.id) %></p>
+                <p>merchant: <%= link_to product.user.username, user_path(product.user.id) %></p>
+                <p>price: <%= number_to_currency(product.price/100.0, :unit => "$") %></p>
+                <p>inventory: <%= product.inventory %></p> 
+            </article>
+            <% end %>
+        <% end %>
     <% end %>
-<% end %>
+</section>
+</main>
 

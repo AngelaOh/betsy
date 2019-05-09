@@ -2,30 +2,32 @@
 <p>Find me in app/views/products/show.html.erb</p>
 
 
-<p>merchant: <%= @product.name %></p>
-<p>price: <%= number_to_currency(@product.price/100.0, :unit => "$") %></p>
-<p>inventory: <%= @product.inventory %></p>
+<main class="product-show-container">
+    <img id="product-image" src= <%= @product.photo_url %>>
+    <section class="product-details">
+        <h4><%= @product.name %></h4>
+        <p>merchant: <%= User.find_by(id: @product.user_id).username %></p>
+        <p>price: $<%= @product.price %></p>
+        <p>inventory: <%= @product.inventory %></p>
+        <p><% @product.categories.each do |category| %>
+            <%= link_to category.name, category_path(category.id) %>
+        <% end %></p>
 
-<img src= <%= @product.photo_url %> >  
+         <% if @product.inventory < 1 %>
+            <%= link_to "SOLD OUT", products_path %>
+        <% else %>
+            <%= form_with model: @item, class: "order-item-quantity" do |f| %>
+                <%= f.label :quantity %>
 
-<p><% @product.categories.each do |category| %>
-    <%= link_to category.name, category_path(category.id) %>
-<% end %></p>
+                <% option = [] %>
+                <% @product.inventory.times { |num| option << num+1 } %> <!-- there is probably a better way to do this select so feel free to refactor! -->
+                <%= f.select :quantity, option %>
+                <%= f.submit "ADD TO CART", method: :post, class: "btn btn-info" %>
+            <% end %>
+        <% end %>
 
-<%# image_tag (@product.photo_url) %>
-
-<%# <%= link_to "Add to Cart", add_item_path, method: :post %>
-<% if @product.inventory < 1 %>
-    <%= link_to "SOLD OUT", products_path %>
-<% else %>
-    <%= form_with model: @item, class: "order-item-quantity" do |f| %>
-        <%= f.label :quantity %>
-
-        <% option = [] %>
-        <% @product.inventory.times { |num| option << num+1 } %> <!-- there is probably a better way to do this select so feel free to refactor! -->
-        <%= f.select :quantity, option
-        %>
-        <%= f.submit "ADD TO CART", method: :post, class: "btn btn-info" %>
-    <% end %>
-
-<% end %>
+        <div class="product-description">
+            <p>Product Description: <%=@product.description %></p>
+        </div>
+    </section>
+</main>
