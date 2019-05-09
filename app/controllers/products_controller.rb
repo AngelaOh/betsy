@@ -1,10 +1,5 @@
 class ProductsController < ApplicationController
-<<<<<<< HEAD
-  before_action :find_product, only: [:edit, :update, :destroy, :retire]
-  # before_action :require_login, only: [:new, :create, :update, :retire]
-=======
   before_action :find_product, only: [:edit, :update, :retire]
->>>>>>> master
 
   def root
     @products = Product.all.sort_by { |product| product.created_at }
@@ -12,7 +7,6 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.where(retired: false)
-    # logic for seeing all products of a given category..should go in model?
   end
 
   def show
