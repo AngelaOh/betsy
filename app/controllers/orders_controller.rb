@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :find_session_order, only: [:cart, :new_order_item, :new, :update, :show, :ship_order]
+  before_action :find_session_order, only: [:cart, :new_order_item, :new, :update, :show]
 
   def cart # One cart (@order) holds information on zero or many OrderItems
     if @order.nil?
@@ -133,12 +133,13 @@ class OrdersController < ApplicationController
     # if @order.nil?
     #   flash[:error] = "This order does not exist"
     # else
-      if @order.status == "paid"
-        @order.update(status: "complete")
-        flash[:success] = "You have shipped Order #{@order.id}'s items."
-      else
-        flash[:error] = "You have already shipped items in this order."
-      end
+    @order = Order.find_by(id: params[:id])
+    if @order.status == "paid"
+      @order.update(status: "complete")
+      flash[:success] = "You have shipped Order #{@order.id}'s items."
+    else
+      flash[:error] = "You have already shipped items in this order."
+    end
     # end
 
     redirect_back fallback_location: root_path
