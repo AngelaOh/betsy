@@ -99,6 +99,7 @@ main.root {
     margin-bottom: 2%;
     grid-column: auto / span 2;
     text-align: center;
+    height: 130px;
 }
 .product-container header h1 {
     text-align: center;
@@ -131,12 +132,44 @@ main.root {
     border: 1px grey solid;
     background: paleturquoise;
     border-radius: 5px;
+    max-width: 276px;
 }
 .product-container .product-item p {
     margin-bottom: 1px;
 }
 .product-page-image {
     width: 250px;
-    height: 200px;
+    height: 230px;
 }
+
+// ---------- Product show page stylying --------
+.product-show-container {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+}
+.product-show-container #product-image {
+    grid-column: 1;
+    grid-row: 1;
+    height: 500px;
+    width: 400px;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 30%;
+    margin-right: 20px;
+}
+.product-show-container .product-details {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+}
+.product-show-container .product-details h4 {
+    margin-top: 50px;
+}
+.product-show-container .product-details p {
+    margin-bottom: 5px;
+}
+.product-show-container .product-details .product-description {
+    font-style: italic;
+}
+
 
