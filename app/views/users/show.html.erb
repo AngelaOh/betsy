@@ -67,7 +67,7 @@
             <% end %>
           </td>
           <% if order.status == "paid" %>
-            <td><%= link_to "Ship Items", method: :patch %></td>
+            <td><%= link_to "Ship Items", ship_order_path(order.id), method: :patch %></td>
           <% elsif order.status == "complete" %>
             <td>Shipped</td>
           <% else %>
