@@ -17,3 +17,21 @@ two:
   address: something
   credit_card: 1
   exp: 1
+
+three:
+  status: paid
+  time_placed: 2019-05-02 15:06:22
+  name: third
+  email: third@mailinator.com
+  address: something_also
+  credit_card: 234234
+  exp: 123
+
+four:
+  status: cancelled
+  time_placed: 2019-05-01 15:06:14
+  name: fourth
+  email: fourth@mailinator.com
+  address: something_indeed
+  credit_card: 5678876678
+  exp: 765

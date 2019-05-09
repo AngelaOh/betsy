@@ -2,6 +2,9 @@ require "test_helper"
 
 describe OrdersController do
   let(:order) { orders(:first) }
+  let(:paid_order) { orders(:three) }
+  let(:cancelled_order) { orders(:four) }
+  let(:shipped_order) { orders(:two) }
   let(:order_item1) { order_items(:one) }
   let(:order_item2) { order_items(:two) }
   let(:product) { products(:manny) }
@@ -12,6 +15,7 @@ describe OrdersController do
 
       expect(session[:order_id]).must_equal Order.last.id
     end
+
     it "if order already exists, the order and its orderitems persists across a session" do
       get cart_path
       expect(session[:order_id]).must_equal Order.last.id
@@ -77,6 +81,16 @@ describe OrdersController do
     it "flashes an error and redirects if the the quantity to update is larger than the available inventory" do
       post add_item_path(product.id), params: { quantity: 70 }
       expect(flash[:error]).must_equal "We don't have enough items in inventory to fulfill this order."
+      must_respond_with :redirect
+    end
+  end
+
+  describe "new" do
+    it "will flash an error and redirect if order is invalid" do
+      invalid_order_id = -1
+      get checkout_form_path
+
+      expect(flash[:error]).must_equal "This order does not exist"
       must_respond_with :redirect
     end
   end
@@ -190,6 +204,123 @@ describe OrdersController do
     it "flashes an error and redirects if order is nil" do
       get order_path(-1)
       expect(flash[:error]).must_equal "This order does not exist"
+      must_respond_with :redirect
+    end
+  end
+
+  describe "ship_order" do
+    it "changes status to complete for a valid paid order" do
+      expect(paid_order.status).must_equal "paid"
+
+      patch ship_order_path(paid_order.id)
+
+      paid_order.reload
+
+      expect(paid_order.status).must_equal "complete"
+      expect(flash[:success]).must_equal "You have shipped Order #{paid_order.id}'s items."
+
+      must_respond_with :redirect
+    end
+
+    it "does not change the status for a valid pending order" do
+      expect(order.status).must_equal "pending"
+
+      patch ship_order_path(order.id)
+
+      order.reload
+
+      expect(order.status).must_equal "pending"
+      expect(flash[:error]).must_equal "This order is not ready to be shipped."
+
+      must_respond_with :redirect
+    end
+
+    it "does not change the status for a valid cancelled order" do
+      expect(cancelled_order.status).must_equal "cancelled"
+
+      patch ship_order_path(cancelled_order.id)
+
+      cancelled_order.reload
+
+      expect(cancelled_order.status).must_equal "cancelled"
+      expect(flash[:error]).must_equal "This order has been cancelled and cannot be shipped."
+
+      must_respond_with :redirect
+    end
+
+    it "does not change the status for a valid complete/shipped order" do
+      expect(shipped_order.status).must_equal "complete"
+
+      patch ship_order_path(shipped_order.id)
+
+      shipped_order.reload
+
+      expect(shipped_order.status).must_equal "complete"
+
+      expect(flash[:error]).must_equal "You have already shipped items in this order."
+
+      must_respond_with :redirect
+    end
+
+    it "will send an error and redirect for an invalid order" do
+      invalid_order_id = -1
+
+      patch ship_order_path(invalid_order_id)
+
+      expect(flash[:error]).must_equal "This order does not exist"
+
+      must_respond_with :redirect
+    end
+  end
+
+  describe "cancel_order" do
+    it "cancels order if order is paid" do
+      expect(paid_order.status).must_equal "paid"
+
+      patch cancel_order_path(paid_order.id)
+      paid_order.reload
+
+      expect(paid_order.status).must_equal "cancelled"
+      expect(flash[:success]).must_equal "Successfully cancelled order #{paid_order.id}. Customer will be notified."
+    end
+
+    it "cancels order if order is pending" do
+      expect(order.status).must_equal "pending"
+
+      patch cancel_order_path(order.id)
+      order.reload
+
+      expect(order.status).must_equal "cancelled"
+      expect(flash[:success]).must_equal "Successfully cancelled order #{order.id}. Customer will be notified."
+    end
+
+    it "will send an error and redirect if status is cancelled already" do
+      expect(cancelled_order.status).must_equal "cancelled"
+
+      patch cancel_order_path(cancelled_order.id)
+
+      expect(cancelled_order.status).must_equal "cancelled"
+      expect(flash[:error]).must_equal "Order #{cancelled_order.id} cannot be cancelled! Please review its status."
+      must_respond_with :redirect
+    end
+
+    it "will send an error and redirect if status is complete already" do
+      expect(shipped_order.status).must_equal "complete"
+
+      patch cancel_order_path(shipped_order.id)
+
+      expect(shipped_order.status).must_equal "complete"
+      expect(flash[:error]).must_equal "Order #{shipped_order.id} cannot be cancelled! Please review its status."
+      must_respond_with :redirect
+    end
+
+    it "will send an error and redirect for an invalid order" do
+      invalid_order_id = -1
+
+      patch cancel_order_path(invalid_order_id)
+
+      expect(flash[:error]).must_equal "This order does not exist"
+
       must_respond_with :redirect
     end
   end
