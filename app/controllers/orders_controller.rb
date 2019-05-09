@@ -151,13 +151,18 @@ class OrdersController < ApplicationController
 
   def cancel_order
     @order = Order.find_by(id: params[:id])
-
-    if @order.status != "complete"
-      if @order.status != "cancelled"
+    if @order == nil
+      flash[:error] = "This order does not exist"
+    else
+      if @order.status != "complete" && @order.status != "cancelled"
         @order.update(status: "cancelled")
         flash[:success] = "Successfully cancelled order #{@order.id}. Customer will be notified."
+      else
+        flash[:error] = "Order #{@order.id} cannot be cancelled! Please review its status."
       end
     end
+
+    redirect_back fallback_location: root_path
   end
 
   private

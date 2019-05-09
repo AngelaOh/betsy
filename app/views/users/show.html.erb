@@ -78,7 +78,7 @@
             <td>N/A</td>
           <% else %>
             <% if order.status != "cancelled" %>
-              <td><%= link_to "Cancel order" %></td>
+              <td><%= link_to "Cancel order", cancel_order_path(order.id), method: :patch %></td>
             <% else %>
               <td>Cancelled</td>
             <% end %>
