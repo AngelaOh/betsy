@@ -6,11 +6,10 @@
     <p>-------------------------</p>
     <% @items.each_with_index do |item, i| %>
         <h6><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </h6>
-        <p>Quantity: <%= item.quantity %> </p>
         <p>
           <%= form_with model: OrderItem.find_by(product_id: item.product_id), url: update_quantity_path(item.product_id), class: "order-item-quantity" do |f| %>
             <%= f.label :quantity %>
-            <%= f.text_field :quantity %>
+            <%= f.number_field :quantity, min: 1, value: item.quantity %>
             <%= f.submit "UPDATE QUANTITY", method: :patch, class: "btn btn-info" %>
           <% end %>
         </p>
