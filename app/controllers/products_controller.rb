@@ -7,13 +7,17 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.where(retired: false)
-    # logic for seeing all products of a given category..should go in model?
+
+    if params[:user_id]
+      @products = Product.where(retired: false, user_id: params[:user_id])
+    end
+    return @products
   end
 
   def show
     product_id = params[:id].to_i
     @product = Product.find_by(id: product_id, retired: false)
-
+    # raise
     if @product.nil?
       flash[:error] = "That product does not exist"
       redirect_to products_path

@@ -93,7 +93,7 @@ describe ProductsController do
     it "renders bad_request and redirects for invalid data" do
       perform_login(user)
 
-      bad_product = {product: {name: nil}}
+      bad_product = { product: { name: nil } }
 
       expect {
         post user_products_path(user.id), params: bad_product
@@ -129,7 +129,7 @@ describe ProductsController do
       # TODO: figure out how to make product.yml file legit
       product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
 
-      product_updates = {product: {name: "update name"}}
+      product_updates = { product: { name: "update name" } }
 
       expect {
         patch user_product_path(user.id, product_to_update.id), params: product_updates
@@ -147,7 +147,7 @@ describe ProductsController do
 
       product_to_update = Product.create(name: "name", price: 1, inventory: 1, photo_url: "hi", description: "something", user_id: user.id)
 
-      product_updates = {product: {name: ""}}
+      product_updates = { product: { name: "" } }
 
       expect {
         patch user_product_path(user.id, product_to_update.id), params: product_updates
