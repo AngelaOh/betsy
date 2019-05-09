@@ -16,5 +16,15 @@ two:
   inventory: 1
   photo_url: url
   description: description
+  user: one
+  categories: one
+
+three:
+  name: toons
+  price: 3
+  inventory: 1
+  photo_url: url
+  description: description
+  user: two
   categories: one
 

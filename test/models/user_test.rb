@@ -50,4 +50,24 @@ describe User do
       user2.errors[:email].first.must_equal "has already been taken"
     end
   end
+
+  describe "method tests" do
+    it "can find all the orders for a user" do
+      # binding.pry
+      expect(user.findorder.length).must_equal 3
+    end
+
+    it "can find all the orders for a given status" do
+      binding.pry
+      expect(user.ordercount["pending"]).must_equal 2
+    end
+
+    it "can find total revenue by status" do
+      expect(user.totalrevstatus["pending"]).must_equal 62
+    end
+
+    it "can find total revenue" do
+      expect(user.totalrev).must_equal 12
+    end
+  end
 end

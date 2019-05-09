@@ -10,3 +10,18 @@ two:
   product: manny
   order: two
 
+three:
+  quantity: 4
+  product: manny
+  order: three
+
+four:
+  quantity: 2
+  product: two
+  order: one
+
+five:
+  quantity: 1
+  product: two
+  order: two
+
