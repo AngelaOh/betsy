@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "products#root"
 
   resources :users, only: [:index, :show] do
-    resources :products, except: [:index, :show]
+    resources :products, except: [:show]
   end
 
   resources :categories, only: [:index, :show]

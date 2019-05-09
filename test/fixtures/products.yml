@@ -16,5 +16,6 @@ two:
   inventory: 1
   photo_url: url
   description: description
+  user: three
   categories: one
 
