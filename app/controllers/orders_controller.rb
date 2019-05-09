@@ -130,20 +130,35 @@ class OrdersController < ApplicationController
   end
 
   def ship_order
-    # if @order.nil?
-    #   flash[:error] = "This order does not exist"
-    # else
     @order = Order.find_by(id: params[:id])
-    if @order.status == "paid"
-      @order.update(status: "complete")
-      flash[:success] = "You have shipped Order #{@order.id}'s items."
+    if @order == nil
+      flash[:error] = "This order does not exist"
     else
-      flash[:error] = "You have already shipped items in this order."
+      if @order.status == "paid"
+        @order.update(status: "complete")
+        flash[:success] = "You have shipped Order #{@order.id}'s items."
+      elsif @order.status == "pending"
+        flash[:error] = "This order is not ready to be shipped."
+      elsif @order.status == "cancelled"
+        flash[:error] = "This order has been cancelled and cannot be shipped."
+      else
+        flash[:error] = "You have already shipped items in this order."
+      end
     end
-    # end
 
     redirect_back fallback_location: root_path
   end
+
+  # def cancel_order
+  #   @order = Order.find_by(id: params[:id])
+
+  #   if @order.status != "complete"
+  #     if @order.status != "cancelled"
+  #       @order.update(status: "cancelled")
+  #       flash[:success] = "Successfully cancelled order #{@order.id}. Customer will be notified."
+  #     end
+  #   end
+  # end
 
   private
 
