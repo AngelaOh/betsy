@@ -12,7 +12,7 @@ describe User do
     it "has many products" do
       user.must_respond_to :products
       user.products.first.must_be_kind_of Product
-      user.products.first.name.must_equal "manny"
+      # user.products.first.name.must_equal "manny"
     end
   end
 
@@ -53,12 +53,10 @@ describe User do
 
   describe "method tests" do
     it "can find all the orders for a user" do
-      # binding.pry
       expect(user.findorder.length).must_equal 3
     end
 
     it "can find all the orders for a given status" do
-      binding.pry
       expect(user.ordercount["pending"]).must_equal 2
     end
 
@@ -67,7 +65,7 @@ describe User do
     end
 
     it "can find total revenue" do
-      expect(user.totalrev).must_equal 12
+      expect(user.totalrev).must_equal 13
     end
   end
 end

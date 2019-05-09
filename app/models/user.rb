@@ -22,18 +22,13 @@ class User < ApplicationRecord
     return all_user_orders.uniq
   end
 
-  def orderbystatus
-    tz = findorder
-  end
-
   def totalrev
     totalorders = findorder
     totalrev = 0
     totalorders.each do |order|
       order.order_items.each do |orderitem|
         if orderitem.product.user_id == id && order.status != "pending"
-          totalrev += orderitem.product.price
-          # raise
+          totalrev += orderitem.orderitemprice
         end
       end
     end
@@ -52,13 +47,14 @@ class User < ApplicationRecord
     totalorders.each do |order|
       order.order_items.each do |orderitem|
         if orderitem.product.user_id == id && order.status == "pending"
-          hashy["pending"] += orderitem.product.price
+          # binding.pry
+          hashy["pending"] += orderitem.orderitemprice
         elsif orderitem.product.user_id == id && order.status == "paid"
-          hashy["paid"] += orderitem.product.price
+          hashy["paid"] += orderitem.orderitemprice
         elsif orderitem.product.user_id == id && order.status == "complete"
-          hashy["complete"] += orderitem.product.price
+          hashy["complete"] += orderitem.orderitemprice
         elsif orderitem.product.user_id == id && order.status == "cancelled"
-          hashy["cancelled"] += orderitem.product.price
+          hashy["cancelled"] += orderitem.orderitemprice
         end
       end
     end
