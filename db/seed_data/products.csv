@@ -2,5 +2,15 @@ id,name,price,inventory,photo_url,description,user_id,category
 1,burger,455,100,https://i.kym-cdn.com/entries/icons/original/000/014/700/how-to-draw-bob-bobs-burgers_1_000000007041_5.jpg,yummy burgers,1,1
 2,keyboard,9999,3,https://vignette.wikia.nocookie.net/bobs-burgers-fanon/images/7/7a/Gene_belcher_render.png/revision/latest?cb=20170920184921,banging tunez,1,3
 3,rabbit ears,1299,45,https://imgix.bustle.com/rehost/2016/9/14/35cf228d-9dc9-4aa5-be06-d51fa0e33bd2.jpg?w=970&h=546&fit=crop&crop=faces&auto=format&q=70,louisas signature hat,1,1.2.3
-4,couch coushion ,69,4,https://images-na.ssl-images-amazon.com/images/I/51JGcBK3ONL._SL500_AC_SS350_.jpg,kinda sticky,2,2
-5,motel pillow,1499,8,http://s3cf.recapguide.com/img/tv/522/1x6/Big-Mouth-Season-1-Episode-6-8-c578.jpg,"warning, can get pregnant",2,2
+4,couch coushion ,69,4,https://images-na.ssl-images-amazon.com/images/I/51JGcBK3ONL._SL500_AC_SS350_.jpg,kinda sticky,2,2.6
+5,bikini pineapple,2000000,1,https://images-na.ssl-images-amazon.com/images/I/51EHHhZNZhL._SL500_AC_SS350_.jpg,a spiky abode,5,6
+6,krabby patty,1,50,http://www.media3.hw-static.com/media/2016/05/spongebob-squarepants-nickelodeon-050516-638x425.jpg,mediocre burgers,5,1
+7,gary snail,100,3,https://yt3.ggpht.com/a/AGF-l79uEclKAi3Shva4kb03hn0whE_SYswqaFgYOQ=s900-mo-c-c0xffffffff-rj-k-no,a delightful pet to sit with,5,7
+8,sponge,56,5,https://vignette.wikia.nocookie.net/spongebob/images/8/82/Sponge-O.png/revision/latest?cb=20150817004404,a sponge that is sometimes called bob,5,4.6
+9,duff beer,222,100,https://gunaxin.com/wp-content/uploads/2010/04/simpsons-duff-beer-wallpaper.jpg,best beer in town,4,1.7
+10,skateboard,10000,20,https://images-na.ssl-images-amazon.com/images/I/4141hS%2BeknL._SX466_.jpg,"fasted ride around Springfield, MO",4,7
+11,plasma pistol,1231232,1,https://y.yarn.co/ad9be7bc-bfa0-4e25-853d-ec8307187ad9_screenshot.jpg,for when you have enemies,6,6.7
+12,portal gun ,2132132,1,https://vignette.wikia.nocookie.net/rickandmorty/images/9/98/Ray_gun.png/revision/latest?cb=20160921082843,that helper you need for intergalatic travel,6,6.7
+13,propane tank,1999,35,https://cdna.artstation.com/p/assets/images/images/006/613/732/large/franklin-burger-propane2.jpg?1499938749,taste the meat not the heat,8,4.6.7
+14,grill,23499,12,https://resizing.flixster.com/eEqXF29pGuaPI8IrIZdcrTtC9tw=/300x300/v1.bjsxOTc5MDM5O2o7MTgxMTI7MTIwMDs0MDA7MzAw,the perfect companion to your propane tank!,8,4.6.7
+15,cooler,2399,49,http://www.slugmag.com/wp/wp-content/uploads/2015/09/king-of-the-hill-5190efe7a608e.jpg,be sure to pair your meat with a cold beer!,8,4.6.7
