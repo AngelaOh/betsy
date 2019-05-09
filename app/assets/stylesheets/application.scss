@@ -172,4 +172,45 @@ main.root {
     font-style: italic;
 }
 
+// ---------- Product show page stylying --------
+.merchant-products-container {
+}
+.merchant-products-container .heading {
+    grid-column: 2;
+    grid-row: 1;
+
+    text-align: center;
+    margin-top: 50px;
+}
+.merchant-products-container img {
+
+    margin-left: 18vw;
+    margin-right: 18vw;
+    margin-top: 50px;
+}
+.merchant-products-container ol {
+    // grid-column: 2;
+    // grid-row: 3;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin-top: 100px;
+    margin-left: 300px;
+    margin-right: 300px;
+    max-width: 80%;
+}
+.merchant-products-container li {
+    border: solid 1px grey;
+    padding: 5px;
+    width: 100px;
+    list-style: none;
+
+    text-align: center;
+}
+.merchant-products-container li a {
+    color: hotpink;
+}
 
