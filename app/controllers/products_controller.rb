@@ -7,10 +7,11 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.where(retired: false)
-    # logic for seeing all products of a given category..should go in model?
+
     if params[:user_id]
       @products = Product.where(retired: false, user_id: params[:user_id])
     end
+    return @products
   end
 
   def show
