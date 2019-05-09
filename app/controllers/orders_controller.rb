@@ -129,6 +129,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def ship_order
+    if @order.status == "paid"
+      @order.update(status: "complete")
+      flash[:success] = "You have shipped Order #{@order.id}'s items."
+    else
+      flash[:error] = "You have already shipped items in this order."
+    end
+
+    redirect_back fallback_location: root_path
+  end 
+
   private
 
   def order_params
