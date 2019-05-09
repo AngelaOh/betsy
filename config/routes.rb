@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "/orders/new", to: "orders#new", as: "checkout_form"
   get "/orders/:id", to: "orders#show", as: "order" # this would show the confirmation page for one order that was submitted
   patch "/orders/:id", to: "orders#update", as: "order_update"
+  patch "/orders/:id/ship", to: "orders#ship_order", as: "ship_order"
   delete "/products/:id", to: "orders#destroy", as: "delete_item"
 
   get "/users/current", to: "users#current", as: "current_user"

@@ -7,7 +7,6 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.where(retired: false)
-    # logic for seeing all products of a given category..should go in model?
   end
 
   def show
