@@ -27,8 +27,8 @@
             <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
             
             <%= f.label :photo_url %>
-            <%= f.text_field :photo_url %>
-            <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
+            <%= f.text_field :photo_url, :value => 'https://i.ya-webdesign.com/images/pencils-drawing-teddy-bear-6.png' %>
+            
 
             <%= f.submit "Add Product", class: "product_form", method: :post %>
         <% end %>
