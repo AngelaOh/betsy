@@ -172,4 +172,32 @@ main.root {
     font-style: italic;
 }
 
+// ---------- Product show page stylying --------
+.merchant-products-container .heading {
+    text-align: center;
+    margin-top: 50px;
+}
+.merchant-products-container img {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 50px;
+}
+.merchant-products-container ol {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    margin-top: 100px;
+    margin-left: 300px;
+    margin-right: 300px;
+}
+.merchant-products-container li {
+    border: solid 1px black;
+    padding: 5px;
+    width: 100px;
+}
+.merchant-products-container li a{
+    color: whitesmoke;
+}
 
