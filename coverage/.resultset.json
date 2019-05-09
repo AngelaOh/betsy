@@ -24,7 +24,7 @@
       "/Users/shamiramarshall/ada2/betsy/app/controllers/categories_controller.rb": [
         1,
         1,
-        0,
+        2,
         null,
         null,
         1,
@@ -493,7 +493,7 @@
         null
       ]
     },
-    "timestamp": 1557416822
+    "timestamp": 1557420664
   },
   "Unit Tests": {
     "coverage": {
