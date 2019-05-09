@@ -149,16 +149,16 @@ class OrdersController < ApplicationController
     redirect_back fallback_location: root_path
   end
 
-  # def cancel_order
-  #   @order = Order.find_by(id: params[:id])
+  def cancel_order
+    @order = Order.find_by(id: params[:id])
 
-  #   if @order.status != "complete"
-  #     if @order.status != "cancelled"
-  #       @order.update(status: "cancelled")
-  #       flash[:success] = "Successfully cancelled order #{@order.id}. Customer will be notified."
-  #     end
-  #   end
-  # end
+    if @order.status != "complete"
+      if @order.status != "cancelled"
+        @order.update(status: "cancelled")
+        flash[:success] = "Successfully cancelled order #{@order.id}. Customer will be notified."
+      end
+    end
+  end
 
   private
 
