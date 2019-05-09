@@ -85,16 +85,15 @@
   </tbody>
 </table>
 
-<h4>Total Revenue: <%= number_to_currency(@user.totalrev/100.0, :unit => "$") %></h4>
+<section class="merchant-money-info">
+  <h4>Total Revenue: <%= number_to_currency(@user.totalrev/100.0, :unit => "$") %></h4>
 
-<p>pending orders:  <%= @user.ordercount["pending"] %></p>
-<p>pending revenue: <%= number_to_currency(@user.totalrevstatus["pending"]/100.0, :unit => "$")%></p>
+  <p>paid orders: <%= @user.ordercount["paid"] %></p>
+  <p>paid revenue: <%= number_to_currency(@user.totalrevstatus["paid"]/100.0, :unit => "$")%></p>
 
-<p>paid orders: <%= @user.ordercount["paid"] %></p>
-<p>paid revenue: <%= number_to_currency(@user.totalrevstatus["paid"]/100.0, :unit => "$")%></p>
+  <p>complete orders: <%= @user.ordercount["complete"] %></p>
+  <p>complete revenue: <%= number_to_currency(@user.totalrevstatus["complete"]/100.0, :unit => "$")%></p>
 
-<p>complete orders: <%= @user.ordercount["complete"] %></p>
-<p>complete revenue: <%= number_to_currency(@user.totalrevstatus["complete"]/100.0, :unit => "$")%></p>
-
-<p>cancelled orders: <%= @user.ordercount["cancelled"] %></p>
-<p>cancelled revenue: <%= number_to_currency(@user.totalrevstatus["cancelled"]/100.0, :unit => "$")%></p>
+  <p>cancelled orders: <%= @user.ordercount["cancelled"] %></p>
+  <p>cancelled revenue: <%= number_to_currency(@user.totalrevstatus["cancelled"]/100.0, :unit => "$")%></p>
+</section>
