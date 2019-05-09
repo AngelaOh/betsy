@@ -74,10 +74,14 @@
             <td>~Cancelled~</td>
           <% end %>
 
-          <% if order.status != "cancelled" %>
-            <td><%= link_to "Cancel order" %></td>
+          <% if order.status == "complete" %>
+            <td>N/A</td>
           <% else %>
-            <td>Cancelled</td>
+            <% if order.status != "cancelled" %>
+              <td><%= link_to "Cancel order" %></td>
+            <% else %>
+              <td>Cancelled</td>
+            <% end %>
           <% end %>
         <% end %>
       </tr>
