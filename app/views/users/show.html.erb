@@ -1,154 +1,160 @@
-<h3>User Summary: <%= @user.username %></h3>
-<h4>Joined Site <%= time_tag(@user.created_at.to_date) %></h4>
 
-<p><%= link_to "Add a new product to sell", new_user_product_path(@user.id), class: "btn btn-info" %></p>
+<main id="user-dashboard">
+  <h1 id="user-dashboard-title">User Summary</h1>
+  
+  <section class="user-dashboard-info">
+    <h4><%= @user.username %></h4>
+    <h4>Joined Site <%= time_tag(@user.created_at.to_date) %></h4>
+  </section>
 
-<table class="table">
-  <thead>
-  <h2> My Products </h2>
-    <tr>
-      <th>Item</th>
-      <th>Inventory </th>
-      <th>Price</th>
-      <th>Edit</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.products.each do |item| %>
+  <p><%= link_to "Add a new product to sell", new_user_product_path(@user.id), class: "btn btn-info" %></p>
+
+  <table class="product-table">
+    <thead>
+    <h2> My Products </h2>
       <tr>
-        <td><%= item.name %></td>
-        <td><%= item.inventory %></td>
-        <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
-        <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
-        <% if !item.retired %>
-          <td>Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
-        <% else %>
-          <td>Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
-        <% end %>
+        <th>Item</th>
+        <th>Inventory </th>
+        <th>Price</th>
+        <th>Edit</th>
+        <th>Status</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @user.products.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.inventory %></td>
+          <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
+          <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
+          <% if !item.retired %>
+            <td>Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
+          <% else %>
+            <td>Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<table class="table">
-  <thead>
   <section class="merchant-dashboard-total">
     <h2> My Orders </h2>
     <h3>Total Revenue: <%= number_to_currency(@user.totalrev/100.0, :unit => "$") %></h3>
   </section>
 
-  <h3>Paid (Unfullfilled) Orders: <%= @user.ordercount["paid"] %></h3>
-  <h3>Revenue: <%= number_to_currency(@user.totalrevstatus["paid"]/100.0, :unit => "$")%></h3>
-    <tr>
-      <th>Order Number</th>
-      <th>Order Status </th>
-      <th>Time Placed</th>
-      <th>Items in Order</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
-      <th>Ship Status</th>
-      <th>Cancel</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.findorder.each do |order| %>
-        <% order.order_items.each do |item| %>
-             <tr>
-              <% if item.product.user.id == @user.id && order.status == "paid"%>
-                <td><%= link_to order.id, order_path(order.id) %></td>
-                <td><%= order.status %></td>
-                <td>
-                  <% if order.time_placed != nil %>
-                    <%= time_tag(order.time_placed.to_date) %>  
-                  <% end %>
-                </td>
-                <td><%= link_to item.product.name, product_path(item.product_id) %></td>
-                <td><%= item.quantity%></td>
-                <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
-                <td><%= link_to "Ship Items", ship_order_path(order.id), method: :patch %></td>
-                <td><%= link_to "Cancel order", cancel_order_path(order.id), method: :patch %></td>
-              <% end %>
-              </tr>
-        <% end %>
-      <% end %>
-  </tbody>
-</table>
-
-
-<table class="table">
-  <thead>
-  <h3>Complete Orders: <%= @user.ordercount["complete"] %> Revenue: <%= number_to_currency(@user.totalrevstatus["complete"]/100.0, :unit => "$")%></h3>
-    <tr>
-      <th>Order Number</th>
-      <th>Order Status </th>
-      <th>Time Placed</th>
-      <th>Items in Order</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
-      <th>Ship Status</th>
-      <th>Cancel</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.findorder.each do |order| %>
-        <% order.order_items.each do |item| %>
-             <tr>
-              <% if item.product.user.id == @user.id && order.status == "complete"%>
-                <td><%= link_to order.id, order_path(order.id) %></td>
-                <td><%= order.status %></td>
-                <td>
-                  <% if order.time_placed != nil %>
-                    <%= time_tag(order.time_placed.to_date)%>
-                    <%# order.time_placed.strftime("%m-%d-%Y %I:%M %p") %>  
-                  <% end %></td>
-                <td><%= link_to item.product.name, product_path(item.product_id) %></td>
-                <td><%= item.quantity%></td>
-                <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
-                <td>Shipped</td>
-                <td>N/A</td>
-              <% end %>
-            </tr>
-        <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-
-<table class="table">
-  <thead>
-  <h3>Cancelled Orders: <%= @user.ordercount["cancelled"] %>  Revenue: <%= number_to_currency(@user.totalrevstatus["cancelled"]/100.0, :unit => "$")%></h3>
-    <tr>
-      <th>Order Number</th>
-      <th>Order Status </th>
-      <th>Time Placed</th>
-      <th>Items in Order</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
-      <th>Ship Status</th>
-      <th>Cancel</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.findorder.each do |order| %>
-        <% order.order_items.each do |item| %>
-             <tr>
-          <% if item.product.user.id == @user.id && order.status == "cancelled"%>
-            <td><%= link_to order.id, order_path(order.id) %></td>
-            <td><%= order.status %></td>
-            <td>
-              <% if order.time_placed != nil %>
-                <%= time_tag(order.time_placed.to_date)%>
-              <% end %>
-            </td>
-            <td><%= link_to item.product.name, product_path(item.product_id) %></td>
-            <td><%= item.quantity%></td>
-            <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
-            <td>Not shipped</td>
-            <td>Cancelled</td>
-          <%end %>
+  <table class="table">
+    <thead>
+      <h3>Paid (Unfullfilled) Orders: <%= @user.ordercount["paid"] %></h3>
+      <h3>Revenue: <%= number_to_currency(@user.totalrevstatus["paid"]/100.0, :unit => "$")%></h3>
+        <tr>
+          <th>Order Number</th>
+          <th>Order Status </th>
+          <th>Time Placed</th>
+          <th>Items in Order</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Ship Status</th>
+          <th>Cancel</th>
       </tr>
+    </thead>
+
+    <tbody>
+      <% @user.findorder.each do |order| %>
+          <% order.order_items.each do |item| %>
+              <tr>
+                <% if item.product.user.id == @user.id && order.status == "paid"%>
+                  <td><%= link_to order.id, order_path(order.id) %></td>
+                  <td><%= order.status %></td>
+                  <td>
+                    <% if order.time_placed != nil %>
+                      <%= time_tag(order.time_placed.to_date) %>  
+                    <% end %>
+                  </td>
+                  <td><%= link_to item.product.name, product_path(item.product_id) %></td>
+                  <td><%= item.quantity%></td>
+                  <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
+                  <td><%= link_to "Ship Items", ship_order_path(order.id), method: :patch %></td>
+                  <td><%= link_to "Cancel order", cancel_order_path(order.id), method: :patch %></td>
+                <% end %>
+                </tr>
+          <% end %>
         <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+
+  <table class="table">
+    <thead>
+    <h3>Complete Orders: <%= @user.ordercount["complete"] %> Revenue: <%= number_to_currency(@user.totalrevstatus["complete"]/100.0, :unit => "$")%></h3>
+      <tr>
+        <th>Order Number</th>
+        <th>Order Status </th>
+        <th>Time Placed</th>
+        <th>Items in Order</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Ship Status</th>
+        <th>Cancel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.findorder.each do |order| %>
+          <% order.order_items.each do |item| %>
+              <tr>
+                <% if item.product.user.id == @user.id && order.status == "complete"%>
+                  <td><%= link_to order.id, order_path(order.id) %></td>
+                  <td><%= order.status %></td>
+                  <td>
+                    <% if order.time_placed != nil %>
+                      <%= time_tag(order.time_placed.to_date)%>
+                      <%# order.time_placed.strftime("%m-%d-%Y %I:%M %p") %>  
+                    <% end %></td>
+                  <td><%= link_to item.product.name, product_path(item.product_id) %></td>
+                  <td><%= item.quantity%></td>
+                  <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
+                  <td>Shipped</td>
+                  <td>N/A</td>
+                <% end %>
+              </tr>
+          <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class="table">
+    <thead>
+    <h3>Cancelled Orders: <%= @user.ordercount["cancelled"] %>  Revenue: <%= number_to_currency(@user.totalrevstatus["cancelled"]/100.0, :unit => "$")%></h3>
+      <tr>
+        <th>Order Number</th>
+        <th>Order Status </th>
+        <th>Time Placed</th>
+        <th>Items in Order</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Ship Status</th>
+        <th>Cancel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.findorder.each do |order| %>
+          <% order.order_items.each do |item| %>
+              <tr>
+            <% if item.product.user.id == @user.id && order.status == "cancelled"%>
+              <td><%= link_to order.id, order_path(order.id) %></td>
+              <td><%= order.status %></td>
+              <td>
+                <% if order.time_placed != nil %>
+                  <%= time_tag(order.time_placed.to_date)%>
+                <% end %>
+              </td>
+              <td><%= link_to item.product.name, product_path(item.product_id) %></td>
+              <td><%= item.quantity%></td>
+              <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
+              <td>Not shipped</td>
+              <td>Cancelled</td>
+            <%end %>
+        </tr>
+          <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</main>
