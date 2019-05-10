@@ -201,7 +201,7 @@ main.root {
     font-style: italic;
 }
 
-// ---------- Product show page stylying --------
+// ---------- Merchant show page stylying --------
 .merchant-products-container {
 }
 .merchant-products-container .heading {
@@ -224,7 +224,8 @@ main.root {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: flex-end;
 
     margin-top: 100px;
     margin-left: 300px;
@@ -232,15 +233,16 @@ main.root {
     max-width: 80%;
 }
 .merchant-products-container li {
-    border: solid 1px grey;
     padding: 5px;
-    width: 100px;
     list-style: none;
 
     text-align: center;
 }
 .merchant-products-container li a {
     color: hotpink;
+}
+.merchant-products-container li a:hover {
+    color: green;
 }
 
 // ---------- Cart page stylying --------
