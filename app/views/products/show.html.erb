@@ -3,7 +3,7 @@
     <section class="product-details">
         <h4><%= @product.name %></h4>
         <p>merchant: <%= User.find_by(id: @product.user_id).username %></p>
-        <p>price: $<%= @product.price %></p>
+        <p>price: $<%= @product.price/100.00 %></p>
         <p>inventory: <%= @product.inventory %></p>
         <p><% @product.categories.each do |category| %>
             <%= link_to category.name, category_path(category.id) %>
