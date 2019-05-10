@@ -18,9 +18,10 @@
                     <img class="product-page-image" src= <%= product.photo_url %> alt="Image of <%= product.name %>">
                     <p><%= product.name %></p>
                     <p><%= number_to_currency(product.price.to_i/100.0, :unit => "$")%></p>
-                    <p><% product.categories.each do |category| %>
+                    <p>Categories: <% product.categories.each do |category| %>
                         <%= link_to category.name, category_path(category.id) %>
                     <% end %></p>
+                    <p>inventory: <%= product.inventory %></p>
                     <small class="text-muted">Added to site <%= time_tag(product.created_at.to_date)%></small>
                 </article>
             <% end %>
