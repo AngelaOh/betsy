@@ -17,3 +17,39 @@ two:
   address: something
   credit_card: 1
   exp: 1
+
+three:
+  status: pending
+  time_placed: 2019-05-02 15:06:14
+  name: third
+  email: second@mailinator.com
+  address: something
+  credit_card: 1
+  exp: 1
+
+four:
+  status: paid
+  time_placed: 2019-05-02 15:06:14
+  name: third
+  email: second@mailinator.com
+  address: something
+  credit_card: 1
+  exp: 1
+
+five:
+  status: cancelled
+  time_placed: 2019-05-02 15:06:14
+  name: third
+  email: second@mailinator.com
+  address: something
+  credit_card: 1
+  exp: 1
+
+six:
+  status: pending
+  time_placed: 2019-05-02 15:06:14
+  name: third
+  email: second@mailinator.com
+  address: something
+  credit_card: 1
+  exp: 1

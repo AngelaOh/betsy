@@ -14,6 +14,7 @@ class UsersController < ApplicationController
       flash[:result_text] = "User not found!"
       redirect_to root_path
     end
+    # @user_orders = @user.findorder
   end
 
   def login

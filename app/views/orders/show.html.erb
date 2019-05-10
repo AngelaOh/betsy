@@ -20,3 +20,11 @@ email -->
 <% if  @order.exp %>
     <p>exp: <%= @order.exp %></p>
 <% end %>
+
+
+<% @order.order_items.each do |item| %>
+<p><%= link_to item.product.name, product_path(item.product.id) %>price: <%= number_to_currency(item.orderitemprice, :unit => "$") %></p>
+<% end %>
+
+<h4>Order Total:</h4>
+<%= number_to_currency(@order.ordertotalprice, :unit => "$") %>

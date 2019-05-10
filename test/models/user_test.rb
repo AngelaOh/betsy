@@ -12,7 +12,7 @@ describe User do
     it "has many products" do
       user.must_respond_to :products
       user.products.first.must_be_kind_of Product
-      user.products.first.name.must_equal "manny"
+      # user.products.first.name.must_equal "manny"
     end
   end
 
@@ -48,6 +48,24 @@ describe User do
       expect(user2.valid?).must_equal false
       user2.errors.messages.must_include :email
       user2.errors[:email].first.must_equal "has already been taken"
+    end
+  end
+
+  describe "method tests" do
+    it "can find all the orders for a user" do
+      expect(user.findorder.length).must_equal 3
+    end
+
+    it "can find all the orders for a given status" do
+      expect(user.ordercount["pending"]).must_equal 2
+    end
+
+    it "can find total revenue by status" do
+      expect(user.totalrevstatus["pending"]).must_equal 62
+    end
+
+    it "can find total revenue" do
+      expect(user.totalrev).must_equal 13
     end
   end
 end

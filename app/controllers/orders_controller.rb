@@ -85,6 +85,7 @@ class OrdersController < ApplicationController
     end
 
     @order.status = "paid"
+    @order.time_placed = DateTime.now
     @order.save
 
     is_successful = @order.update(order_params)
