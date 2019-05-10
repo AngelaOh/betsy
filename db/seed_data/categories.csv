@@ -1,4 +1,9 @@
-id,category
-1,burger
-2,bedding
-3,band equipment
+id,category,
+1,food and drink,
+2,bedding,
+3,band equipment,
+4,kitchen,
+5,clothing and accessories,
+6,home,
+7,fun and entertainment,
+9,miscellaneous,

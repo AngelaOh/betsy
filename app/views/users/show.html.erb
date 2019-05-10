@@ -76,11 +76,14 @@
   <h3>Complete Orders: <%= @user.ordercount["complete"] %> Revenue: <%= number_to_currency(@user.totalrevstatus["complete"]/100.0, :unit => "$")%></h3>
     <tr>
       <th>Order Number</th>
-      <th>Status </th>
+      <th>Order Status</th>
       <th>Time Placed</th>
       <th>Order Item</th>
       <th>Quantity</th>
       <th>Subtotal</th>
+      <th>Items in order</th>
+      <th>Ship?</th>
+      <th>Cancel</th>
     </tr>
   </thead>
   <tbody>
