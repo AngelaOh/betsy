@@ -17,7 +17,7 @@ class ProductsController < ApplicationController
   def show
     product_id = params[:id].to_i
     @product = Product.find_by(id: product_id, retired: false)
-    # raise
+
     if @product.nil?
       flash[:error] = "That product does not exist"
       redirect_to products_path
@@ -30,6 +30,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+
     @product.user_id = params[:user_id]
     @product.save
 

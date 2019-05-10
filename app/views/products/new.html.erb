@@ -1,36 +1,44 @@
-<main>
+<main class="form-page">
     <header>
         <h1>Add a new product to your shop</h1>
     </header>
     
     <section>
-        <%# render partial: "form", locals: {
-            form_class: "new-product",
-            url: user_products_path, 
-            action_name: "Add Product"
-        } %>
+ 
         <%= form_with model: @product, url: user_products_path, class: "product_form" do |f| %>
-            <%= f.label :name %>
-            <%= f.text_field :name %>
+            <div>
+                <%= f.label :name %>
+                <%= f.text_field :name %>
+            </div>
 
-            <%= f.label :price %>
-            <%= f.text_field :price %>
+            <div>
+                <%= f.label :price %>
+                <%= f.text_field :price %>
+            </div>
 
-            <%= f.label :inventory %>
-            <%= f.text_field :inventory %>
+            <div>
+                <%= f.label :inventory %>
+                <%= f.text_field :inventory %>
+            </div>
 
-            <%= f.label :description %>
-            <%= f.text_field :description %>
+            <div>
+                <%= f.label :description %>
+                <%= f.text_field :description %>
+            </div>
 
-            <%= f.label :category %>
-            <%# f.select :category, Category.all.map {|category| [category.name] } %>
-            <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
-            
-            <%= f.label :photo_url %>
-            <%= f.text_field :photo_url, :value => 'https://i.ya-webdesign.com/images/pencils-drawing-teddy-bear-6.png' %>
-            
+            <div>
+                <%= f.label :category %>
+                <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
+            </div>
 
-            <%= f.submit "Add Product", class: "product_form", method: :post %>
+            <div>
+                <%= f.label :photo_url %>
+                <%= f.text_field :photo_url, :value => 'https://i.ya-webdesign.com/images/pencils-drawing-teddy-bear-6.png' %>
+            </div>
+
+            <div>
+                <%= f.submit "Add Product", class: "product_form", method: :post %>
+            </div>
         <% end %>
     </section>
 </main>

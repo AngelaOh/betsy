@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :products, except: [:show]
   end
 
-  resources :categories, only: [:index, :show]
+  resources :categories, only: [:show]
 
   get "/products", to: "products#index", as: "products"
   get "/products/:id", to: "products#show", as: "product"

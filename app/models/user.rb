@@ -10,9 +10,6 @@ class User < ApplicationRecord
 
   def findorder
     all_user_products = Product.where(user_id: id)
-    #def self.blah applies to the class
-    #inside the method self refers to the object itself
-    #we care about the current user, not User class
     all_user_orders = []
     all_user_products.each do |prod|
       OrderItem.where(product_id: prod.id).each do |orderitem|
@@ -22,18 +19,13 @@ class User < ApplicationRecord
     return all_user_orders.uniq
   end
 
-  def orderbystatus
-    tz = findorder
-  end
-
   def totalrev
     totalorders = findorder
     totalrev = 0
     totalorders.each do |order|
       order.order_items.each do |orderitem|
-        if orderitem.product.user_id == id && order.status != "pending"
-          totalrev += orderitem.product.price
-          # raise
+        if orderitem.product.user_id == id && order.status != "pending" && order.status != "cancelled"
+          totalrev += orderitem.orderitemprice
         end
       end
     end
@@ -52,13 +44,14 @@ class User < ApplicationRecord
     totalorders.each do |order|
       order.order_items.each do |orderitem|
         if orderitem.product.user_id == id && order.status == "pending"
-          hashy["pending"] += orderitem.product.price
+          # binding.pry
+          hashy["pending"] += orderitem.orderitemprice
         elsif orderitem.product.user_id == id && order.status == "paid"
-          hashy["paid"] += orderitem.product.price
+          hashy["paid"] += orderitem.orderitemprice
         elsif orderitem.product.user_id == id && order.status == "complete"
-          hashy["complete"] += orderitem.product.price
+          hashy["complete"] += orderitem.orderitemprice
         elsif orderitem.product.user_id == id && order.status == "cancelled"
-          hashy["cancelled"] += orderitem.product.price
+          hashy["cancelled"] += orderitem.orderitemprice
         end
       end
     end

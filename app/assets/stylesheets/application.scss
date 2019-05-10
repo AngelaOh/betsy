@@ -121,14 +121,15 @@ main.root {
     width: 100%;
     height: 100%;
     margin-right: 20px;
+    margin-left: 20px;
   
     display: grid;
-    grid-template: 15% auto / .6fr 3fr;
+    grid-template: 10% auto / .6fr 3fr;
   }
 
 .product-container header {
     margin-top: 2%;
-    margin-bottom: 2%;
+    margin-bottom: 10%;
     grid-column: auto / span 2;
     text-align: center;
     height: 130px;
@@ -153,6 +154,7 @@ main.root {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-left;
+    padding-top: 0%
 
 }
 .product-container .products a {
@@ -176,6 +178,8 @@ main.root {
 
 // ---------- Product show page stylying --------
 .product-show-container {
+    margin: 2em;
+    margin-top: 50px;
     display: grid;
     grid-template: 1fr / 1fr 1fr;
 }
@@ -204,9 +208,8 @@ main.root {
     font-style: italic;
 }
 
-// ---------- Product show page stylying --------
-.merchant-products-container {
-}
+// ---------- Merchant show page stylying --------
+
 .merchant-products-container .heading {
     grid-column: 2;
     grid-row: 1;
@@ -227,7 +230,8 @@ main.root {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: flex-end;
 
     margin-top: 100px;
     margin-left: 300px;
@@ -235,9 +239,7 @@ main.root {
     max-width: 80%;
 }
 .merchant-products-container li {
-    border: solid 1px grey;
     padding: 5px;
-    width: 100px;
     list-style: none;
 
     text-align: center;
@@ -245,4 +247,205 @@ main.root {
 .merchant-products-container li a {
     color: hotpink;
 }
+.merchant-products-container li a:hover {
+    color: green;
+}
+
+// ---------- Cart page stylying --------
+.cart-container {
+    display: grid;
+    grid-template: 50px 1fr 50px / 15% 1fr 15%;
+}
+.cart-container h3.cart-heading {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: center;
+    margin-top: 20px;
+}
+.cart-container p.cart-message {
+    grid-column: 2;
+    grid-row: 1;
+
+    text-align: center;
+    font-style: italic;
+}
+.cart-container img {
+    height: 200px;
+    width: 200px;
+
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+.cart-container .item-container {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.cart-container div.item-info {
+    // position: relative;
+    grid-column: 2;
+    grid-row: 2 / span 2;
+
+    border: 1px solid grey;
+    margin-top: 50px;
+    margin-left: 150px;
+    margin-right: 150px;
+    max-height: 250px;
+    padding-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.cart-container .checkout {
+    grid-column: 2;
+    grid-row: 3;
+
+    margin-top: 20px;
+}
+
+// ---------- User show page stylying --------
+
+#user-dashboard {
+    margin: 3em
+}
+
+#user-dashboard .btn-info {
+    background-color: #3A9BE3;
+    border-color: #3A9BE3
+}
+
+.btn:hover {
+    background-color: #3A6BE3;
+    border-color: #3A6BE3 
+}
+
+#user-dashboard .btn-info:hover {
+    background-color: #3A6BE3;
+    border-color: #3A6BE3 
+}
+
+#user-dashboard-title {
+    font-weight: bold
+}
+
+.user-dashboard-info {
+    border-bottom: black 5px double;
+    margin-bottom: 2em
+}
+
+.user-dashboard-info h3 {
+    font-weight: bold;
+    color: #463AE3
+}
+
+.table {
+    margin-bottom: 2em
+}
+
+#product-row-1 {
+    width: 25%
+}
+
+#product-row-2 {
+    width: 20%
+}
+
+#product-row-3 {
+    width: 20%
+}
+
+#product-row-4 {
+    width: 20%
+}
+
+#product-row-5 {
+    width: 30%
+}
+
+#retired {
+    color: gray
+}
+
+#active {
+    color:green
+}
+
+// -------------- Form styling -------------------
+
+.form, form {
+    display: block
+}
+
+.form-page input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+.form-page {
+    margin: 3em
+}
+
+.category-container header {
+    margin-bottom: 85%
+}
+
+//---------- Order Confirmation Page Styling -----------
+
+#confirmation-page {
+    margin: 2em
+}
+
+#confirmation-page header {
+    padding-bottom: 3%;
+    text-align: center
+}
+
+#confirmation-emphasis {
+    color: #6A55BF
+}
+
+.confirmation-main {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 3em;
+    border-top: gray dotted 5px;
+    border-bottom: gray dotted 5px;
+    justify-content: center
+}
+
+.confirmation-order-info, .confirmation-customer-info {
+   text-align: center; 
+}
+
+.confirmation-order-info {
+    margin-right: 5em;
+    padding-right: 5em
+}
+
+.confirmation-customer-info {
+    margin-left: 5em;
+    padding-left: 5em
+}
+
+.confirmation-thanks-message {
+    text-align: center;
+}
+
+.confirmation-thanks-message #toonsy {
+    font-weight: bold;
+    color: #5FDABE
+}
+
 
