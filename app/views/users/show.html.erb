@@ -24,15 +24,23 @@
     <tbody>
       <% @user.products.each do |item| %>
         <tr>
-          <td><%= link_to item.name, product_path(item.id) %></td>
-          <td><%= item.inventory %></td>
-          <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
-          <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
-          <% if !item.retired %>
+        <% if !item.retired %>
+          <section id="active-product">
+            <td><%= link_to item.name, product_path(item.id) %></td>
+            <td class="retired-info"><%= item.inventory %></td>
+            <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
+            <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
             <td id="active">Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
-          <% else %>
+          </section>
+        <% else %>
+          <section id="retired-product">
+            <td><%= link_to item.name, product_path(item.id) %></td>
+            <td><%= item.inventory %></td>
+            <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
+            <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
             <td id="retired">Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
-          <% end %>
+          </section>
+        <% end %>
         </tr>
       <% end %>
     </tbody>
