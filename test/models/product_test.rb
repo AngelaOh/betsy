@@ -95,5 +95,13 @@ describe Product do
       product.errors.messages.must_include :price
       product.errors[:price].include?("must be greater than 0")
     end
+
+    it "requires an inventory not nil" do
+      product.inventory = 0
+      product.save
+      expect(product.valid?).must_equal false
+      product.errors.messages.must_include :inventory
+      product.errors[:inventory].include?("must be greater than 0")
+    end
   end
 end

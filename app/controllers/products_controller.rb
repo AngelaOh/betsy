@@ -30,6 +30,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
+
     @product.user_id = params[:user_id]
     @product.save
 
