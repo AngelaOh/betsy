@@ -17,7 +17,7 @@
   <tbody>
     <% @user.products.each do |item| %>
       <tr>
-        <td><%= item.name %></td>
+        <td><%= link_to item.name, product_path(item.id) %></td>
         <td><%= item.inventory %></td>
         <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
         <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
@@ -65,7 +65,7 @@
                 </td>
                 <td><%= link_to item.product.name, product_path(item.product_id) %></td>
                 <td><%= item.quantity%></td>
-                <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
+                <td><%= number_to_currency(item.orderitemprice/100, :unit => "$") %></td>
                 <td><%= link_to "Ship Items", ship_order_path(order.id), method: :patch %></td>
                 <td><%= link_to "Cancel order", cancel_order_path(order.id), method: :patch %></td>
               <% end %>
@@ -104,7 +104,7 @@
                   <% end %></td>
                 <td><%= link_to item.product.name, product_path(item.product_id) %></td>
                 <td><%= item.quantity%></td>
-                <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
+                <td><%= number_to_currency(item.orderitemprice/100, :unit => "$") %></td>
                 <td>Shipped</td>
                 <td>N/A</td>
               <% end %>
@@ -143,7 +143,7 @@
             </td>
             <td><%= link_to item.product.name, product_path(item.product_id) %></td>
             <td><%= item.quantity%></td>
-            <td><%= number_to_currency(item.orderitemprice, :unit => "$") %></td>
+            <td><%= number_to_currency(item.orderitemprice/100, :unit => "$") %></td>
             <td>Not shipped</td>
             <td>Cancelled</td>
           <%end %>
