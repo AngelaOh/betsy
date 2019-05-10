@@ -1,24 +1,33 @@
-<h1>In the Cart View!!!</h1>
-<% if @items.nil? || @items.length == 0 %>
-    <h6>There are no items in your cart right now </h6>
-<% else %>
-    <h5>Items in your cart</h5>
-    <p>-------------------------</p>
-    <% @items.each_with_index do |item, i| %>
-        <h6><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </h6>
-        <p>
-          <%= form_with model: OrderItem.find_by(product_id: item.product_id), url: update_quantity_path(item.product_id), class: "order-item-quantity" do |f| %>
-            <%= f.label :quantity %>
-            <%= f.number_field :quantity, min: 1, value: item.quantity %>
-            <%= f.submit "UPDATE QUANTITY", method: :patch, class: "btn btn-info" %>
+<main class="cart-container">
+  <% if @items.nil? || @items.length == 0 %>
+      <h3 class="cart-heading">There are no items in your cart right now </h3>
+      <p class="cart-message">GET SHOPPING!</p>
+  <% else %>
+      <h3 class="cart-heading">You have <%= @items.length %> item(s) in your cart:</h3>
+      
+        <section class="item-container">
+          <% @items.each_with_index do |item, i| %>
+            <div class="item-info">
+            <img src= <%= Product.find_by(id: item.product_id).photo_url %> >
+            <p><%= i + 1 %>. <%= link_to Product.find_by(id: item.product_id).name, product_path(item.product_id) %> </p>
+            <p>
+              <%= form_with model: OrderItem.find_by(product_id: item.product_id), url: update_quantity_path(item.product_id), class: "order-item-quantity" do |f| %>
+                <%= f.label :quantity %>
+                <%= f.number_field :quantity, min: 1, value: item.quantity %>
+                <%= f.submit "UPDATE QUANTITY", method: :patch, class: "btn btn-info" %>
+              <% end %>
+            </p>
+            <p><%= link_to "Delete", delete_item_path(item.product_id), method: :delete %></p>
+            </div>
           <% end %>
-        </p>
-        <p><%= link_to "Delete", delete_item_path(item.product_id), method: :delete %></p>
-        <p>-------------------------</p>
-    <% end %>
-<% end %>
+        </section>
+      
+  <% end %>
 
-<% if @order.order_items.length != 0 %>
-    <%= link_to "Checkout", checkout_form_path, class: "btn btn-info" %>
-<% end %>
+  <section class="checkout">
+    <% if @order.order_items.length != 0 %>
+        <%= link_to "Checkout", checkout_form_path, class: "btn btn-info" %>
+    <% end %>
+  </section>
+</main>
     
