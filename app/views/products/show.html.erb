@@ -16,7 +16,7 @@
                 <%= f.label :quantity %>
 
                 <% option = [] %>
-                <% @product.inventory.times { |num| option << num+1 } %> <!-- there is probably a better way to do this select so feel free to refactor! -->
+                <% @product.inventory.times { |num| option << num+1 } %>
                 <%= f.select :quantity, option %>
                 <%= f.submit "ADD TO CART", method: :post, class: "btn btn-info" %>
             <% end %>

@@ -4,11 +4,7 @@
     </header>
     
     <section>
-        <%# render partial: "form", locals: {
-            form_class: "edit-product",
-            url: user_product_path, 
-            action_name: "Update Product"
-        } %>
+
         <%= form_with model: @product, url: user_product_path, class: "product_form" do |f| %>
             <div>
                 <%= f.label :name %>
@@ -32,14 +28,12 @@
 
             <div>
                 <%= f.label :category %>
-                <%# f.select :category, Category.all.map {|category| [category.name] } %>
                 <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
             </div>
 
             <div>
                 <%= f.label :photo_url %>
                 <%= f.text_field :photo_url %>
-                <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
             </div>
 
             <div>

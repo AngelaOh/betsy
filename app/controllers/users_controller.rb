@@ -8,13 +8,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    # raise
     if !@user
       flash[:status] = :failure
       flash[:result_text] = "User not found!"
       redirect_to root_path
     end
-    # @user_orders = @user.findorder
   end
 
   def login
@@ -33,7 +31,6 @@ class UsersController < ApplicationController
         flash[:result_text] = "Could not create new user account."
         return redirect_to root_path
       end
-      #redirct to homepage
     end
 
     session[:user_id] = user.id

@@ -123,7 +123,6 @@
                   <td>
                     <% if order.time_placed != nil %>
                       <%= time_tag(order.time_placed.to_date)%>
-                      <%# order.time_placed.strftime("%m-%d-%Y %I:%M %p") %>  
                     <% end %></td>
                   <td><%= link_to item.product.name, product_path(item.product_id) %></td>
                   <td><%= item.quantity%></td>
