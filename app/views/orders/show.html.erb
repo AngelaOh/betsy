@@ -1,30 +1,37 @@
-<h1>Orders Confirmation Page!!!! </h1>
+<main id="confirmation-page">
+    <header>
+        <h1>🎉 You have <span id="confirmation-emphasis">successfully</span> submitted your order! 🎉</h1>
+    </header>
 
-<h3>Thank you for shoppping with us!</h3>
-<h1>Order Details: </h1>
-<p>Order ID: <%= @order.id%></p>
-<p>Purchase Date: <%= time_tag(@order.created_at.to_date)%></p>
+    <section class="confirmation-main">
+        <section class="confirmation-order-info">
+            <h3>Order Details</h3>
+            <p>Order ID: <%= @order.id%></p>
+            <p>Purchase Date: <%= time_tag(@order.created_at.to_date)%></p>
+            <p>Status: <%= @order.status %></p>
+            <p>Order Total: <%= number_to_currency(@order.ordertotalprice/100.00, :unit => "$") %></p>
+            <p>Products:</p>
+                <% @order.order_items.each do |item| %>
+                    <p><%= link_to item.product.name, product_path(item.product.id) %> (<%= item.quantity %>) - <%= number_to_currency(item.orderitemprice/100.00, :unit => "$") %></p>
+                <% end %>
+        </section>
 
-<!--
-status
-name 
-shipping address
-email -->
-<h2> Order: <%= @order.id %> Status: <%= @order.status %></h2>
-<p>name: <%= @order.name %></p>
-<p>email: <%= @order.email %></p>
-<p>address: <%= @order.address %></p>
-<% if @order.credit_card.to_s[-4..-1] %>
-    <p>credit card: <%= @order.credit_card.to_s[-4..-1] %></p>
-<% end %>
-<% if  @order.exp %>
-    <p>exp: <%= @order.exp %></p>
-<% end %>
+        <section class="confirmation-customer-info">
+            <h3>Customer Details</h3>
+            <p>Name: <%= @order.name %></p>
+            <p>Email: <%= @order.email %></p>
+            <p>Address: <%= @order.address %></p>
+            <% if @order.credit_card.to_s[-4..-1] %>
+                <p>Last 4 Digits of Credit card: <%= @order.credit_card.to_s[-4..-1] %></p>
+            <% end %>
+            <% if  @order.exp %>
+                <p>Credit Card Exp: <%= @order.exp %></p>
+            <% end %>
+        </section>
+    </section>
 
+    <section class="confirmation-thanks-message">
+        <h1>Thanks for shopping with us! Have a <span id="toonsy">TOONSY</span> Day!!!</h1>
+    </section>
+</main>
 
-<% @order.order_items.each do |item| %>
-<p><%= link_to item.product.name, product_path(item.product.id) %>price: <%= number_to_currency(item.orderitemprice, :unit => "$") %></p>
-<% end %>
-
-<h4>Order Total:</h4>
-<%= number_to_currency(@order.ordertotalprice, :unit => "$") %>

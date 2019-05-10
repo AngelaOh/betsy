@@ -394,3 +394,54 @@ main.root {
 .category-container header {
     margin-bottom: 85%
 }
+
+//---------- Order Confirmation Page Styling -----------
+
+#confirmation-page {
+    margin: 2em
+}
+
+#confirmation-page header {
+    padding-bottom: 3%;
+    text-align: center
+}
+
+#confirmation-emphasis {
+    color: #6A55BF
+}
+
+.confirmation-main {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: 3em;
+    border-top: gray dotted 5px;
+    border-bottom: gray dotted 5px;
+    justify-content: center
+}
+
+.confirmation-order-info, .confirmation-customer-info {
+   text-align: center; 
+}
+
+.confirmation-order-info {
+    margin-right: 5em;
+    padding-right: 5em
+}
+
+.confirmation-customer-info {
+    margin-left: 5em;
+    padding-left: 5em
+}
+
+.confirmation-thanks-message {
+    text-align: center;
+}
+
+.confirmation-thanks-message #toonsy {
+    font-weight: bold;
+    color: #5FDABE
+}
+
+
