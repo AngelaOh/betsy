@@ -39,9 +39,10 @@ body {
 }
 .homepage h1 {
     font-weight: bolder;
+  
 }
 .homepage h1 a {
-    color: black;
+    color: linear-gradient(to right,  #004d7a, #008793, #00bf72, #a8eb12);
 }
 header.homepage {
     text-align: center;
@@ -71,7 +72,10 @@ a:hover {
     text-decoration: none;
 }
 
-
+.carousel-item link_to {
+    color: white;
+    
+}
 nav div.right-nav {
     
     padding-top: .5rem;
@@ -90,7 +94,7 @@ nav div.left-nav {
 
 div#separation-line {
     background-color:black;
-    height: 2rem;
+    height: 1rem;
 }
 
 footer {
