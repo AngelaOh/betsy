@@ -1,11 +1,11 @@
 <main class="merchant-products-container">
 
     <h3 class="heading">Browse By Merchant</h3>
-    <img src="https://media.rbl.ms/image?u=%2Ffiles%2F2016%2F04%2F29%2F635975670023613170-67012499_tumblr_static_doasfips.jpg&ho=https%3A%2F%2Faz616578.vo.msecnd.net&s=151&h=4db47e44e9b354648af5b24113e09bab41aa38635cebb86e542dbab5e8e1a83a&size=980x&c=1630217628">
     <ol>
         <% @users.each do |user| %>
             <li class=""><%= link_to user.username, user_products_path(user.id) %></li>
         <% end %>
     </ol>
+    <img src="https://media.rbl.ms/image?u=%2Ffiles%2F2016%2F04%2F29%2F635975670023613170-67012499_tumblr_static_doasfips.jpg&ho=https%3A%2F%2Faz616578.vo.msecnd.net&s=151&h=4db47e44e9b354648af5b24113e09bab41aa38635cebb86e542dbab5e8e1a83a&size=980x&c=1630217628">
 
 </main>
