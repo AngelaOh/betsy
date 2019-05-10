@@ -10,9 +10,6 @@ class User < ApplicationRecord
 
   def findorder
     all_user_products = Product.where(user_id: id)
-    #def self.blah applies to the class
-    #inside the method self refers to the object itself
-    #we care about the current user, not User class
     all_user_orders = []
     all_user_products.each do |prod|
       OrderItem.where(product_id: prod.id).each do |orderitem|
