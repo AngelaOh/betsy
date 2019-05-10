@@ -3,7 +3,7 @@
   <h1 id="user-dashboard-title">User Summary</h1>
   
   <section class="user-dashboard-info">
-    <h4><%= @user.username %></h4>
+    <h3><%= @user.username %></h3>
     <h4>Joined Site <%= time_tag(@user.created_at.to_date) %></h4>
   </section>
 
@@ -28,9 +28,9 @@
         <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
         <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
         <% if !item.retired %>
-          <td>Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
+          <td id="active">Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
         <% else %>
-          <td>Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
+          <td id="retired">Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
         <% end %>
       </tr>
     <% end %>

@@ -307,6 +307,21 @@ main.root {
     margin: 3em
 }
 
+#user-dashboard .btn-info {
+    background-color: #3A9BE3;
+    border-color: #3A9BE3
+}
+
+.btn:hover {
+    background-color: #3A6BE3;
+    border-color: #3A6BE3 
+}
+
+#user-dashboard .btn-info:hover {
+    background-color: #3A6BE3;
+    border-color: #3A6BE3 
+}
+
 #user-dashboard-title {
     font-weight: bold
 }
@@ -314,6 +329,11 @@ main.root {
 .user-dashboard-info {
     border-bottom: black 5px double;
     margin-bottom: 2em
+}
+
+.user-dashboard-info h3 {
+    font-weight: bold;
+    color: #463AE3
 }
 
 #product-row-1 {
