@@ -27,7 +27,7 @@ class User < ApplicationRecord
     totalrev = 0
     totalorders.each do |order|
       order.order_items.each do |orderitem|
-        if orderitem.product.user_id == id && order.status != "pending"
+        if orderitem.product.user_id == id && order.status != "pending" && order.status != "cancelled"
           totalrev += orderitem.orderitemprice
         end
       end
