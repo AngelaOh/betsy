@@ -1,7 +1,7 @@
 id,name,price,inventory,photo_url,description,user_id,category
 1,burger,455,100,https://i.kym-cdn.com/entries/icons/original/000/014/700/how-to-draw-bob-bobs-burgers_1_000000007041_5.jpg,yummy burgers,1,1
 2,keyboard,9999,3,https://vignette.wikia.nocookie.net/bobs-burgers-fanon/images/7/7a/Gene_belcher_render.png/revision/latest?cb=20170920184921,banging tunez,1,3
-3,rabbit ears,1299,45,https://imgix.bustle.com/rehost/2016/9/14/35cf228d-9dc9-4aa5-be06-d51fa0e33bd2.jpg?w=970&h=546&fit=crop&crop=faces&auto=format&q=70,louisas signature hat,1,1.2.3
+3,rabbit ears,1299,45,https://imgix.bustle.com/rehost/2016/9/14/35cf228d-9dc9-4aa5-be06-d51fa0e33bd2.jpg?w=970&h=546&fit=crop&crop=faces&auto=format&q=70,louisas signature hat,1,5
 4,couch coushion ,69,4,https://images-na.ssl-images-amazon.com/images/I/51JGcBK3ONL._SL500_AC_SS350_.jpg,kinda sticky,2,2.6
 5,bikini pineapple,2000000,1,https://images-na.ssl-images-amazon.com/images/I/51EHHhZNZhL._SL500_AC_SS350_.jpg,a spiky abode,5,6
 6,krabby patty,1,50,http://www.media3.hw-static.com/media/2016/05/spongebob-squarepants-nickelodeon-050516-638x425.jpg,mediocre burgers,5,1
@@ -14,3 +14,19 @@ id,name,price,inventory,photo_url,description,user_id,category
 13,propane tank,1999,35,https://cdna.artstation.com/p/assets/images/images/006/613/732/large/franklin-burger-propane2.jpg?1499938749,taste the meat not the heat,8,4.6.7
 14,grill,23499,12,https://resizing.flixster.com/eEqXF29pGuaPI8IrIZdcrTtC9tw=/300x300/v1.bjsxOTc5MDM5O2o7MTgxMTI7MTIwMDs0MDA7MzAw,the perfect companion to your propane tank!,8,4.6.7
 15,cooler,2399,49,http://www.slugmag.com/wp/wp-content/uploads/2015/09/king-of-the-hill-5190efe7a608e.jpg,be sure to pair your meat with a cold beer!,8,4.6.7
+16,spatula,30,3,http://en.spongepedia.org/images/5/50/SpatHead.JPG,spatula from bikini bottom,5,4
+17,krabby patty,299,32,https://img.cinemablend.com/filter:scale/quill/9/6/6/3/7/a/96637aabb562881adec1336c0d78acc6cc5d1403.jpg?mw=600,Krabby Patty straight from the Krusty Crab,9,1
+18,reptar bar,55,7,https://search.chow.com/thumbnail/800/0/www.chowstatic.com/blog-media/2017/10/reptar-bar-chowhound2-670x402.png,"Their round, Their mean,They turn milk green",15,7
+19,Mr. Universe Shirt,5000,53,http://cdn.shopify.com/s/files/1/2597/4920/products/sttvtat549_65d71f73-4b0e-49fe-85c1-4c4b64aa7e41_1024x1024.jpg?v=1524296567,Soft cotton shirt that makes you feel like a hero,13,5
+20,Adventure Time Action Figures,250,100,https://media.wired.com/photos/5932661626780e6c04d2b642/master/pass/AdventureTime.jpg,Perfect replicates of the real adventure peeps,14,7
+21,Ang's Glider,80000,2,https://i.redd.it/68q2nte133111.png,Let's you fly like a bird,16,9
+22,Naruto Stars,2000,50,https://i.ytimg.com/vi/h_78QinXrCk/hqdefault.jpg,Shiny and spiky ,17,7.9
+23,gir ,7500,2,https://www.dictionary.com/e/wp-content/uploads/2018/03/GIR.jpg,Gir ,7,9
+24,Cape,38018,5,https://vignette.wikia.nocookie.net/powerpuff/images/c/c9/Mojo_jojo_aparincia2.png/revision/latest?cb=20160612021838,Black and purple cape that makes you feel evil,3,5
+25,portal gun ,588888,1,"https://res.cloudinary.com/teepublic/image/private/s--RKddIFm0--/t_Preview/b_rgb:191919,c_limit,f_jpg,h_630,q_90,w_630/v1463702745/production/designs/517610_1.jpg",You can travel time and space with this thing ,6,6.7.9
+26,pink sweater,2000,50,https://vignette.wikia.nocookie.net/theproudfamily/images/7/78/Pennyproudlay.png/revision/latest?cb=20140208202758,Look cute in this purplish pink sweater,10,5
+27,circle glass,6000,15,http://40.media.tumblr.com/32f345e44e16bf24697d26b440ad9c45/tumblr_nd97keR1HK1sxz671o1_1280.png,Can't see? Try these trendy circular glasses with brown rims.,11,5
+28,boots,3500,25,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoFNSkOrLoFpmeNGayrLvOchztSKElD9aNP9kqfGP1G7aPozVv,Stylish white boots with a slight heel,3,5
+29,suit jumpsuit,8100,24,https://i.pinimg.com/236x/25/a9/74/25a974cdab03607d29a6de1b683b5684--spongebob-schwammkopf-spongebob-squarepants.jpg,Square jumpsuit that elevates any work outfit. May need to be square shaped,9,5
+30,purple liquid in beaker,340,21,"https://ih1.redbubble.net/image.354417278.7715/ap,550x550,12x16,1,transparent,t.u3.png",Stolen from a super secret lab run by a Dexter,12,9
+31,green backpack,4000,5,https://target.scene7.com/is/image/Target/GUEST_c0d4ec5f-cbdf-4ca0-b643-b72949f79548?wid=488&hei=488&fmt=pjpeg,Very circular green backpack that you can go an adventures with,14,5
