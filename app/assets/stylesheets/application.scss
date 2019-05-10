@@ -368,3 +368,23 @@ main.root {
     color:green
 }
 
+// -------------- Form styling -------------------
+
+.form, form {
+    display: block
+}
+
+.form-page input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+.form-page {
+    margin: 3em
+}

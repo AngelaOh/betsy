@@ -1,21 +1,34 @@
-<h2>CHECKOUT</h2>
-<p>-------------------------</p>
-<%= form_with model: @order, class: "order_form" do |f| %>
-<%= f.label :name %>
-<%= f.text_field :name %>
+<main class="form-page">
+    <h2>CHECKOUT</h2>
+    <p>-------------------------</p>
+    <%= form_with model: @order, class: "order_form" do |f| %>
+    <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </div>
 
-<%= f.label :address %>
-<%= f.text_field :address %>
+    <div>
+        <%= f.label :address %>
+        <%= f.text_field :address %>
+    </div>
 
-<%= f.label :email %>
-<%= f.text_field :email %>
+    <div>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+    </div>
 
-<%= f.label :credit_card %>
-<%= f.text_field :credit_card %>
+    <div>
+        <%= f.label :credit_card %>
+        <%= f.text_field :credit_card %>
+    </div>
 
-<%= f.label :exp %>
-<%= f.text_field :exp %>
+    <div>
+        <%= f.label :exp %>
+        <%= f.text_field :exp %>
+    </div>
 
-<%= f.submit "Complete Order", class: "order_form" %>
-
-<% end %>
+    <div>
+        <%= f.submit "Complete Order", class: "order_form" %>
+    </div>
+    <% end %>
+</main>

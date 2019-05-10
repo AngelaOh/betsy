@@ -1,4 +1,4 @@
-<main>
+<main class="form-page">
     <header>
         <h1>Edit item in your shop</h1>
     </header>
@@ -10,27 +10,41 @@
             action_name: "Update Product"
         } %>
         <%= form_with model: @product, url: user_product_path, class: "product_form" do |f| %>
-            <%= f.label :name %>
-            <%= f.text_field :name %>
+            <div>
+                <%= f.label :name %>
+                <%= f.text_field :name %>
+            </div>
 
-            <%= f.label :price %>
-            <%= f.text_field :price %>
+            <div>
+                <%= f.label :price %>
+                <%= f.text_field :price %>
+            </div>
 
-            <%= f.label :inventory %>
-            <%= f.text_field :inventory %>
+            <div>
+                <%= f.label :inventory %>
+                <%= f.text_field :inventory %>
+            </div>
 
-            <%= f.label :description %>
-            <%= f.text_field :description %>
+            <div>
+                <%= f.label :description %>
+                <%= f.text_field :description %>
+            </div>
 
-            <%= f.label :category %>
-            <%# f.select :category, Category.all.map {|category| [category.name] } %>
-            <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
-            
-            <%= f.label :photo_url %>
-            <%= f.text_field :photo_url %>
-            <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
+            <div>
+                <%= f.label :category %>
+                <%# f.select :category, Category.all.map {|category| [category.name] } %>
+                <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name)%>
+            </div>
 
-            <%= f.submit "Update Product", class: "product_form", method: :patch %>
+            <div>
+                <%= f.label :photo_url %>
+                <%= f.text_field :photo_url %>
+                <%# f.text_field :photo_url, :selected => "http://gianfreda.net/wp-content/uploads/2017/01/disney-printable-coloring-pages-img-213749.jpg" %>
+            </div>
+
+            <div>
+                <%= f.submit "Update Product", class: "product_form", method: :patch %>
+            </div>
         <% end %>
     </section>
 </main>
