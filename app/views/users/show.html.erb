@@ -9,33 +9,33 @@
 
   <p><%= link_to "Add a new product to sell", new_user_product_path(@user.id), class: "btn btn-info" %></p>
 
-  <table class="product-table">
-    <thead>
-    <h2> My Products </h2>
+  <table class="table product-table">
+  <thead>
+  <h2> My Products </h2>
+    <tr>
+      <th id="product-row-1">Item</th>
+      <th id="product-row-2">Inventory </th>
+      <th id="product-row-3">Price</th>
+      <th id="product-row-4">Edit</th>
+      <th id="product-row-5">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.products.each do |item| %>
       <tr>
-        <th>Item</th>
-        <th>Inventory </th>
-        <th>Price</th>
-        <th>Edit</th>
-        <th>Status</th>
+        <td><%= link_to item.name, product_path(item.id) %></td>
+        <td><%= item.inventory %></td>
+        <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
+        <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
+        <% if !item.retired %>
+          <td>Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
+        <% else %>
+          <td>Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
+        <% end %>
       </tr>
-    </thead>
-    <tbody>
-      <% @user.products.each do |item| %>
-        <tr>
-          <td><%= link_to item.name, product_path(item.id) %></td>
-          <td><%= item.inventory %></td>
-          <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
-          <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
-          <% if !item.retired %>
-            <td>Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
-          <% else %>
-            <td>Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+    <% end %>
+  </tbody>
+</table>
 
   <section class="merchant-dashboard-total">
     <h2> My Orders </h2>
