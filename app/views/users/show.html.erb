@@ -4,48 +4,52 @@
   
   <section class="user-dashboard-info">
     <h3><%= @user.username %></h3>
+    <h4>Total Revenue: <%= number_to_currency(@user.totalrev/100.0, :unit => "$") %></h4>
     <h4>Joined Site <%= time_tag(@user.created_at.to_date) %></h4>
   </section>
 
   <p><%= link_to "Add a new product to sell", new_user_product_path(@user.id), class: "btn btn-info" %></p>
 
   <table class="table product-table">
-  <thead>
-  <h2> My Products </h2>
-    <tr>
-      <th id="product-row-1">Item</th>
-      <th id="product-row-2">Inventory </th>
-      <th id="product-row-3">Price</th>
-      <th id="product-row-4">Edit</th>
-      <th id="product-row-5">Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.products.each do |item| %>
+    <thead>
+    <h3><strong>My Products</strong></h3>
       <tr>
-        <td><%= link_to item.name, product_path(item.id) %></td>
-        <td><%= item.inventory %></td>
-        <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
-        <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
-        <% if !item.retired %>
-          <td id="active">Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
-        <% else %>
-          <td id="retired">Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
-        <% end %>
+        <th id="product-row-1">Item</th>
+        <th id="product-row-2">Inventory </th>
+        <th id="product-row-3">Price</th>
+        <th id="product-row-4">Edit</th>
+        <th id="product-row-5">Status</th>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+    <tbody>
+      <% @user.products.each do |item| %>
+        <tr>
+          <td><%= link_to item.name, product_path(item.id) %></td>
+          <td><%= item.inventory %></td>
+          <td><%= number_to_currency(item.price/100.0, :unit => "$") %></td>
+          <td><%= link_to "Edit", edit_user_product_path(@user.id, item.id) %></td>
+          <% if !item.retired %>
+            <td id="active">Active <%= link_to "(Click to Retire)", product_retire_path(@user.id, item.id), method: :patch %></td>
+          <% else %>
+            <td id="retired">Retired <%= link_to "(Click to Activate)", product_retire_path(@user.id, item.id), method: :patch %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
 </table>
 
   <section class="merchant-dashboard-total">
-    <h2> My Orders </h2>
-    <h3>Total Revenue: <%= number_to_currency(@user.totalrev/100.0, :unit => "$") %></h3>
+    <h3><strong>My Orders</strong></h3>
   </section>
 
   <table class="table">
     <thead>
-      <h3>Paid (Unfullfilled) Orders: <%= @user.ordercount["paid"] %></h3>
-      <h3>Revenue: <%= number_to_currency(@user.totalrevstatus["paid"]/100.0, :unit => "$")%></h3>
+      <section class="table-stats">
+        <h4 class="table-order-count">
+          Paid (Unfullfilled) Orders: <%= @user.ordercount["paid"] %> |
+          Revenue: <%= number_to_currency(@user.totalrevstatus["paid"]/100.0, :unit => "$")%>
+        </h4>
+      </section>
         <tr>
           <th>Order Number</th>
           <th>Order Status </th>
@@ -84,7 +88,12 @@
 
   <table class="table">
     <thead>
-    <h3>Complete Orders: <%= @user.ordercount["complete"] %> Revenue: <%= number_to_currency(@user.totalrevstatus["complete"]/100.0, :unit => "$")%></h3>
+      <section class="table-stats">
+        <h4 class="table-order-count">
+          Complete Orders: <%= @user.ordercount["complete"] %> | 
+          Revenue: <%= number_to_currency(@user.totalrevstatus["complete"]/100.0, :unit => "$")%>
+        </h4>
+      </section>
       <tr>
         <th>Order Number</th>
         <th>Order Status </th>
@@ -122,7 +131,12 @@
 
   <table class="table">
     <thead>
-    <h3>Cancelled Orders: <%= @user.ordercount["cancelled"] %>  Revenue: <%= number_to_currency(@user.totalrevstatus["cancelled"]/100.0, :unit => "$")%></h3>
+    <section class="table-stats">
+      <h4>
+        Cancelled Orders: <%= @user.ordercount["cancelled"] %> |
+        Revenue: <%= number_to_currency(@user.totalrevstatus["cancelled"]/100.0, :unit => "$")%>
+      </h4>
+    </section>
       <tr>
         <th>Order Number</th>
         <th>Order Status </th>
