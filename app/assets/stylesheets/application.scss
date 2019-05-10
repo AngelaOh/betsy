@@ -204,6 +204,10 @@ main.root {
     font-style: italic;
 }
 
+img {
+    object-fit: contain
+}
+
 // ---------- Merchant show page stylying --------
 
 .merchant-products-container .heading {
