@@ -1,8 +1,4 @@
 class CategoriesController < ApplicationController
-  def index
-    @categories = Category.all
-  end
-
   def show
     category_id = params[:id].to_i
     @category = Category.find_by(id: category_id)
